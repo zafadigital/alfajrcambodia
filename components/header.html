@@ -1,0 +1,50 @@
+  <!-- Header Section -->
+  <header class="bg-white text-black shadow-sm">
+  <div class="container mx-auto flex justify-between items-center p-4 max-w-[1440px]">
+    <!-- Logo Section -->
+    <a href="index.html" class="flex items-center">
+      <img src="assets/images/logo/logo_black.png" alt="Alfajr Cambodia Logo" class="h-10 mr-2">
+      <span class="font-bold text-black text-lg">Alfajr Cambodia</span>
+    </a>
+
+    <!-- Navigation Menu -->
+    <nav
+      id="mobile-menu"
+      class="hidden fixed inset-0 bg-white p-6 z-50 md:relative md:flex md:space-x-6 md:bg-transparent md:p-0 md:inset-auto">
+      <div class="flex items-center justify-between mb-6 md:hidden relative">
+        <!-- Wrapping logo and text in a fully clickable area -->
+        <a href="index.html" class="flex items-center space-x-2 z-10">
+          <img src="assets/images/logo/logo_black.png" alt="Alfajr Cambodia Logo" class="h-10">
+          <span class="font-bold text-black text-lg">Alfajr Cambodia</span>
+        </a>
+
+        <!-- Close menu button -->
+        <button id="close-menu" aria-label="Close menu" class="text-black text-2xl focus:outline-none focus:ring-2 focus:ring-gray-400 z-10">
+          &#10005;
+        </button>
+      </div>
+
+      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Personal</a>
+      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Business</a>
+      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Premier</a>
+      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Corporate</a>
+      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Islamic</a>
+      <a href="contact.html" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Contact Us</a>
+    </nav>
+
+    <!-- Button Section -->
+    <div class="flex items-center">
+      <button id="burger-button" aria-label="Open menu" class="md:hidden p-2 bg-white text-black rounded border border-gray-300">
+        <!-- Burger Icon -->
+        <div class="space-y-1">
+          <span class="block w-6 h-0.5 bg-black"></span>
+          <span class="block w-6 h-0.5 bg-black"></span>
+          <span class="block w-6 h-0.5 bg-black"></span>
+        </div>
+      </button>
+      <button class="btn-primary hidden md:block px-4 py-2 text-white bg-orange-500 rounded hover:bg-orange-600 transition">
+        Booking Now
+      </button>
+    </div>
+  </div>
+</header>

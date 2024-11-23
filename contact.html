@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alfajr Cambodia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon Meta -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="assets/images/favicon/site.webmanifest">
+  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
+  <meta name="theme-color" content="#FF4800">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased bg-gray-100">
+
+    <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Contact Us Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1440px]">
+      <h2 class="text-2xl font-bold text-center mb-10">KAMI SEDIA MEMBANTU</h2>
+      
+      <!-- Embedded Google Map -->
+    <div class="mb-12">
+      <iframe
+        class="w-full h-64 md:h-96 rounded-lg shadow-lg"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.753894162874!2d104.8179164!3d11.526865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDMxJzM2LjciTiAxMDTCsDQ5JzA0LjUiRQ!5e0!3m2!1sen!2sus!4v1694782888338!5m2!1sen!2sus"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Left Column: Consultant Details -->
+        <div class="space-y-6">
+          <!-- Consultant 1 -->
+          <div class="flex items-center">
+            <img src="https://tripfez-sg-dist.s3.ap-southeast-1.amazonaws.com/consultants/Ainul.jpg" alt="Ainul - Travel Consultant" class="h-16 w-16 rounded-full mr-4">
+            <div>
+              <p class="font-bold text-lg">Ainul</p>
+              <p class="text-gray-600">Travel Consultant</p>
+            </div>
+          </div>
+          <!-- Consultant 2 -->
+          <div class="flex items-center">
+            <img src="https://tripfez-sg-dist.s3.ap-southeast-1.amazonaws.com/consultants/Faris.jpg" alt="Faris - Travel Consultant" class="h-16 w-16 rounded-full mr-4">
+            <div>
+              <p class="font-bold text-lg">Faris</p>
+              <p class="text-gray-600">Travel Consultant</p>
+            </div>
+          </div>
+
+          <!-- Additional Info -->
+          <p class="text-gray-600">
+            Assalamua'laikum. Anda boleh menghubungi kami untuk sebarang pertanyaan mengenai pakej. Kami berusaha menjawab semua
+            pertanyaan dalam masa 1-2 hari bekerja.
+          </p>
+
+          <!-- Contact Buttons -->
+          <div class="space-y-4">
+            <a href="https://wa.me/60163093685" target="_blank"
+              class="flex items-center bg-green-500 text-white px-4 py-3 rounded-lg shadow-md hover:bg-green-600 transition">
+              <img src="https://d20a0jw0jjcl0a.cloudfront.net/assets/image/icon/whatsapp.svg" alt="WhatsApp Icon" class="h-6 w-6 mr-3">
+              WhatsApp +60 16 3093 685
+            </a>
+            <a href="tel:+60386051918"
+              class="flex items-center border border-orange-500 text-orange-500 px-4 py-3 rounded-lg shadow-md hover:bg-orange-500 hover:text-white transition">
+              <img src="assets/icons/phone.svg" alt="Phone Icon" class="h-6 w-6 mr-3">
+              Telefon +603 8605 1918
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Contact Form -->
+        <div class="bg-gray-50 shadow-lg rounded-lg p-6">
+          <form action="#" method="POST" class="space-y-6">
+            <!-- Full Name -->
+            <div>
+              <label for="full-name" class="block text-gray-600 mb-1">Nama Penuh</label>
+              <input type="text" id="full-name" name="full-name" required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
+            </div>
+            <!-- Phone Number -->
+            <div>
+              <label for="phone" class="block text-gray-600 mb-1">No. Telefon</label>
+              <input type="tel" id="phone" name="phone" required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
+            </div>
+            <!-- Email -->
+            <div>
+              <label for="email" class="block text-gray-600 mb-1">E-mel</label>
+              <input type="email" id="email" name="email" required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
+            </div>
+            <!-- Message -->
+            <div>
+              <label for="message" class="block text-gray-600 mb-1">Pertanyaan</label>
+              <textarea id="message" name="message" rows="5" required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                placeholder="Sila masukkan itinerari perjalanan anda..."></textarea>
+            </div>
+            <!-- Submit Button -->
+            <div>
+              <button type="submit"
+                class="w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+                Hantar Pertanyaan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/slide.js"></script>
+
+</body>
+</html>

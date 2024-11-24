@@ -1,0 +1,101 @@
+{
+  "packages": [
+    {
+      "id": "jeddah-stopover",
+      "title": "Jeddah Stopover Package",
+      "adults": 2,
+      "location": "Jeddah",
+      "duration": "1 Nights · 2 Days",
+      "price": 153.30,
+      "startDate": "2025-01-08",
+      "endDate": "2025-01-09",
+      "features": {
+        "flight": "No Flight",
+        "hotels": "1 Hotel",
+        "transfers": "1 Transfer",
+        "activities": "No Activity"
+      },
+      "images": [
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
+      ],
+      "description": "Discover the vibrant charm of Jeddah with our exclusive stopover package. Perfect for travelers with a layover at King Abdulaziz International Airport, this package offers a glimpse of the city’s rich cultural heritage and its stunning waterfront attractions, with plenty of opportunities to explore and enjoy Jeddah’s unique experiences during your short stay.",
+      "itineraryId": "jeddah-itinerary",
+      "inclusions": [
+        "Accommodation | In Jeddah",
+        "Private Airport Transfers",
+        "Flights (Optional)",
+        "Tours and Activities (Optional)"
+      ],
+      "exclusions": [
+        "Add-ons not included",
+        "Early check-in and late check-out charges",
+        "Anything not mentioned in Inclusions",
+        "Room Extras",
+        "Additional Meals",
+        "Personal Expenses",
+        "Hotel Parking"
+      ]
+    },
+    {
+      "id": "dubai-explorer",
+      "title": "Dubai Explorer Package",
+      "adults": 4,
+      "location": "Dubai",
+      "duration": "3 Nights · 4 Days",
+      "price": 450.00,
+      "startDate": "2025-02-15",
+      "endDate": "2025-02-18",
+      "features": {
+        "flight": "Included",
+        "hotels": "1 Hotel",
+        "transfers": "Included",
+        "activities": "3 Activities"
+      },
+      "images": [
+        "https://example.com/dubai-image1.jpg",
+        "https://example.com/dubai-image2.jpg",
+        "https://example.com/dubai-image3.jpg"
+      ],
+      "description": "Enjoy the vibrant city of Dubai with a mix of luxury, adventure, and culture.",
+      "itineraryId": "dubai-itinerary",
+      "inclusions": [
+        "Accommodation | In Dubai",
+        "Private Airport Transfers",
+        "Flights Included",
+        "3 Sightseeing Activities"
+      ],
+      "exclusions": [
+        "Add-ons not included",
+        "Early check-in and late check-out charges",
+        "Personal Expenses"
+      ]
+    }
+  ],
+  "global": {
+    "terms": [
+      "Umrahme reserves the right to modify the services to accommodate any unforeseen circumstances.",
+      "Check-in for flight begins 3 hrs. before departure.",
+      "Passport must be valid for at least six months from the date of departure.",
+      "Early check-in or Late check-out are subject to availability and will incur extra charges.",
+      "Any additional extras shall be paid by the guest. (Incl CC guarantee at the hotel).",
+      "Failure to vacate the room as per the checkout time will result in additional charges.",
+      "Trips & activities may change or cancel due weather or any other unforeseen circumstances.",
+      "Modifications are subject to airline, hotel & Umrahme policy, and may incur additional charges.",
+      "Umrahme is not responsible if passengers are unable to travel due to passport or visa issues.",
+      "Flight timings may result in early check-in or late check-out and may incur additional charges.",
+      "Refund will not be applicable for any unutilized service.",
+      "In case of Hotel non-availability, an alternate option of similar or higher category will be provided."
+    ],
+    "cancellation": [
+      "For all cancellations, please contact our customer support to understand the specific cancellation terms for each component within your package, as some services, particularly hotel bookings, may be strictly non-refundable.",
+      "Flights: Once confirmed and paid, flights are non-refundable.",
+      "Land Services (Hotels, Transfers, Tours & Excursions)",
+      "Up to 14 days before departure: Cancellations may qualify for a partial or full refund based on each travel component’s policy. Please be aware that certain hotel bookings are strictly non-refundable within this period.",
+      "7 to 14 days before departure: A cancellation fee of 50% of the total package amount will apply. For hotel bookings that are non-refundable, this portion remains non-refundable regardless of the cancellation timing.",
+      "Less than 7 days before departure: 100% of the total package amount will be charged as a cancellation fee, with no refund for any component, including strictly non-refundable hotels.",
+      "No-show: If a guest does not arrive on the scheduled date, 100% of the total amount will be charged, and all components, including hotels, are non-refundable."
+    ]
+  }
+}

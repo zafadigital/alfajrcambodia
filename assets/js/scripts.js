@@ -192,3 +192,35 @@ function initBurgerMenu() {
     }
   });
 }
+
+function initializeImages(images) {
+  const modal = document.getElementById('image-modal');
+  const modalImage = document.getElementById('modal-image');
+  const closeModal = document.getElementById('close-modal');
+  const thumbnails = document.querySelectorAll('#details-container img');
+  let currentIndex = 0;
+
+  // Open modal
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modalImage.src = images[index];
+      currentIndex = index;
+    });
+  });
+
+  // Close modal
+  closeModal.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  // Navigation
+  document.getElementById('prev-image').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    modalImage.src = images[currentIndex];
+  });
+  document.getElementById('next-image').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    modalImage.src = images[currentIndex];
+  });
+}

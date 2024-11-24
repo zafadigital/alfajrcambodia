@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showSlide(currentIndex);
   }, 5000);
 
-  // Add click event listeners to dots (optional)
+  // Add click event listeners to dots
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
       currentIndex = i;

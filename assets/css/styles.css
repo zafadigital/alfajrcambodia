@@ -56,3 +56,27 @@ button:hover {
 .slider-dots .active {
   background: black;
 }
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+/* Tabs */
+.tab-button {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tab-button.active {
+  background-color: #1a202c; /* Active tab color */
+  color: #ffffff;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content:not(.hidden) {
+  display: block;
+}

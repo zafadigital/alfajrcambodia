@@ -9,9 +9,11 @@
     <!-- Navigation Menu -->
     <nav
       id="mobile-menu"
-      class="fixed inset-0 bg-white bg-opacity-50 z-50 transform -translate-x-full transition-transform duration-300 md:relative md:flex md:space-x-6 md:bg-transparent md:p-0 md:inset-auto">
+      class="fixed inset-0 bg-white bg-opacity-90 z-50 transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0 md:flex md:space-x-6 md:bg-transparent md:p-0 md:inset-auto">
+      
+      <!-- Mobile Menu Header -->
       <div class="flex items-center justify-between mb-6 md:hidden p-4">
-        <!-- Wrapping logo and text in a fully clickable area -->
+        <!-- Logo -->
         <a href="index.html" class="flex items-center space-x-2">
           <img src="assets/images/logo/logo_black.png" alt="Alfajr Cambodia Logo" class="h-10">
           <span class="font-bold text-black text-lg">Alfajr Cambodia</span>
@@ -23,12 +25,33 @@
         </button>
       </div>
 
-      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Personal</a>
-      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Business</a>
-      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Premier</a>
-      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Corporate</a>
-      <a href="#" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Islamic</a>
-      <a href="contact.html" class="text-black hover:text-primary hover:underline hover:underline-offset-4 p-2 transition">Contact Us</a>
+      <!-- Navigation List -->
+      <ul class="flex flex-col space-y-4 text-black p-6 md:space-y-0 md:flex-row md:items-center md:space-x-8 md:p-0">
+        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
+          <img src="assets/icons/personal-icon.svg" alt="Personal Icon" class="w-6 h-6 md:hidden">
+          <a href="#" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Personal</a>
+        </li>
+        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
+          <img src="assets/icons/business-icon.svg" alt="Business Icon" class="w-6 h-6 md:hidden">
+          <a href="#" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Business</a>
+        </li>
+        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
+          <img src="assets/icons/premier-icon.svg" alt="Premier Icon" class="w-6 h-6 md:hidden">
+          <a href="#" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Premier</a>
+        </li>
+        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
+          <img src="assets/icons/corporate-icon.svg" alt="Corporate Icon" class="w-6 h-6 md:hidden">
+          <a href="#" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Corporate</a>
+        </li>
+        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
+          <img src="assets/icons/islamic-icon.svg" alt="Islamic Icon" class="w-6 h-6 md:hidden">
+          <a href="#" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Islamic</a>
+        </li>
+        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
+          <img src="assets/icons/contact-icon.svg" alt="Contact Icon" class="w-6 h-6 md:hidden">
+          <a href="contact.html" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Contact Us</a>
+        </li>
+      </ul>
     </nav>
 
     <!-- Button Section -->

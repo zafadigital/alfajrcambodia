@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (component === 'hero') initHeroSlider(); // Hero Slider
         if (component === 'ads-banner') initAdsSlider(); // Ads Banner Slider
         if (component === 'recommendations') initTabs(); // Tabs
+        if (component === 'header') initBurgerMenu(); // Burger Menu
       })
       .catch((error) => console.error(`Error loading component: ${component}`, error));
   });
@@ -131,7 +132,7 @@ function initAdsSlider() {
 }
 
 // Ads Slideshow (Manual Slider Logic)
-document.addEventListener('DOMContentLoaded', () => {
+function initAdsSlider() {
   const slideshow = document.getElementById('ads-slideshow');
   if (slideshow) {
     const slides = slideshow.querySelector('.flex');
@@ -162,4 +163,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     goToSlide(currentSlide);
   }
-});
+}
+
+// Burger Menu Functionality
+function initBurgerMenu() {
+  const burgerButton = document.getElementById('burger-button');
+  const closeButton = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  // Open mobile menu
+  burgerButton.addEventListener('click', () => {
+    mobileMenu.classList.remove('-translate-x-full');
+  });
+
+  // Close mobile menu
+  closeButton.addEventListener('click', () => {
+    mobileMenu.classList.add('-translate-x-full');
+  });
+
+  // Close the menu when clicking outside (optional)
+  document.addEventListener('click', (event) => {
+    if (
+      !mobileMenu.contains(event.target) &&
+      !burgerButton.contains(event.target) &&
+      mobileMenu.classList.contains('-translate-x-full') === false
+    ) {
+      mobileMenu.classList.add('-translate-x-full');
+    }
+  });
+}

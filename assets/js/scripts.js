@@ -1,160 +1,165 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Dynamically load static components (header, footer)
-  const components = ["header", "footer"];
+// Component Loader
+document.addEventListener('DOMContentLoaded', () => {
+  const components = [
+    'header',
+    'hero',
+    'about',
+    'packages',
+    'umrah-packages',
+    'ads-banner',
+    'recommendations',
+    'destinations',
+    'footer',
+  ];
+
   components.forEach((component) => {
     fetch(`components/${component}.html`)
-      .then((response) => response.text())
+      .then((response) => {
+        if (!response.ok) throw new Error(`Failed to load ${component}`);
+        return response.text();
+      })
       .then((data) => {
         document.getElementById(component).innerHTML = data;
+
+        // Initialize specific functionality after loading components
+        if (component === 'hero') initHeroSlider(); // Hero Slider
+        if (component === 'ads-banner') initAdsSlider(); // Ads Banner Slider
+        if (component === 'recommendations') initTabs(); // Tabs
       })
-      .catch((error) => console.error(`Error loading ${component}:`, error));
+      .catch((error) => console.error(`Error loading component: ${component}`, error));
   });
-
-  // Load Hero Section Data from JSON
-  fetch("data/hero.json")
-    .then((response) => response.json())
-    .then((slides) => {
-      const heroContainer = document.getElementById("hero");
-      const heroHTML = `
-        <section class="relative bg-primary text-white overflow-hidden">
-          <div id="slider" class="relative w-full h-screen md:h-[675px]">
-            ${slides
-              .map(
-                (slide, index) => `
-              <div class="absolute inset-0 transition-opacity duration-700 ${
-                index === 0 ? "opacity-100" : "opacity-0"
-              } slide">
-                <img src="${slide.desktop}" alt="${slide.alt}" class="hidden md:block w-full h-full object-cover">
-                <img src="${slide.mobile}" alt="${slide.alt}" class="block md:hidden w-full h-full object-cover">
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex slider-dots space-x-2">
-            ${slides
-              .map(
-                (_, index) => `
-              <div class="${index === 0 ? "active" : ""}"></div>
-            `
-              )
-              .join("")}
-          </div>
-        </section>
-      `;
-      heroContainer.innerHTML = heroHTML;
-    })
-    .catch((error) => console.error("Error loading hero.json:", error));
-
-  // Load Feature Cards Section Data from JSON
-  fetch("data/feature-section.json")
-    .then((response) => response.json())
-    .then((data) => {
-      const featureCardsContainer = document.getElementById("feature-cards");
-      const featureCardsHTML = `
-        <section class="relative bg-gray-100 py-12 pt-20 z-30">
-          <div class="container mx-auto grid grid-cols-2 md:grid-cols-7 gap-6 max-w-[1440px]">
-            ${data.features
-              .map(
-                (feature) => `
-              <div class="text-center py-4 feature-card rounded-lg bg-white shadow-lg">
-                <img src="${feature.image}" alt="${feature.title}" class="mx-auto mb-2 w-12 h-12">
-                <h3 class="text-sm font-semibold">${feature.title}</h3>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        </section>
-      `;
-      featureCardsContainer.innerHTML = featureCardsHTML;
-    })
-    .catch((error) => console.error("Error loading feature-section.json:", error));
-
-  // Load About Section
-  fetch("data/feature.json")
-    .then((response) => response.json())
-    .then((data) => {
-      const featureContainer = document.getElementById("feature");
-      const aboutHTML = `
-        <section class="bg-gray-100 py-12">
-          <div class="container mx-auto text-center max-w-[1440px]">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">${data.about.title}</h2>
-            <p class="text-gray-600 mb-8">${data.about.description}</p>
-          </div>
-        </section>
-      `;
-      featureContainer.innerHTML = aboutHTML;
-    })
-    .catch((error) => console.error("Error loading feature.json:", error));
-
-  // Load Packages Section Data from JSON
-  fetch("data/packages.json")
-    .then((response) => response.json())
-    .then((packages) => {
-      const packagesContainer = document.getElementById("packages");
-      const packagesHTML = `
-        <section class="py-12 bg-gray-100 fade-in mobile-padding">
-          <div class="container mx-auto text-center max-w-[1440px]">
-            <h2 class="text-3xl text-center font-bold mb-6">Umrah Packages</h2>
-            <p class="text-gray-600 mb-8">
-              Experience the spiritual journey of a lifetime with our exclusive Umrah packages.
-              From luxury accommodations to guided tours, we ensure your trip is memorable and seamless.
-            </p>
-            <div class="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
-              ${packages
-                .map((pkg, index) => {
-                  const isBig = index % 3 === 0;
-                  const colSpan = isBig ? "md:col-span-6" : "md:col-span-3";
-                  return `
-                    <div class="col-span-12 ${colSpan} bg-white rounded-lg shadow-md overflow-hidden">
-                      <a href="${pkg.link}" class="block">
-                        <div class="relative w-full h-[280px]">
-                          <img src="${pkg.image}" alt="${pkg.title}" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4">
-                          <h3 class="text-lg font-bold">${pkg.title}</h3>
-                          <p class="text-sm text-gray-600 mb-2">${pkg.description}</p>
-                          <p class="text-xl text-red-600 font-bold">${pkg.price} *</p>
-                        </div>
-                      </a>
-                    </div>
-                  `;
-                })
-                .join("")}
-            </div>
-          </div>
-        </section>
-      `;
-      packagesContainer.innerHTML = packagesHTML;
-    })
-    .catch((error) => console.error("Error loading packages.json:", error));
 });
-document.addEventListener("DOMContentLoaded", () => {
-  // Load Header and Footer
-  const components = ["header", "footer"];
-  components.forEach((component) => {
-    fetch(`components/${component}.html`)
-      .then((response) => response.text())
-      .then((data) => {
-        document.getElementById(component).innerHTML = data;
-      })
-      .catch((error) => console.error(`Error loading ${component}.html`, error));
+
+// Tabs Functionality
+function initTabs() {
+  const tabs = document.querySelectorAll('.tab-button');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-tab');
+
+      // Remove active state from all tabs and hide all content
+      tabs.forEach((t) => t.classList.remove('active', 'bg-gray-900', 'text-white'));
+      contents.forEach((content) => content.classList.add('hidden'));
+
+      // Activate clicked tab and show corresponding content
+      tab.classList.add('active', 'bg-gray-900', 'text-white');
+      const targetContent = document.getElementById(target);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+      }
+    });
   });
 
-  // Load Feature Cards
-  fetch("components/feature-cards.html")
-    .then((response) => response.text())
-    .then((data) => {
-      document.getElementById("feature").innerHTML = data;
-    })
-    .catch((error) => console.error("Error loading feature-cards.html:", error));
+  // Show the first tab content by default
+  const firstTab = tabs[0];
+  const firstContent = document.getElementById(firstTab.getAttribute('data-tab'));
+  firstTab.classList.add('active', 'bg-gray-900', 'text-white');
+  if (firstContent) {
+    firstContent.classList.remove('hidden');
+  }
+}
 
-  // Load Umrah Journey Section
-  fetch("components/umrah-journey.html")
-    .then((response) => response.text())
-    .then((data) => {
-      document.getElementById("feature").insertAdjacentHTML("afterend", data);
-    })
-    .catch((error) => console.error("Error loading umrah-journey.html:", error));
+// Hero Slider Functionality
+function initHeroSlider() {
+  const slides = document.querySelectorAll('#slider .slide');
+  const dots = document.querySelectorAll('.slider-dots div');
+  let currentIndex = 0;
+
+  if (slides.length && dots.length) {
+    // Function to show the current slide
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('opacity-100', i === index);
+        slide.classList.toggle('opacity-0', i !== index);
+        slide.classList.toggle('z-10', i === index); // Ensure active slide is above others
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-black', i === index);
+        dot.classList.toggle('bg-gray-500', i !== index);
+      });
+    }
+
+    // Auto-slide every 5 seconds
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }, 5000);
+
+    // Add click event to dots for manual navigation
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        showSlide(currentIndex);
+      });
+    });
+
+    // Show the first slide initially
+    showSlide(currentIndex);
+  }
+}
+
+// Ads Banner Sliding Functionality
+function initAdsSlider() {
+  const scrollingContainer = document.querySelector('.flex.overflow-x-auto'); // Scrolling container
+  if (!scrollingContainer) return;
+
+  let scrollPosition = 0;
+  const scrollStep = 200; // Number of pixels to scroll
+  const scrollInterval = 3000; // Auto-scroll every 3 seconds
+
+  // Auto-scroll logic
+  setInterval(() => {
+    // Scroll to the right
+    scrollPosition += scrollStep;
+    scrollingContainer.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth',
+    });
+
+    // Reset to the beginning if scrolled past the end
+    if (scrollPosition >= scrollingContainer.scrollWidth - scrollingContainer.clientWidth) {
+      scrollPosition = 0;
+      scrollingContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth',
+      });
+    }
+  }, scrollInterval);
+}
+
+// Ads Slideshow (Manual Slider Logic)
+document.addEventListener('DOMContentLoaded', () => {
+  const slideshow = document.getElementById('ads-slideshow');
+  if (slideshow) {
+    const slides = slideshow.querySelector('.flex');
+    const dots = document.querySelectorAll('[data-slide]');
+    const totalSlides = dots.length;
+    let currentSlide = 0;
+
+    const goToSlide = (index) => {
+      const percentage = -(index * 100 / totalSlides);
+      slides.style.transform = `translateX(${percentage}%)`;
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-gray-900', i === index);
+        dot.classList.toggle('bg-gray-400', i !== index);
+      });
+
+      currentSlide = index;
+    };
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      goToSlide(currentSlide);
+    }, 5000);
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => goToSlide(index));
+    });
+
+    goToSlide(currentSlide);
+  }
 });

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umrah Package Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Main Section -->
+  <section class="container mx-auto py-8 px-4 md:px-16">
+    <div id="details-container" class="bg-white rounded-lg shadow-md p-6">
+      <!-- The content will be dynamically injected here -->
+    </div>
+
+    <!-- Terms and Conditions Section -->
+    <div id="terms-section" class="mt-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Terms and Conditions</h3>
+      <ul id="terms-list" class="list-disc list-inside text-gray-600"></ul>
+    </div>
+
+    <!-- Cancellation Policy Section -->
+    <div id="cancellation-section" class="mt-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Cancellation Policy</h3>
+      <ul id="cancellation-list" class="list-disc list-inside text-gray-600"></ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/utils.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const packageId = urlParams.get("id");
+      const packageType = urlParams.get("type");
+
+      // Select JSON file based on the package type
+      const jsonFile = packageType === "holiday" 
+        ? "components/datajson/umrah-holiday.json" 
+        : "components/datajson/umrah-package.json";
+
+      fetch(jsonFile)
+        .then(response => response.json())
+        .then(data => {
+          const selectedPackage = data.packages.find(pkg => pkg.id === packageId);
+
+          if (selectedPackage) {
+            // Populate Details Section
+            const detailsContainer = document.getElementById("details-container");
+            detailsContainer.innerHTML = `
+              <h2 class="text-2xl font-bold text-gray-800 mb-4">${selectedPackage.title}</h2>
+              <img src="${selectedPackage.images[0]}" alt="${selectedPackage.title}" class="rounded-lg mb-4 w-full h-[300px] object-cover">
+              <p class="text-gray-600 text-sm mb-4">${selectedPackage.description}</p>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Inclusions</h3>
+              <ul class="list-disc list-inside text-gray-600 mb-4">
+                ${selectedPackage.inclusions.map(item => `<li>${item}</li>`).join("")}
+              </ul>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Exclusions</h3>
+              <ul class="list-disc list-inside text-gray-600 mb-4">
+                ${selectedPackage.exclusions.map(item => `<li>${item}</li>`).join("")}
+              </ul>
+              <p class="text-gray-800 font-bold mt-4">From ${selectedPackage.currency}${selectedPackage.price}</p>
+            `;
+
+            // Populate Terms Section
+            const termsList = document.getElementById("terms-list");
+            termsList.innerHTML = selectedPackage.terms.map(term => `<li>${term}</li>`).join("");
+
+            // Populate Cancellation Section
+            const cancellationList = document.getElementById("cancellation-list");
+            cancellationList.innerHTML = selectedPackage.cancellation.map(policy => `<li>${policy}</li>`).join("");
+          } else {
+            // Show error if no package is found
+            const detailsContainer = document.getElementById("details-container");
+            detailsContainer.innerHTML = `<p class="text-red-500">Package not found. Please go back and try again.</p>`;
+          }
+        })
+        .catch(error => {
+          console.error("Error loading package details:", error);
+          const detailsContainer = document.getElementById("details-container");
+          detailsContainer.innerHTML = `<p class="text-red-500">Error loading package details. Please try again later.</p>`;
+        });
+    });
+  </script>
+</body>
+</html>

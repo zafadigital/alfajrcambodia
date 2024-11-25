@@ -97,7 +97,7 @@
           // Render Flights Function
           function renderFlights(flights) {
             flightsContainer.innerHTML = `
-              <div class="bg-white rounded-lg shadow-md p-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 ${flights.map(flight => `
                   <div class="bg-white rounded-lg shadow-md p-4">
                     <div class="flex items-center justify-between mb-4">

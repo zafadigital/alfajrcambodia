@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umrah Packages</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Main Section -->
+  <section class="container mx-auto py-8 px-4 md:px-16">
+    <h2 class="text-2xl font-bold mb-6">Explore Our Umrah + Holiday</h2>
+    <div id="packages-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+      <!-- Packages will be dynamically injected here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/scripts.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load Header and Footer
+      fetch("components/header.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("header").innerHTML = data;
+        });
+
+      fetch("components/footer.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("footer").innerHTML = data;
+        });
+
+      // Fetch and Render Packages
+      const jsonFile = window.location.pathname.includes("umrah-holiday") ? "components/datajson/umrah-holiday.json" : "components/datajson/umrah-package.json";
+      fetch(jsonFile)
+        .then(response => response.json())
+        .then(data => {
+          const packagesContainer = document.getElementById("packages-container");
+          packagesContainer.innerHTML = data.packages.map(pkg => `
+            <a href="${pkg.link}" target="_blank" class="block bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200">
+              <img src="${pkg.image}" alt="${pkg.name}" class="rounded-lg mb-4 w-full h-[150px] object-cover">
+              <h3 class="text-lg font-semibold text-gray-800">${pkg.name}</h3>
+              <p class="text-gray-600 text-sm mb-2">${pkg.location}</p>
+              <p class="text-gray-800 font-bold mb-2">From ${pkg.currency}${pkg.price}</p>
+              <p class="text-gray-500 text-sm">${pkg.description}</p>
+            </a>
+          `).join('');
+        })
+        .catch(error => console.error("Error loading packages:", error));
+    });
+  </script>
+</body>
+</html>

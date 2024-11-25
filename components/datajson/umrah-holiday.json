@@ -1,0 +1,49 @@
+{
+  "packages": [
+    {
+      "name": "Umrah + Dubai Holiday",
+      "location": "Makkah, Madinah, and Dubai",
+      "price": "1300",
+      "currency": "US$",
+      "image": "https://example.com/images/umrah-dubai.jpg",
+      "description": "Combine your Umrah pilgrimage with a relaxing Dubai holiday.",
+      "link": "https://example.com/umrah-dubai"
+    },
+    {
+      "name": "Umrah + Turkey Tour",
+      "location": "Makkah, Madinah, and Istanbul",
+      "price": "1500",
+      "currency": "US$",
+      "image": "https://example.com/images/umrah-turkey.jpg",
+      "description": "Enjoy a spiritual journey and explore Istanbul's rich culture.",
+      "link": "https://example.com/umrah-turkey"
+    },
+    {
+      "name": "Umrah + Egypt Adventure",
+      "location": "Makkah, Madinah, and Cairo",
+      "price": "1400",
+      "currency": "US$",
+      "image": "https://example.com/images/umrah-egypt.jpg",
+      "description": "Experience Umrah and visit the historical sites of Egypt.",
+      "link": "https://example.com/umrah-egypt"
+    },
+    {
+      "name": "Umrah + Malaysia Getaway",
+      "location": "Makkah, Madinah, and Kuala Lumpur",
+      "price": "1100",
+      "currency": "US$",
+      "image": "https://example.com/images/umrah-malaysia.jpg",
+      "description": "Perform Umrah and relax in the beautiful city of Kuala Lumpur.",
+      "link": "https://example.com/umrah-malaysia"
+    },
+    {
+      "name": "Umrah + Morocco Journey",
+      "location": "Makkah, Madinah, and Marrakech",
+      "price": "1600",
+      "currency": "US$",
+      "image": "https://example.com/images/umrah-morocco.jpg",
+      "description": "A unique experience combining Umrah with the charm of Morocco.",
+      "link": "https://example.com/umrah-morocco"
+    }
+  ]
+}

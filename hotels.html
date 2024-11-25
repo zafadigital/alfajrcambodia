@@ -51,6 +51,7 @@
         const tabsContainer = document.getElementById("hotel-tabs");
         const hotelsContainer = document.getElementById("hotels-container");
 
+        // Get unique locations for tabs
         const locations = [...new Set(data.hotels.map(hotel => hotel.location))];
 
         // Generate Tabs
@@ -65,7 +66,7 @@
           `;
         });
 
-        // Initial Render
+        // Initial Render for the first location
         renderHotels(data.hotels.filter(hotel => hotel.location === locations[0]));
 
         // Tab Click Event
@@ -73,7 +74,7 @@
           if (e.target.tagName === "BUTTON") {
             const selectedLocation = e.target.getAttribute("data-location");
 
-            // Update Active Tab
+            // Update Active Tab Styling
             document.querySelectorAll("#hotel-tabs button").forEach(tab => {
               tab.classList.remove("text-blue-500", "border-blue-500");
               tab.classList.add("text-gray-500", "border-transparent");
@@ -105,6 +106,7 @@
       .catch(error => console.error("Error loading hotels:", error));
   });
 </script>
+
 
 </body>
 </html>

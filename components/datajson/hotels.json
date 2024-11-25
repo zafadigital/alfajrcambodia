@@ -43,6 +43,50 @@
       "image": "https://example.com/images/nangkol-village.jpg",
       "description": "No.35, Street 302, Three floors | 1.01KM from city center",
       "link": "https://example.com/nangkol-village"
+    },
+    {
+      "name": "Golden Temple Hotel",
+      "location": "Siem Reap",
+      "price": "45",
+      "currency": "US$",
+      "stars": 5,
+      "reviews": 875,
+      "image": "https://example.com/images/golden-temple.jpg",
+      "description": "Central Street, Next to Angkor National Museum | 1.5KM from city center",
+      "link": "https://example.com/golden-temple-hotel"
+    },
+    {
+      "name": "Sihanoukville Beach Resort",
+      "location": "Sihanoukville",
+      "price": "120",
+      "currency": "US$",
+      "stars": 4,
+      "reviews": 453,
+      "image": "https://example.com/images/sihanoukville-beach.jpg",
+      "description": "Private beach access with 5-star amenities | 0.5KM from city center",
+      "link": "https://example.com/sihanoukville-beach-resort"
+    },
+    {
+      "name": "Otres Sunset Villas",
+      "location": "Sihanoukville",
+      "price": "65",
+      "currency": "US$",
+      "stars": 3,
+      "reviews": 321,
+      "image": "https://example.com/images/otres-sunset.jpg",
+      "description": "Otres Village, Scenic views with an infinity pool",
+      "link": "https://example.com/otres-sunset-villas"
+    },
+    {
+      "name": "Bayon Boutique Hotel",
+      "location": "Siem Reap",
+      "price": "50",
+      "currency": "US$",
+      "stars": 4,
+      "reviews": 672,
+      "image": "https://example.com/images/bayon-boutique.jpg",
+      "description": "Heart of Siem Reap, near Pub Street | 1KM from city center",
+      "link": "https://example.com/bayon-boutique-hotel"
     }
   ]
 }

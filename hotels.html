@@ -89,7 +89,7 @@
         // Render Hotels Function
         function renderHotels(hotels) {
           hotelsContainer.innerHTML = hotels.map(hotel => `
-            <div class="bg-white rounded-lg shadow-md p-4">
+            <a href="${hotel.link}" target="_blank" class="block bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200">
               <img src="${hotel.image}" alt="${hotel.name}" class="rounded-lg mb-4 w-full h-[150px] object-cover">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-gray-800 font-semibold">${hotel.name}</span>
@@ -98,12 +98,13 @@
               <p class="text-gray-500 text-sm mb-1">${hotel.reviews} reviews</p>
               <p class="text-gray-500 text-sm mb-2">${hotel.description}</p>
               <p class="text-gray-800 font-bold">From ${hotel.currency}${hotel.price}</p>
-            </div>
+            </a>
           `).join('');
         }
       })
       .catch(error => console.error("Error loading hotels:", error));
   });
 </script>
+
 </body>
 </html>

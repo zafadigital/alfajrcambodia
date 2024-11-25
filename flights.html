@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fly with us</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon Meta -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="assets/images/favicon/site.webmanifest">
+  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
+  <meta name="theme-color" content="#FF4800">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Main Section -->
+  <section class="container mx-auto py-8 px-4 md:px-16">
+    <!-- Trip.com Embed -->
+    <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
+    <div class="mb-8">
+      <iframe
+        src="https://www.trip.com/partners/ad/S683160?Allianceid=5582984&SID=127216986&trip_sub1=search_box_flights"
+        frameborder="0"
+        style="width: 100%; height: 250px; border: none;"
+        title="Search Flights with Trip.com"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Airline Tabs Section -->
+    <div>
+      <ul class="flex border-b" id="airline-tabs">
+        <!-- Airline tabs will be dynamically injected here -->
+      </ul>
+      <div class="mt-6" id="flights-container">
+        <!-- Flights will be dynamically injected here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/scripts.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fetch and Render Flights by Airline
+      fetch("components/datajson/flights.json")
+        .then(response => response.json())
+        .then(data => {
+          const airlines = [...new Set(data.flights.map(flight => flight.airline))];
+          const tabsContainer = document.getElementById("airline-tabs");
+          const flightsContainer = document.getElementById("flights-container");
+
+          // Generate Airline Tabs
+          airlines.forEach((airline, index) => {
+            const activeClass = index === 0 ? "border-blue-500 text-blue-500" : "border-transparent text-gray-500";
+            tabsContainer.innerHTML += `
+              <li class="-mb-px mr-1">
+                <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 ${activeClass}" data-airline="${airline}">
+                  ${airline}
+                </button>
+              </li>
+            `;
+          });
+
+          // Initial Render for First Airline
+          renderFlights(data.flights.filter(flight => flight.airline === airlines[0]));
+
+          // Tab Click Event
+          tabsContainer.addEventListener("click", (e) => {
+            if (e.target.tagName === "BUTTON") {
+              const selectedAirline = e.target.getAttribute("data-airline");
+
+              // Update Active Tab
+              document.querySelectorAll("#airline-tabs button").forEach(tab => {
+                tab.classList.remove("border-blue-500", "text-blue-500");
+                tab.classList.add("border-transparent", "text-gray-500");
+              });
+              e.target.classList.add("border-blue-500", "text-blue-500");
+
+              // Render Flights for Selected Airline
+              const filteredFlights = data.flights.filter(flight => flight.airline === selectedAirline);
+              renderFlights(filteredFlights);
+            }
+          });
+
+          // Render Flights Function
+          function renderFlights(flights) {
+            flightsContainer.innerHTML = `
+              <div class="bg-white rounded-lg shadow-md p-4">
+                ${flights.map(flight => `
+                  <div class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="flex items-center">
+                        <img src="${flight.logo}" alt="${flight.airline}" class="w-10 h-10 rounded-full mr-3">
+                        <span class="text-gray-800 font-semibold">${flight.airline}</span>
+                      </div>
+                      <a href="${flight.link}" class="text-blue-600 text-sm">More &rarr;</a>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-1">${flight.route}</p>
+                    <p class="text-gray-500 text-sm mb-1">${flight.dates}</p>
+                    <p class="text-gray-500 text-sm mb-4">${flight.class}</p>
+                    <p class="text-gray-800 font-bold">From ${flight.currency}${flight.price}</p>
+                  </div>
+                `).join("")}
+              </div>
+            `;
+          }
+        })
+        .catch(error => console.error("Error loading flights:", error));
+    });
+  </script>
+</body>
+</html>

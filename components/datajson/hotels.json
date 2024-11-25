@@ -1,0 +1,48 @@
+{
+  "hotels": [
+    {
+      "name": "The Bridge Club",
+      "location": "Phnom Penh",
+      "price": "27",
+      "currency": "US$",
+      "stars": 3,
+      "reviews": 988,
+      "image": "https://example.com/images/bridge-club.jpg",
+      "description": "Ground Floor (unit 18 and 19) near the bridge Soho entrance, National...",
+      "link": "https://example.com/bridge-club"
+    },
+    {
+      "name": "The Snowbell Hotel",
+      "location": "Phnom Penh",
+      "price": "34",
+      "currency": "US$",
+      "stars": 4,
+      "reviews": 629,
+      "image": "https://example.com/images/snowbell.jpg",
+      "description": "28th Floor (Bridge SOHO Building St.78, Crossing of National Assembly...",
+      "link": "https://example.com/snowbell-hotel"
+    },
+    {
+      "name": "Phnom Penh Infinity Pool",
+      "location": "Phnom Penh",
+      "price": "38",
+      "currency": "US$",
+      "stars": 4,
+      "reviews": 211,
+      "image": "https://example.com/images/infinity-pool.jpg",
+      "description": "#10 Samdach Louis Emst282, street 282 | 1.09KM from city center",
+      "link": "https://example.com/infinity-pool"
+    },
+    {
+      "name": "Nangkol Village",
+      "location": "Siem Reap",
+      "price": "5",
+      "currency": "US$",
+      "stars": 3,
+      "reviews": 158,
+      "image": "https://example.com/images/nangkol-village.jpg",
+      "description": "No.35, Street 302, Three floors | 1.01KM from city center",
+      "link": "https://example.com/nangkol-village"
+    }
+  ]
+}

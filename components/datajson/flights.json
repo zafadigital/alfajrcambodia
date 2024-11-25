@@ -1,0 +1,44 @@
+{
+  "flights": [
+    {
+      "airline": "American Airlines",
+      "logo": "https://example.com/logos/american-airlines.png",
+      "route": "New York ⇌ Miami",
+      "dates": "Tue, Dec 10 - Tue, Dec 10",
+      "class": "Economy",
+      "price": "132",
+      "currency": "US$",
+      "link": "#"
+    },
+    {
+      "airline": "Cathay Pacific",
+      "logo": "https://example.com/logos/cathay-pacific.png",
+      "route": "Hong Kong ⇌ Singapore",
+      "dates": "Sat, Mar 1 - Mon, Mar 10",
+      "class": "Economy",
+      "price": "253",
+      "currency": "US$",
+      "link": "#"
+    },
+    {
+      "airline": "Cathay Pacific",
+      "logo": "https://example.com/logos/cathay-pacific.png",
+      "route": "Taipei ⇌ Bangkok",
+      "dates": "Tue, Dec 24 - Sat, Jan 4",
+      "class": "Economy",
+      "price": "247",
+      "currency": "US$",
+      "link": "#"
+    },
+    {
+      "airline": "American Airlines",
+      "logo": "https://example.com/logos/american-airlines.png",
+      "route": "New York ⇌ London",
+      "dates": "Fri, Nov 29 - Thu, Dec 5",
+      "class": "Economy",
+      "price": "665",
+      "currency": "US$",
+      "link": "#"
+    }
+  ]
+}

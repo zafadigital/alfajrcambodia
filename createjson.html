@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alfajr Cambodia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon Meta -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="assets/images/favicon/site.webmanifest">
+  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
+  <meta name="theme-color" content="#FF4800">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased bg-gray-100">
+
+  <!-- Header -->
+  <div id="header"></div>
+
+  <div class="container mx-auto mt-10 max-w-3xl bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Labeled Single Box JSON Generator</h2>
+
+    <!-- Input Box -->
+    <div class="mb-4">
+      <label for="inputBox" class="block text-gray-600 font-medium mb-2">Enter Details Line-by-Line (Labels Fixed):</label>
+      <textarea id="inputBox" class="w-full h-[600px] p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300" placeholder="id: jeddah-stopover
+title: Jeddah Stopover Package
+adults: 2
+location: Jeddah
+duration: 1 Nights · 2 Days
+price: 153.30
+startDate: 2025-01-08
+endDate: 2025-01-09
+flight: No Flight
+hotels: 1 Hotel
+transfers: 1 Transfer
+activities: No Activity
+https://example.com/image1.jpg
+https://example.com/image2.jpg
+Accommodation | In Jeddah
+Private Airport Transfers
+Add-ons not included
+Early check-in charges">
+id: jeddah-stopover
+title: Jeddah Stopover Package
+adults: 2
+location: Jeddah
+duration: 1 Nights · 2 Days
+price: 153.30
+startDate: 2025-01-08
+endDate: 2025-01-09
+flight: No Flight
+hotels: 1 Hotel
+transfers: 1 Transfer
+activities: No Activity
+https://example.com/image1.jpg
+https://example.com/image2.jpg
+Accommodation | In Jeddah
+Private Airport Transfers
+Add-ons not included
+Early check-in charges
+</textarea>
+    </div>
+
+    <!-- Generate Button -->
+    <button id="generateJson" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm">Generate JSON</button>
+
+    <!-- JSON Output -->
+    <h2 class="text-xl font-semibold mt-6 text-gray-700">Generated JSON</h2>
+    <pre id="jsonOutput" class="bg-gray-100 p-4 rounded-md mt-4 overflow-x-auto text-sm text-gray-700"></pre>
+  </div>
+
+  <script>
+    document.getElementById('generateJson').addEventListener('click', () => {
+      const input = document.getElementById('inputBox').value.trim().split('\n');
+      
+      // Parse input values from labeled lines
+      const json = {
+        id: input[0].split(': ')[1],
+        title: input[1].split(': ')[1],
+        adults: parseInt(input[2].split(': ')[1], 10),
+        location: input[3].split(': ')[1],
+        duration: input[4].split(': ')[1],
+        price: parseFloat(input[5].split(': ')[1]),
+        startDate: input[6].split(': ')[1],
+        endDate: input[7].split(': ')[1],
+        features: {
+          flight: input[8].split(': ')[1],
+          hotels: input[9].split(': ')[1],
+          transfers: input[10].split(': ')[1],
+          activities: input[11].split(': ')[1],
+        },
+        images: input.slice(12, input.indexOf('Accommodation | In Jeddah')).map((url) => url.trim()),
+        inclusions: input.slice(input.indexOf('Accommodation | In Jeddah'), input.indexOf('Add-ons not included')).map((line) => line.trim()),
+        exclusions: input.slice(input.indexOf('Add-ons not included')).map((line) => line.trim()),
+      };
+
+      // Display the JSON
+      document.getElementById('jsonOutput').textContent = JSON.stringify(json, null, 2);
+    });
+  </script>
+
+  <!-- Header -->
+  <div id="footer"></div>
+
+    <!-- Scripts -->
+<script src="assets/js/scripts.js" defer></script>
+</body>
+</html>

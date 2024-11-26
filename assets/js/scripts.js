@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'ads-banner',
     'recommendations',
     'destinations',
+    'umrah-holiday',    
     'footer',
   ];
 

@@ -1,8 +1,8 @@
 {
   "packages": [
     {
-      "id": "jeddah-stopover",
-      "title": "Umrah + Jeddah Stopover Package",
+      "id": "premium-umrah",
+      "title": "Premium Umrah: 14D12N Madinah & Mecca",
       "adults": 2,
       "location": "Jeddah",
       "duration": "1 Nights · 2 Days",
@@ -39,10 +39,10 @@
       ]
     },
     {
-      "id": "visit-cambodia",
-      "title": "Umrah + Visit Cambodia Package",
+      "id": "luxury-umrah",
+      "title": "Luxury Umrah: 12D10N Mecca Focus",
       "adults": 2,
-      "location": "Phnom Penh, Siem Reap, Kirirom, Mondulkiri",
+      "location": "Phnom Penh,",
       "duration": "5 Nights · 6 Days",
       "price": 350.00,
       "startDate": "2025-03-01",
@@ -54,9 +54,9 @@
         "activities": "4 Activities"
       },
       "images": [
-        "https://example.com/cambodia-image1.jpg",
-        "https://example.com/cambodia-image2.jpg",
-        "https://example.com/cambodia-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Explore Cambodia's rich culture and breathtaking landscapes from Phnom Penh to Siem Reap, Kirirom, and Mondulkiri.",
       "itineraryId": "cambodia-itinerary",
@@ -73,8 +73,8 @@
       ]
     },
     {
-      "id": "singapore-trip",
-      "title": "Umrah + Singapore Highlights Package",
+      "id": "exclusive-umrah",
+      "title": "Exclusive Umrah: 15D13N Full Package",
       "adults": 2,
       "location": "Singapore",
       "duration": "3 Nights · 4 Days",
@@ -88,9 +88,9 @@
         "activities": "5 Activities"
       },
       "images": [
-        "https://example.com/singapore-image1.jpg",
-        "https://example.com/singapore-image2.jpg",
-        "https://example.com/singapore-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Enjoy Singapore's vibrant culture, iconic landmarks, and world-class attractions.",
       "itineraryId": "singapore-itinerary",
@@ -107,8 +107,8 @@
       ]
     },
     {
-      "id": "kuala-lumpur-trip",
-      "title": "Umrah + Kuala Lumpur Explorer Package",
+      "id": "family-umrah",
+      "title": "Family Umrah: 10D8N Special",
       "adults": 2,
       "location": "Kuala Lumpur",
       "duration": "2 Nights · 3 Days",
@@ -122,9 +122,9 @@
         "activities": "3 Activities"
       },
       "images": [
-        "https://example.com/kuala-lumpur-image1.jpg",
-        "https://example.com/kuala-lumpur-image2.jpg",
-        "https://example.com/kuala-lumpur-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Discover the vibrant city of Kuala Lumpur with its iconic landmarks and rich cultural experiences.",
       "itineraryId": "kuala-lumpur-itinerary",
@@ -141,8 +141,8 @@
       ]
     },
     {
-      "id": "vietnam-explorer",
-      "title": "Umrah + Vietnam Ho Chi Minh Package",
+      "id": "group-umrah",
+      "title": "Group Umrah: 12D10N Experience",
       "adults": 2,
       "location": "Ho Chi Minh, Vietnam",
       "duration": "4 Nights · 5 Days",
@@ -156,9 +156,9 @@
         "activities": "5 Activities"
       },
       "images": [
-        "https://example.com/vietnam-image1.jpg",
-        "https://example.com/vietnam-image2.jpg",
-        "https://example.com/vietnam-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Experience the charm of Vietnam with an exclusive package featuring Ho Chi Minh City and surrounding attractions.",
       "itineraryId": "vietnam-itinerary",

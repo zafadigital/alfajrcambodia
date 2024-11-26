@@ -113,6 +113,28 @@ function loadGlobalDetails() {
     );
 }
 
+// Fetch global details for fallback terms and conditions
+function loadGlobalDetails() {
+  fetch("assets/js/umrah-holiday.json")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.global) renderTermsAndCancellation(data.global);
+    })
+    .catch((error) =>
+      console.error("Error fetching global terms and cancellation:", error)
+    );
+}
+// Fetch global details for fallback terms and conditions
+function loadGlobalDetails() {
+  fetch("assets/js/umrah-package.json")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.global) renderTermsAndCancellation(data.global);
+    })
+    .catch((error) =>
+      console.error("Error fetching global terms and cancellation:", error)
+    );
+}
 
 // Function to render package details (as in the original script)
 function renderPackageDetails(pkg) {

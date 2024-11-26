@@ -107,56 +107,58 @@ function initHeroSlider() {
 // Ads Banner Sliding Functionality
 function initAdsSlider() {
   const scrollingContainer = document.querySelector('.flex.overflow-x-auto'); // Scrolling container
-  if (!scrollingContainer) return;
+  if (!scrollingContainer) {
+    console.error('Scrolling container not found.');
+    return;
+  }
 
-  let scrollPosition = 0;
+  const prevButton = document.querySelector('#ads-prev'); // Left arrow
+  const nextButton = document.querySelector('#ads-next'); // Right arrow
+
   const scrollStep = 200; // Number of pixels to scroll
-  const scrollInterval = 3000; // Auto-scroll every 3 seconds
+  const scrollInterval = 3000; // Auto-scroll interval in milliseconds
 
-  // Auto-scroll logic
-  const autoScroll = setInterval(() => {
-    scrollPosition += scrollStep;
-    scrollingContainer.scrollTo({
-      left: scrollPosition,
+  let autoScrollInterval;
+
+  // Function to start auto-scroll
+  function startAutoScroll() {
+    autoScrollInterval = setInterval(() => {
+      if (
+        scrollingContainer.scrollLeft >=
+        scrollingContainer.scrollWidth - scrollingContainer.clientWidth
+      ) {
+        scrollingContainer.scrollLeft = 0; // Reset to the start
+      } else {
+        scrollingContainer.scrollLeft += scrollStep; // Scroll right
+      }
+    }, scrollInterval);
+  }
+
+  // Function to stop auto-scroll
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+
+  // Manual scroll for previous button
+  prevButton?.addEventListener('click', () => {
+    stopAutoScroll();
+    scrollingContainer.scrollBy({
+      left: -scrollStep,
       behavior: 'smooth',
     });
+  });
 
-    // Reset to the beginning if scrolled past the end
-    if (scrollPosition >= scrollingContainer.scrollWidth - scrollingContainer.clientWidth) {
-      scrollPosition = 0;
-      scrollingContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth',
-      });
-    }
-  }, scrollInterval);
-
-  // Arrow controls
-  const prevButton = document.querySelector('#ads-prev');
-  const nextButton = document.querySelector('#ads-next');
-
-  if (prevButton && nextButton) {
-    prevButton.addEventListener('click', () => {
-      scrollPosition = Math.max(0, scrollPosition - scrollStep);
-      scrollingContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth',
-      });
-      clearInterval(autoScroll); // Stop auto-scroll after manual interaction
+  // Manual scroll for next button
+  nextButton?.addEventListener('click', () => {
+    stopAutoScroll();
+    scrollingContainer.scrollBy({
+      left: scrollStep,
+      behavior: 'smooth',
     });
+  });
 
-    nextButton.addEventListener('click', () => {
-      scrollPosition = Math.min(
-        scrollingContainer.scrollWidth - scrollingContainer.clientWidth,
-        scrollPosition + scrollStep
-      );
-      scrollingContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth',
-      });
-      clearInterval(autoScroll); // Stop auto-scroll after manual interaction
-    });
-  }
+  // Start auto-scroll on page load
+  startAutoScroll();
 }
 
 // Initialize the slider when the DOM is fully loaded

@@ -135,26 +135,28 @@ function initAdsSlider() {
   const prevButton = document.querySelector('#ads-prev');
   const nextButton = document.querySelector('#ads-next');
 
-  prevButton.addEventListener('click', () => {
-    scrollPosition = Math.max(0, scrollPosition - scrollStep);
-    scrollingContainer.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth',
+  if (prevButton && nextButton) {
+    prevButton.addEventListener('click', () => {
+      scrollPosition = Math.max(0, scrollPosition - scrollStep);
+      scrollingContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth',
+      });
+      clearInterval(autoScroll); // Stop auto-scroll after manual interaction
     });
-    clearInterval(autoScroll); // Stop auto-scroll after manual interaction
-  });
 
-  nextButton.addEventListener('click', () => {
-    scrollPosition = Math.min(
-      scrollingContainer.scrollWidth - scrollingContainer.clientWidth,
-      scrollPosition + scrollStep
-    );
-    scrollingContainer.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth',
+    nextButton.addEventListener('click', () => {
+      scrollPosition = Math.min(
+        scrollingContainer.scrollWidth - scrollingContainer.clientWidth,
+        scrollPosition + scrollStep
+      );
+      scrollingContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth',
+      });
+      clearInterval(autoScroll); // Stop auto-scroll after manual interaction
     });
-    clearInterval(autoScroll); // Stop auto-scroll after manual interaction
-  });
+  }
 }
 
 // Initialize the slider when the DOM is fully loaded

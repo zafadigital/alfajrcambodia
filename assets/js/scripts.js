@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'about',
     'packages',
     'umrah-packages',
+    'umrah-holiday',
     'ads-banner',
     'recommendations',
     'destinations',

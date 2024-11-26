@@ -39,7 +39,7 @@
       ]
     },
     {
-      "id": "visit-cambodia",
+      "id": "Umrah-visit-cambodia",
       "title": "Umrah + Visit Cambodia Package",
       "adults": 2,
       "location": "Phnom Penh, Siem Reap, Kirirom, Mondulkiri",
@@ -54,9 +54,9 @@
         "activities": "4 Activities"
       },
       "images": [
-        "https://example.com/cambodia-image1.jpg",
-        "https://example.com/cambodia-image2.jpg",
-        "https://example.com/cambodia-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Explore Cambodia's rich culture and breathtaking landscapes from Phnom Penh to Siem Reap, Kirirom, and Mondulkiri.",
       "itineraryId": "cambodia-itinerary",
@@ -73,7 +73,7 @@
       ]
     },
     {
-      "id": "singapore-trip",
+      "id": "Umrah-singapore-trip",
       "title": "Umrah + Singapore Highlights Package",
       "adults": 2,
       "location": "Singapore",
@@ -88,9 +88,9 @@
         "activities": "5 Activities"
       },
       "images": [
-        "https://example.com/singapore-image1.jpg",
-        "https://example.com/singapore-image2.jpg",
-        "https://example.com/singapore-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Enjoy Singapore's vibrant culture, iconic landmarks, and world-class attractions.",
       "itineraryId": "singapore-itinerary",
@@ -107,7 +107,7 @@
       ]
     },
     {
-      "id": "kuala-lumpur-trip",
+      "id": "Umrah-kuala-lumpur-trip",
       "title": "Umrah + Kuala Lumpur Explorer Package",
       "adults": 2,
       "location": "Kuala Lumpur",
@@ -122,9 +122,9 @@
         "activities": "3 Activities"
       },
       "images": [
-        "https://example.com/kuala-lumpur-image1.jpg",
-        "https://example.com/kuala-lumpur-image2.jpg",
-        "https://example.com/kuala-lumpur-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Discover the vibrant city of Kuala Lumpur with its iconic landmarks and rich cultural experiences.",
       "itineraryId": "kuala-lumpur-itinerary",
@@ -141,7 +141,7 @@
       ]
     },
     {
-      "id": "vietnam-explorer",
+      "id": "Umrah-vietnam-explorer",
       "title": "Umrah + Vietnam Ho Chi Minh Package",
       "adults": 2,
       "location": "Ho Chi Minh, Vietnam",
@@ -156,9 +156,9 @@
         "activities": "5 Activities"
       },
       "images": [
-        "https://example.com/vietnam-image1.jpg",
-        "https://example.com/vietnam-image2.jpg",
-        "https://example.com/vietnam-image3.jpg"
+        "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+        "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
       ],
       "description": "Experience the charm of Vietnam with an exclusive package featuring Ho Chi Minh City and surrounding attractions.",
       "itineraryId": "vietnam-itinerary",

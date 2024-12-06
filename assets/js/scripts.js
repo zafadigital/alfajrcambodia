@@ -116,7 +116,7 @@ function initAdsSlider() {
   const nextButton = document.querySelector('#ads-next'); // Right arrow
 
   const scrollStep = 200; // Number of pixels to scroll
-  const scrollInterval = 3000; // Auto-scroll interval in milliseconds
+  const scrollInterval = 10000; // Auto-scroll interval in milliseconds
 
   let autoScrollInterval;
 

@@ -67,16 +67,27 @@ function initTabs() {
 // Hero Slider Functionality
 function initHeroSlider() {
   const slides = document.querySelectorAll('#slider .slide');
-  const dots = document.querySelectorAll('.slider-dots div');
+  const sliderDotsContainer = document.querySelector('.slider-dots');
   let currentIndex = 0;
 
-  if (slides.length && dots.length) {
+  if (slides.length) {
+    // Generate dots dynamically based on the number of slides
+    sliderDotsContainer.innerHTML = '';
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.classList.add('w-4', 'h-4', 'rounded-full', 'cursor-pointer', 'transition', 'duration-300');
+      dot.classList.add(index === 0 ? 'bg-black' : 'bg-gray-500');
+      sliderDotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.slider-dots div');
+
     // Function to show the current slide
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('opacity-100', i === index);
         slide.classList.toggle('opacity-0', i !== index);
-        slide.classList.toggle('z-10', i === index); // Ensure active slide is above others
+        slide.classList.toggle('z-10', i === index); // Ensure the active slide is on top
       });
 
       dots.forEach((dot, i) => {
@@ -86,7 +97,7 @@ function initHeroSlider() {
     }
 
     // Auto-slide every 5 seconds
-    setInterval(() => {
+    const autoSlideInterval = setInterval(() => {
       currentIndex = (currentIndex + 1) % slides.length;
       showSlide(currentIndex);
     }, 5000);
@@ -94,15 +105,36 @@ function initHeroSlider() {
     // Add click event to dots for manual navigation
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
+        clearInterval(autoSlideInterval); // Stop auto-slide on manual interaction
         currentIndex = index;
         showSlide(currentIndex);
       });
+    });
+
+    // Add manual navigation buttons
+    const prevButton = document.querySelector('#slider-prev');
+    const nextButton = document.querySelector('#slider-next');
+
+    prevButton.addEventListener('click', () => {
+      clearInterval(autoSlideInterval); // Stop auto-slide on manual interaction
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    });
+
+    nextButton.addEventListener('click', () => {
+      clearInterval(autoSlideInterval); // Stop auto-slide on manual interaction
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
     });
 
     // Show the first slide initially
     showSlide(currentIndex);
   }
 }
+
+// Initialize the slider when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initHeroSlider);
+
 
 // Ads Banner Sliding Functionality
 function initAdsSlider() {

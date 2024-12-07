@@ -1,83 +1,97 @@
 /* Colors */
 :root {
-  --primary: #FF4800;
-  --secondary: #FFB800;
-  --black: #000000;
-  --white: #FFFFFF;
-  --light-gray: #F5F5F5;
-  --medium-gray: #A0A0A0;
-  --dark-gray: #333333;
-  --success: #28A745;
-  --warning: #FFC107;
-  --error: #DC3545;
-  --info: #007BFF;
+    --primary: #FF4800;
+    --secondary: #FFB800;
+    --black: #000000;
+    --white: #FFFFFF;
+    --light-gray: #F5F5F5;
+    --medium-gray: #A0A0A0;
+    --dark-gray: #333333;
+    --success: #28A745;
+    --warning: #FFC107;
+    --error: #DC3545;
+    --info: #007BFF;
 }
 
 /* Buttons */
 .btn-primary {
-  background-color: var(--primary);
-  color: var(--white);
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #E84100;
+    background-color: #E84100;
 }
 
 
 h2 {
-  color: #333;
-  font-weight: bold;
+    color: #333;
+    font-weight: bold;
 }
 
 button {
-  transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 /* Transition for slides */
 .slide {
-  transition: opacity 0.7s;
+    transition: opacity 0.7s;
 }
 
 .slider-dots div {
-  width: 10px;
-  height: 10px;
-  background: gray;
-  border-radius: 50%;
-  cursor: pointer;
+    width: 1rem;
+    /* Size of the dots */
+    height: 1rem;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.slider-dots .bg-black {
+    background-color: white;
+}
+
+.slider-dots .bg-gray-500 {
+    background-color: gray;
 }
 
 .slider-dots .active {
-  background: black;
+    background: black;
 }
+
 .scrollbar-hide {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
 }
+
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+    display: none;
+    /* Chrome, Safari, Edge */
 }
+
 /* Tabs */
 .tab-button {
-  transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .tab-button.active {
-  background-color: #1a202c; /* Active tab color */
-  color: #ffffff;
+    background-color: #1a202c;
+    /* Active tab color */
+    color: #ffffff;
 }
 
 .tab-content {
-  display: none;
+    display: none;
 }
 
 .tab-content:not(.hidden) {
-  display: block;
+    display: block;
 }
-

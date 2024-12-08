@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fly with us</title>
+  <title>Fly with us - Alfajr Cambodia</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Favicon Meta -->
@@ -17,7 +17,8 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body class="font-sans antialiased bg-gray-50">
+  <body class="font-sans antialiased bg-gray-100">
+
   <!-- Header -->
   <div id="header"></div>
 
@@ -52,73 +53,86 @@
   <!-- Scripts -->
   <script src="assets/js/scripts.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Fetch and Render Flights by Airline
-      fetch("components/datajson/flights.json")
-        .then(response => response.json())
-        .then(data => {
-          const airlines = [...new Set(data.flights.map(flight => flight.airline))];
-          const tabsContainer = document.getElementById("airline-tabs");
-          const flightsContainer = document.getElementById("flights-container");
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("components/datajson/flights.json")
+      .then(response => response.json())
+      .then(data => {
+        const { flights, logos } = data;
+        const airlines = [...new Set(flights.map(flight => flight.airline))];
+        const tabsContainer = document.getElementById("airline-tabs");
+        const flightsContainer = document.getElementById("flights-container");
 
-          // Generate Airline Tabs
-          airlines.forEach((airline, index) => {
-            const activeClass = index === 0 ? "border-blue-500 text-blue-500" : "border-transparent text-gray-500";
-            tabsContainer.innerHTML += `
-              <li class="-mb-px mr-1">
-                <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 ${activeClass}" data-airline="${airline}">
-                  ${airline}
-                </button>
-              </li>
-            `;
-          });
+        // Add "ALL" tab as the first tab
+        tabsContainer.innerHTML += `
+          <li class="-mb-px mr-1">
+            <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-blue-500 text-blue-500" data-airline="ALL">
+              ALL
+            </button>
+          </li>
+        `;
 
-          // Initial Render for First Airline
-          renderFlights(data.flights.filter(flight => flight.airline === airlines[0]));
+        // Generate Airline Tabs
+        airlines.forEach((airline) => {
+          tabsContainer.innerHTML += `
+            <li class="-mb-px mr-1">
+              <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-transparent text-gray-500" data-airline="${airline}">
+                ${airline}
+              </button>
+            </li>
+          `;
+        });
 
-          // Tab Click Event
-          tabsContainer.addEventListener("click", (e) => {
-            if (e.target.tagName === "BUTTON") {
-              const selectedAirline = e.target.getAttribute("data-airline");
+        // Initial Render for "ALL" Tab
+        renderFlights(flights);
 
-              // Update Active Tab
-              document.querySelectorAll("#airline-tabs button").forEach(tab => {
-                tab.classList.remove("border-blue-500", "text-blue-500");
-                tab.classList.add("border-transparent", "text-gray-500");
-              });
-              e.target.classList.add("border-blue-500", "text-blue-500");
+        // Tab Click Event
+        tabsContainer.addEventListener("click", (e) => {
+          if (e.target.tagName === "BUTTON") {
+            const selectedAirline = e.target.getAttribute("data-airline");
 
-              // Render Flights for Selected Airline
-              const filteredFlights = data.flights.filter(flight => flight.airline === selectedAirline);
-              renderFlights(filteredFlights);
-            }
-          });
+            // Update Active Tab
+            document.querySelectorAll("#airline-tabs button").forEach(tab => {
+              tab.classList.remove("border-blue-500", "text-blue-500");
+              tab.classList.add("border-transparent", "text-gray-500");
+            });
+            e.target.classList.add("border-blue-500", "text-blue-500");
 
-          // Render Flights Function
-          function renderFlights(flights) {
-            flightsContainer.innerHTML = `
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                ${flights.map(flight => `
-                  <a href="${flight.link}" target="_blank" class="bg-white rounded-lg shadow-md p-4 block hover:shadow-lg transition-shadow duration-200">
-                    <div class="flex items-center justify-between mb-4">
-                      <div class="flex items-center">
-                        <img src="${flight.logo}" alt="${flight.airline}" class="w-10 h-10 rounded-full mr-3">
-                        <span class="text-gray-800 font-semibold">${flight.airline}</span>
-                      </div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-1">${flight.route}</p>
-                    <p class="text-gray-500 text-sm mb-1">${flight.dates}</p>
-                    <p class="text-gray-500 text-sm mb-4">${flight.class}</p>
-                    <p class="text-gray-800 font-bold">From ${flight.currency}${flight.price}</p>
-                  </a>
-                `).join("")}
-              </div>
-            `;
+            // Render Flights for Selected Airline or All Airlines
+            const filteredFlights = selectedAirline === "ALL"
+              ? flights
+              : flights.filter(flight => flight.airline === selectedAirline);
+
+            renderFlights(filteredFlights);
           }
-        })
-        .catch(error => console.error("Error loading flights:", error));
-    });
+        });
+
+        // Render Flights Function
+        function renderFlights(flights) {
+          flightsContainer.innerHTML = `
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              ${flights.map(flight => `
+                <a href="${flight.link}" target="_blank" class="bg-white rounded-lg shadow-md p-4 block hover:shadow-lg transition-shadow duration-200">
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                      <img src="${logos[flight.logo]}" alt="${flight.airline}" class="w-10 h-10 rounded-full mr-3">
+                      <span class="text-gray-800 font-semibold">${flight.airline}</span>
+                    </div>
+                  </div>
+                  <p class="text-gray-600 text-sm mb-1">${flight.route}</p>
+                  <p class="text-gray-500 text-sm mb-1">${flight.dates}</p>
+                  <p class="text-gray-500 text-sm mb-4">${flight.class}</p>
+                  <p class="text-gray-800 font-bold">From ${flight.currency}${flight.price}</p>
+                </a>
+              `).join("")}
+            </div>
+          `;
+        }
+      })
+      .catch(error => console.error("Error loading flights:", error));
+  });
 </script>
+
+
 
 </body>
 </html> 

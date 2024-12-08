@@ -1,44 +1,195 @@
 {
-  "flights": [
+    "logos":
     {
-      "airline": "American Airlines",
-      "logo": "https://example.com/logos/american-airlines.png",
-      "route": "New York ⇌ Miami",
-      "dates": "Tue, Dec 10 - Tue, Dec 10",
-      "class": "Economy",
-      "price": "132",
-      "currency": "US$",
-      "link": "#"
+        "american-airlines": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/aa.webp",
+        "cathay-pacific": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/cx.webp",
+        "emirates": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/ek.webp",
+        "qatar-airways": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/qr.webp",
+        "cambodia-airways": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/kr.webp",
+        "saudia": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/sv.webp",
+        "indigo": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/6e.webp",
+        "malaysia-airlines": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/mh.webp",
+        "bangkok-airways": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/pg.webp",
+        "gulf-air": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/gf.webp",
+        "sky-angkor-airlines": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/za.webp",
+        "air-arabia": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/g9.webp",
+        "etihad-airways": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/ey.webp",
+        "airasia": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/fd.webp",
+        "thai-vietjet-air": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/vz.webp",
+        "thai-airways": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/tg.webp",
+        "singapore-airlines": "https://static.tripcdn.com/packages/flight/airline-logo/latest/airline_logo/3x/sq.webp"
+    },
+    "flights": [
+        {
+        "airline": "AirAsia",
+        "logo": "airasia",
+        "route": "Phnom Penh ⇌ Bangkok",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "124",
+        "currency": "US$",
+        "link": "#"
     },
     {
-      "airline": "Cathay Pacific",
-      "logo": "https://example.com/logos/cathay-pacific.png",
-      "route": "Hong Kong ⇌ Singapore",
-      "dates": "Sat, Mar 1 - Mon, Mar 10",
-      "class": "Economy",
-      "price": "253",
-      "currency": "US$",
-      "link": "#"
+        "airline": "AirAsia",
+        "logo": "airasia",
+        "route": "Phnom Penh ⇌ Kuala Lumpur",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "125",
+        "currency": "US$",
+        "link": "#"
     },
     {
-      "airline": "Cathay Pacific",
-      "logo": "https://example.com/logos/cathay-pacific.png",
-      "route": "Taipei ⇌ Bangkok",
-      "dates": "Tue, Dec 24 - Sat, Jan 4",
-      "class": "Economy",
-      "price": "247",
-      "currency": "US$",
-      "link": "#"
+        "airline": "American Airlines",
+        "logo": "american-airlines",
+        "route": "New York ⇌ Miami",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "132",
+        "currency": "US$",
+        "link": "#"
     },
     {
-      "airline": "American Airlines",
-      "logo": "https://example.com/logos/american-airlines.png",
-      "route": "New York ⇌ London",
-      "dates": "Fri, Nov 29 - Thu, Dec 5",
-      "class": "Economy",
-      "price": "665",
-      "currency": "US$",
-      "link": "#"
+        "airline": "American Airlines",
+        "logo": "american-airlines",
+        "route": "New York ⇌ London",
+        "dates": "Fri, Nov 29 - Thu, Dec 5",
+        "class": "Economy",
+        "price": "665",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Cambodia Airways",
+        "logo": "cambodia-airways",
+        "route": "Phnom Penh ⇌ Bangkok",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "136",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Cambodia Angkor Air",
+        "logo": "cambodia-angkor-air",
+        "route": "Phnom Penh ⇌ Ho Chi Minh City",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "125",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Cathay Pacific",
+        "logo": "cathay-pacific",
+        "route": "Hong Kong ⇌ Singapore",
+        "dates": "Sat, Mar 1 - Mon, Mar 10",
+        "class": "Economy",
+        "price": "253",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Cathay Pacific",
+        "logo": "cathay-pacific",
+        "route": "Taipei ⇌ Bangkok",
+        "dates": "Tue, Dec 24 - Sat, Jan 4",
+        "class": "Economy",
+        "price": "247",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Emirates",
+        "logo": "emirates",
+        "route": "Dubai ⇌ London",
+        "dates": "Wed, Jan 15 - Thu, Jan 23",
+        "class": "Business",
+        "price": "983",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Malaysia Airlines",
+        "logo": "malaysia-airlines",
+        "route": "Phnom Penh ⇌ Kuala Lumpur",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "130",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Qatar Airways",
+        "logo": "qatar-airways",
+        "route": "Doha ⇌ Paris",
+        "dates": "Fri, Feb 7 - Fri, Feb 14",
+        "class": "Economy",
+        "price": "1091",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Qatar Airways",
+        "logo": "qatar-airways",
+        "route": "Phnom Penh ⇌ Ho Chi Minh City",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "130",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "SilkAir",
+        "logo": "silkair",
+        "route": "Phnom Penh ⇌ Singapore",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "135",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Singapore Airlines",
+        "logo": "singapore-airlines",
+        "route": "Phnom Penh ⇌ Singapore",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "140",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Thai Airways",
+        "logo": "thai-airways",
+        "route": "Phnom Penh ⇌ Bangkok",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "115",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Thai VietJet Air",
+        "logo": "thai-vietjet-air",
+        "route": "Phnom Penh ⇌ Bangkok",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "111",
+        "currency": "US$",
+        "link": "#"
+    },
+    {
+        "airline": "Vietnam Airlines",
+        "logo": "vietnam-airlines",
+        "route": "Phnom Penh ⇌ Ho Chi Minh City",
+        "dates": "Tue, Dec 10 - Tue, Dec 10",
+        "class": "Economy",
+        "price": "120",
+        "currency": "US$",
+        "link": "#"
     }
-  ]
+
+    ]
 }

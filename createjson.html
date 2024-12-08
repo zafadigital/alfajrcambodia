@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfajr Cambodia</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Favicon Meta -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-  <link rel="manifest" href="assets/images/favicon/site.webmanifest">
-  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
-  <meta name="theme-color" content="#FF4800">
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fly with us - Alfajr Cambodia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon Meta -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/favicon/site.webmanifest">
+    <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
+    <meta name="theme-color" content="#FF4800">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body class="font-sans antialiased bg-gray-100">
-
-  <!-- Header -->
-  <div id="header"></div>
-
-  <div class="container mx-auto mt-10 max-w-3xl bg-white rounded-lg shadow-md p-6">
-    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Labeled Single Box JSON Generator</h2>
-
-    <!-- Input Box -->
-    <div class="mb-4">
-      <label for="inputBox" class="block text-gray-600 font-medium mb-2">Enter Details Line-by-Line (Labels Fixed):</label>
-      <textarea id="inputBox" class="w-full h-[600px] p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300" placeholder="id: jeddah-stopover
+    <!-- Header -->
+    <div id="header"></div>
+    <div class="container mx-auto mt-10 max-w-4xl bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-semibold mb-6 text-gray-700">JSON Generator with Tabs</h1>
+        <!-- Tabs -->
+        <div class="flex border-b mb-4">
+            <button onclick="switchTab('detail-package')" class="tab-button active px-4 py-2 text-gray-700 border-b-2 font-medium focus:outline-none">Detail Package</button>
+            <button onclick="switchTab('flight-ticket')" class="tab-button px-4 py-2 text-gray-700 border-b-2 font-medium focus:outline-none">Flight Ticket</button>
+            <button onclick="switchTab('hotel')" class="tab-button px-4 py-2 text-gray-700 border-b-2 font-medium focus:outline-none">Hotel</button>
+        </div>
+        <!-- Detail Package -->
+        <div id="detail-package" class="tab-content">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Detail Package JSON Generator</h2>
+            <textarea id="packageInput" class="w-full h-[300px] p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300" placeholder="id: jeddah-stopover
 title: Jeddah Stopover Package
 adults: 2
 location: Jeddah
@@ -39,13 +42,7 @@ endDate: 2025-01-09
 flight: No Flight
 hotels: 1 Hotel
 transfers: 1 Transfer
-activities: No Activity
-https://example.com/image1.jpg
-https://example.com/image2.jpg
-Accommodation | In Jeddah
-Private Airport Transfers
-Add-ons not included
-Early check-in charges">
+activities: No Activity">
 id: jeddah-stopover
 title: Jeddah Stopover Package
 adults: 2
@@ -63,52 +60,126 @@ https://example.com/image2.jpg
 Accommodation | In Jeddah
 Private Airport Transfers
 Add-ons not included
-Early check-in charges
+Early check-in charges  
 </textarea>
+            <button onclick="generatePackageJson()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm mt-4">Generate JSON</button>
+            <pre id="packageOutput" class="bg-gray-100 p-4 rounded-md mt-4 overflow-x-auto text-sm text-gray-700"></pre>
+        </div>
+        <!-- Flight Ticket -->
+        <div id="flight-ticket" class="tab-content hidden">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Flight Ticket JSON Generator</h2>
+            <textarea id="flightInput" class="w-full h-[300px] p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300" placeholder="airline: American Airlines
+logo: american-airlines
+route: New York ⇌ Miami
+dates: Tue, Dec 10 - Tue, Dec 10
+class: Economy
+price: 132
+currency: US$
+link: #">
+logo: american-airlines
+route: New York ⇌ Miami
+dates: Tue, Dec 10 - Tue, Dec 10
+class: Economy
+price: 132
+currency: US$
+link: #  
+</textarea>
+            <button onclick="generateFlightJson()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm mt-4">Generate JSON</button>
+            <pre id="flightOutput" class="bg-gray-100 p-4 rounded-md mt-4 overflow-x-auto text-sm text-gray-700"></pre>
+        </div>
+        <!-- Hotel -->
+        <div id="hotel" class="tab-content hidden">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Hotel JSON Generator</h2>
+            <textarea id="hotelInput" class="w-full h-[300px] p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300" placeholder="name: The Bridge Club
+location: Phnom Penh
+price: 27
+currency: US$
+stars: 3
+reviews: 988
+image: https://example.com/images/bridge-club.jpg
+description: Ground Floor (unit 18 and 19) near the bridge Soho entrance, National...
+link: https://example.com/bridge-club">
+name: The Bridge Club
+location: Phnom Penh
+price: 27
+currency: US$
+stars: 3
+reviews: 988
+image: https://example.com/images/bridge-club.jpg
+description: Ground Floor (unit 18 and 19) near the bridge Soho entrance, National...
+link: https://example.com/bridge-club  
+</textarea>
+            <button onclick="generateHotelJson()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm mt-4">Generate JSON</button>
+            <pre id="hotelOutput" class="bg-gray-100 p-4 rounded-md mt-4 overflow-x-auto text-sm text-gray-700"></pre>
+        </div>
     </div>
+    <!-- Footer -->
+    <div id="footer"></div>
+    <script>
+    // Tab Switching
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+        document.getElementById(tabId).classList.remove('hidden');
+        document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+        document.querySelector(`.tab-button[onclick="switchTab('${tabId}')"]`).classList.add('active');
+    }
 
-    <!-- Generate Button -->
-    <button id="generateJson" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm">Generate JSON</button>
+    // Detail Package JSON Generator
+    function generatePackageJson() {
+        const input = document.getElementById('packageInput').value.trim().split('\n');
+        const json = {
+            id: input[0].split(': ')[1],
+            title: input[1].split(': ')[1],
+            adults: parseInt(input[2].split(': ')[1], 10),
+            location: input[3].split(': ')[1],
+            duration: input[4].split(': ')[1],
+            price: parseFloat(input[5].split(': ')[1]),
+            startDate: input[6].split(': ')[1],
+            endDate: input[7].split(': ')[1],
+            features: {
+                flight: input[8].split(': ')[1],
+                hotels: input[9].split(': ')[1],
+                transfers: input[10].split(': ')[1],
+                activities: input[11].split(': ')[1],
+            },
+        };
+        document.getElementById('packageOutput').textContent = JSON.stringify(json, null, 2);
+    }
 
-    <!-- JSON Output -->
-    <h2 class="text-xl font-semibold mt-6 text-gray-700">Generated JSON</h2>
-    <pre id="jsonOutput" class="bg-gray-100 p-4 rounded-md mt-4 overflow-x-auto text-sm text-gray-700"></pre>
-  </div>
+    // Flight Ticket JSON Generator
+    function generateFlightJson() {
+        const input = document.getElementById('flightInput').value.trim().split('\n');
+        const json = {
+            airline: input[0].split(': ')[1],
+            logo: input[1].split(': ')[1],
+            route: input[2].split(': ')[1],
+            dates: input[3].split(': ')[1],
+            class: input[4].split(': ')[1],
+            price: parseFloat(input[5].split(': ')[1]),
+            currency: input[6].split(': ')[1],
+            link: input[7].split(': ')[1],
+        };
+        document.getElementById('flightOutput').textContent = JSON.stringify(json, null, 2);
+    }
 
-  <script>
-    document.getElementById('generateJson').addEventListener('click', () => {
-      const input = document.getElementById('inputBox').value.trim().split('\n');
-      
-      // Parse input values from labeled lines
-      const json = {
-        id: input[0].split(': ')[1],
-        title: input[1].split(': ')[1],
-        adults: parseInt(input[2].split(': ')[1], 10),
-        location: input[3].split(': ')[1],
-        duration: input[4].split(': ')[1],
-        price: parseFloat(input[5].split(': ')[1]),
-        startDate: input[6].split(': ')[1],
-        endDate: input[7].split(': ')[1],
-        features: {
-          flight: input[8].split(': ')[1],
-          hotels: input[9].split(': ')[1],
-          transfers: input[10].split(': ')[1],
-          activities: input[11].split(': ')[1],
-        },
-        images: input.slice(12, input.indexOf('Accommodation | In Jeddah')).map((url) => url.trim()),
-        inclusions: input.slice(input.indexOf('Accommodation | In Jeddah'), input.indexOf('Add-ons not included')).map((line) => line.trim()),
-        exclusions: input.slice(input.indexOf('Add-ons not included')).map((line) => line.trim()),
-      };
-
-      // Display the JSON
-      document.getElementById('jsonOutput').textContent = JSON.stringify(json, null, 2);
-    });
-  </script>
-
-  <!-- Header -->
-  <div id="footer"></div>
-
-    <!-- Scripts -->
-<script src="assets/js/scripts.js" defer></script>
+    // Hotel JSON Generator
+    function generateHotelJson() {
+        const input = document.getElementById('hotelInput').value.trim().split('\n');
+        const json = {
+            name: input[0].split(': ')[1],
+            location: input[1].split(': ')[1],
+            price: parseFloat(input[2].split(': ')[1]),
+            currency: input[3].split(': ')[1],
+            stars: parseInt(input[4].split(': ')[1], 10),
+            reviews: parseInt(input[5].split(': ')[1], 10),
+            image: input[6].split(': ')[1],
+            description: input[7].split(': ')[1],
+            link: input[8].split(': ')[1],
+        };
+        document.getElementById('hotelOutput').textContent = JSON.stringify(json, null, 2);
+    }
+    </script>
+    <script src="assets/js/scripts.js"></script>
 </body>
+
 </html>

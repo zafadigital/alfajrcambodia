@@ -1,4 +1,4 @@
-<header class="bg-white text-black shadow-sm">
+<header class="bg-white text-black shadow-sm fixed top-0 left-0 w-full z-50">
   <div class="container mx-auto flex justify-between items-center p-4 max-w-[1440px]">
     <!-- Logo Section -->
     <a href="index.html" class="flex items-center">
@@ -9,8 +9,8 @@
     <!-- Navigation Menu -->
     <nav
       id="mobile-menu"
-      class="fixed inset-0 bg-white bg-opacity-90 z-50 transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0 md:flex md:space-x-6 md:bg-transparent md:p-0 md:inset-auto">
-      
+      class="fixed inset-0 bg-white bg-opacity-90 z-50 transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0 md:flex md:space-x-6 md:bg-transparent md:p-0 md:inset-auto"
+    >
       <!-- Mobile Menu Header -->
       <div class="flex items-center justify-between mb-6 md:hidden p-4">
         <!-- Logo -->
@@ -20,43 +20,65 @@
         </a>
 
         <!-- Close menu button -->
-        <button id="close-menu" aria-label="Close menu" class="text-black text-2xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+        <button
+          id="close-menu"
+          aria-label="Close menu"
+          class="text-black text-2xl focus:outline-none focus:ring-2 focus:ring-gray-400"
+        >
           &#10005;
         </button>
       </div>
 
       <!-- Navigation List -->
-      <ul class="flex flex-col space-y-4 text-black p-6 md:space-y-0 md:flex-row md:items-center md:space-x-8 md:p-0">
-        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-          <img src="assets/images/icons/home.svg" alt="Personal Icon" class="w-6 h-6 md:hidden">
-          <a href="index.html" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Home</a>
+      <ul
+        class="flex flex-col space-y-4 text-black p-6 md:space-y-0 md:flex-row md:items-center md:space-x-8 md:p-0"
+      >
+        <li>
+          <a
+            href="index.html"
+            class="hover:text-primary hover:underline hover:underline-offset-4 transition"
+          >Home</a>
         </li>
-        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-          <img src="assets/images/icons/kaaba.svg" alt="Business Icon" class="w-6 h-6 md:hidden">
-          <a href="umrah-package.html" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Umrah Packages</a>
+        <li>
+          <a
+            href="umrah-package.html"
+            class="hover:text-primary hover:underline hover:underline-offset-4 transition"
+          >Umrah Packages</a>
         </li>
-        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-          <img src="assets/images/icons/traveler-with-a-suitcase.svg" alt="Premier Icon" class="w-6 h-6 md:hidden">
-          <a href="umrah-holiday.html" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Umrah + Holidays</a>
+        <li>
+          <a
+            href="umrah-holiday.html"
+            class="hover:text-primary hover:underline hover:underline-offset-4 transition"
+          >Umrah + Holidays</a>
         </li>
-        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-          <img src="assets/images/icons/hotel.svg" alt="Corporate Icon" class="w-6 h-6 md:hidden">
-          <a href="hotels.html" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Hotels</a>
+        <li>
+          <a
+            href="hotels.html"
+            class="hover:text-primary hover:underline hover:underline-offset-4 transition"
+          >Hotels</a>
         </li>
-        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-          <img src="assets/images/icons/airplane-ticket.svg" alt="Islamic Icon" class="w-6 h-6 md:hidden">
-          <a href="flights.html" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Flights</a>
+        <li>
+          <a
+            href="flights.html"
+            class="hover:text-primary hover:underline hover:underline-offset-4 transition"
+          >Flights</a>
         </li>
-        <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-          <img src="assets/images/icons/customer-service.svg" alt="Contact Icon" class="w-6 h-6 md:hidden">
-          <a href="contact.html" class="hover:text-primary hover:underline hover:underline-offset-4 transition">Contact Us</a>
+        <li>
+          <a
+            href="contact.html"
+            class="hover:text-primary hover:underline hover:underline-offset-4 transition"
+          >Contact Us</a>
         </li>
       </ul>
     </nav>
 
     <!-- Button Section -->
     <div class="flex items-center">
-      <button id="burger-button" aria-label="Open menu" class="md:hidden p-2 bg-white text-black rounded border border-gray-300">
+      <button
+        id="burger-button"
+        aria-label="Open menu"
+        class="md:hidden p-2 bg-white text-black rounded border border-gray-300"
+      >
         <!-- Burger Icon -->
         <div class="space-y-1">
           <span class="block w-6 h-0.5 bg-black"></span>
@@ -64,7 +86,9 @@
           <span class="block w-6 h-0.5 bg-black"></span>
         </div>
       </button>
-      <button class="btn-primary hidden md:block px-4 py-2 text-white bg-orange-500 rounded hover:bg-orange-600 transition">
+      <button
+        class="btn-primary hidden md:block px-4 py-2 text-white bg-orange-500 rounded hover:bg-orange-600 transition"
+      >
         Booking Now
       </button>
     </div>

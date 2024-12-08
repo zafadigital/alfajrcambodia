@@ -29,6 +29,9 @@
 .btn-primary:hover {
     background-color: #E84100;
 }
+body {
+    padding-top: 60px;
+}
 
 button {
     transition: background-color 0.3s ease, transform 0.2s ease;

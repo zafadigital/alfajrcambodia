@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+<div class="container mx-auto py-12 px-4">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-gray-600">
+        <a href="index.html" class="hover:underline">Home</a> &gt; 
+        <a href="details.html" class="hover:underline">Details</a> &gt; 
+        <span class="text-gray-800">Booking</span>
+    </nav>
+
+    <!-- Booking Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Booking Details -->
+        <div class="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-4">Maklumat Tempahan Anda</h2>
+
+            <!-- Package Information -->
+            <div class="mb-4">
+                <p><strong>Nama Pakej:</strong> Malaysian Airlines Cuti Sekolah</p>
+                <p><strong>Tarikh Berlepas:</strong> 01 Jan 2025</p>
+                <p><strong>Tarikh Pulang:</strong> 13 Jan 2025</p>
+                <p><strong>Bil Hari:</strong> 13D 11N</p>
+                <p><strong>Penerbangan:</strong> MH MALAYSIA AIRLINES</p>
+                <p><strong>Kod:</strong> 01JAN24-MH</p>
+            </div>
+
+            <!-- Adult and Children Fields -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="bil-dewasa" class="block text-gray-700 font-medium">Bil Dewasa</label>
+                    <input type="number" id="bil-dewasa" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="bil-kanak" class="block text-gray-700 font-medium">Bil Kanak-kanak</label>
+                    <input type="number" id="bil-kanak" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="bil-bayi" class="block text-gray-700 font-medium">Bil Bayi</label>
+                    <input type="number" id="bil-bayi" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+            </div>
+
+            <!-- Lead Passenger Details -->
+            <h3 class="text-lg font-bold mb-2">Maklumat Ketua atau Mahram</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="no-telefon" class="block text-gray-700 font-medium">No Telefon</label>
+                    <input type="tel" id="no-telefon" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-700 font-medium">Alamat Email</label>
+                    <input type="email" id="email" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+            </div>
+
+            <!-- Passenger Details -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="gelaran" class="block text-gray-700 font-medium">Gelaran</label>
+                    <select id="gelaran" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                        <option value="mr">Mr</option>
+                        <option value="mrs">Mrs</option>
+                        <option value="miss">Miss</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="nama-utama" class="block text-gray-700 font-medium">Nama Utama</label>
+                    <input type="text" id="nama-utama" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="umur" class="block text-gray-700 font-medium">Umur/Bilik</label>
+                    <input type="text" id="umur" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="jenis-bilik" class="block text-gray-700 font-medium">Jenis Bilik</label>
+                    <input type="text" id="jenis-bilik" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="nric" class="block text-gray-700 font-medium">NRIC/Passport</label>
+                    <input type="text" id="nric" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="tarikh-lahir" class="block text-gray-700 font-medium">Tarikh Lahir</label>
+                    <input type="date" id="tarikh-lahir" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary and Confirmation -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-lg font-bold mb-4">Ringkasan Tempahan</h2>
+            <p class="text-lg font-semibold">Bayaran Sekarang (Deposit):</p>
+            <p class="text-2xl font-bold text-green-600 mb-4">RM 300.00</p>
+            <button class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-md font-bold">
+                Sahkan Tempahan
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/scripts.js" defer></script>
+</body>
+</html>

@@ -110,34 +110,34 @@
             const passengerDiv = document.createElement('div');
             passengerDiv.classList.add('border', 'p-4', 'rounded-lg', 'relative');
             passengerDiv.innerHTML = `
-                    <h4 class="font-bold mb-2">Passenger ${i + 1}</h4>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Title</label>
-                            <select class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Ms">Ms</option>
-                            </select>
-                        </div>
-                        <div class="col-span-2">
-                            <label class="block text-sm text-gray-600 mb-1">Full Name</label>
-                            <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Full Name">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">NRIC/Passport</label>
-                            <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="NRIC/Passport">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Date of Birth</label>
-                            <input type="date" class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Phone Number</label>
-                            <input type="tel" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Phone Number">
-                        </div>
+                <h4 class="font-bold mb-2">Passenger ${i + 1}</h4>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Title</label>
+                        <select class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Ms">Ms</option>
+                        </select>
                     </div>
-                `;
+                    <div class="col-span-2">
+                        <label class="block text-sm text-gray-600 mb-1">Full Name</label>
+                        <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Full Name">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">NRIC/Passport</label>
+                        <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="NRIC/Passport">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Date of Birth</label>
+                        <input type="date" class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Phone Number</label>
+                        <input type="tel" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Phone Number">
+                    </div>
+                </div>
+            `;
             passengerDetails.appendChild(passengerDiv);
         }
     }
@@ -162,17 +162,16 @@
     updatePassengerDetails();
     updateTotalDeposit();
 
-
+    // Confirm booking and send data to Google Sheets
     document.querySelector('button').addEventListener('click', () => {
         const packageName = document.getElementById('package-name').textContent;
         const startDate = document.getElementById('start-date').textContent;
         const endDate = document.getElementById('end-date').textContent;
         const duration = document.getElementById('duration').textContent;
-        const depositAmount = 300; // Update if dynamic deposit is used
 
         // Collect passenger details
         const passengerElements = document.querySelectorAll('#passenger-details > div');
-        const passengers = Array.from(passengerElements).map((passenger, index) => ({
+        const passengers = Array.from(passengerElements).map((passenger) => ({
             title: passenger.querySelector('select').value,
             fullName: passenger.querySelector('input[placeholder="Full Name"]').value,
             nricPassport: passenger.querySelector('input[placeholder="NRIC/Passport"]').value,
@@ -195,26 +194,26 @@
 
         // Send data to Google Sheets
         fetch(googleScriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(bookingData),
-            })
-            .then(response => response.json())
-            .then(data => {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
                 if (data.success) {
                     alert('Booking confirmed and sent to Google Sheets!');
-                    // Optionally redirect to a confirmation page
-                    // window.location.href = 'confirmation.html';
+                    // Redirect to a confirmation page if necessary
                 } else {
                     alert('Failed to send booking. Please try again.');
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
             });
     });
-    </script>
+</script>
+
 </body>
 
 </html>

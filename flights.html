@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fly with us - Alfajr Cambodia</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Favicon Meta -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-  <link rel="manifest" href="assets/images/favicon/site.webmanifest">
-  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
-  <meta name="theme-color" content="#FF4800">
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fly with us - Alfajr Cambodia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon Meta -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/favicon/site.webmanifest">
+    <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
+    <meta name="theme-color" content="#FF4800">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-  <body class="font-sans antialiased bg-gray-100">
 
-  <!-- Header -->
-  <div id="header"></div>
+<body class="font-sans antialiased bg-gray-100">
+    <!-- Header -->
+    <div id="header"></div>
+    <!-- Main Section -->
+    <section class="container mx-auto py-8 px-4 md:px-16">
+        <!-- Trip.com Embed -->
+        <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
+        <div class="mb-8">
+            <iframe src="https://www.trip.com/partners/ad/S683160?Allianceid=5582984&SID=127216986&trip_sub1=search_box_flights" frameborder="0" style="width: 100%; height: 250px; border: none;" title="Search Flights with Trip.com" allowfullscreen>
+            </iframe>
+        </div>
+        <!-- Filters and Sidebar -->
+        <div class="flex flex-col md:flex-row">
+            <!-- Sidebar -->
+            <aside class="w-full md:w-1/4 md:pr-4 mb-6 md:mb-0">
+                <h3 class="text-lg font-semibold mb-4">Filters</h3>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <!-- Airlines Filter -->
+                    <div>
+                        <h4 class="font-medium text-gray-800 mb-2">Airlines</h4>
+                        <input id="airline-search" type="text" placeholder="Search airline..." class="border border-gray-300 rounded-md px-4 py-2 w-full mb-4" />
+                        <div class="overflow-x-auto md:overflow-y-auto whitespace-nowrap md:whitespace-normal" style="scrollbar-width: thin; -webkit-overflow-scrolling: touch;">
+                            <ul class="flex md:flex-col space-x-2 md:space-x-0 md:space-y-2" id="airline-tabs">
+                                <!-- Airline tabs will be dynamically injected here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!-- Flights and Main Content -->
+            <div class="flex-grow">
+                <h3 class="text-xl font-semibold mb-4">Available Flights</h3>
+                <!-- Flights Container -->
+                <div class="mt-6" id="flights-container">
+                    <!-- Flights will be dynamically injected here -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <div id="footer"></div>
+    <!-- Scripts -->
+    <script src="assets/js/scripts.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("components/datajson/flights.json")
+            .then(response => response.json())
+            .then(data => {
+                const { flights, logos } = data;
+                const airlines = [...new Set(flights.map(flight => flight.airline))];
+                const tabsContainer = document.getElementById("airline-tabs");
+                const flightsContainer = document.getElementById("flights-container");
+                const searchInput = document.getElementById("airline-search");
 
-  <!-- Main Section -->
-<section class="container mx-auto py-4 px-4 md:px-16">
-  <!-- Trip.com Embed -->
-  <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
-  <div class="mb-6">
-    <iframe
-      src="https://www.trip.com/partners/ad/S683160?Allianceid=5582984&SID=127216986&trip_sub1=search_box_flights"
-      frameborder="0"
-      style="width: 100%; height: 250px; border: none;"
-      title="Search Flights with Trip.com"
-      allowfullscreen>
-    </iframe>
-  </div>
-
-  <!-- Airline Tabs and Search Box -->
-  <div class="sticky top-0 bg-white z-10 flex flex-wrap justify-between items-center py-2 border-b">
-    <ul class="flex overflow-x-auto whitespace-nowrap flex-grow" id="airline-tabs" style="scrollbar-width: thin; -webkit-overflow-scrolling: touch;">
-      <!-- Airline tabs will be dynamically injected here -->
-    </ul>
-    <div class="ml-4">
-      <input
-        id="airline-search"
-        type="text"
-        placeholder="Search airline..."
-        class="border border-gray-300 rounded-md px-4 py-2 w-64 md:w-48"
-      />
-    </div>
-  </div>
-
-  <!-- Flights Container -->
-  <div class="mt-6" id="flights-container">
-    <!-- Flights will be dynamically injected here -->
-  </div>
-</section>
-
-
-
-  <!-- Footer -->
-  <div id="footer"></div>
-
-  <!-- Scripts -->
-  <script src="assets/js/scripts.js"></script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    fetch("components/datajson/flights.json")
-      .then(response => response.json())
-      .then(data => {
-        const { flights, logos } = data;
-        const airlines = [...new Set(flights.map(flight => flight.airline))];
-        const tabsContainer = document.getElementById("airline-tabs");
-        const flightsContainer = document.getElementById("flights-container");
-        const searchInput = document.getElementById("airline-search");
-
-        // Add "ALL" tab as the first tab
-        tabsContainer.innerHTML += `
+                // Add "ALL" tab as the first tab
+                tabsContainer.innerHTML += `
           <li class="-mb-px mr-1">
             <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-blue-500 text-blue-500" data-airline="ALL">
               ALL
@@ -84,54 +80,54 @@
           </li>
         `;
 
-        // Generate Airline Tabs
-        airlines.forEach((airline) => {
-          tabsContainer.innerHTML += `
+                // Generate Airline Tabs
+                airlines.forEach((airline) => {
+                    tabsContainer.innerHTML += `
             <li class="-mb-px mr-1">
               <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-transparent text-gray-500" data-airline="${airline}">
                 ${airline}
               </button>
             </li>
           `;
-        });
+                });
 
-        // Make tabs container scrollable
-        tabsContainer.parentElement.style.overflowX = "auto";
-        tabsContainer.parentElement.style.whiteSpace = "nowrap";
+                // Make tabs container scrollable
+                tabsContainer.parentElement.style.overflowX = "auto";
+                tabsContainer.parentElement.style.whiteSpace = "nowrap";
 
-        // Initial Render for "ALL" Tab
-        renderFlights(flights);
+                // Initial Render for "ALL" Tab
+                renderFlights(flights);
 
-        // Tab Click Event
-        tabsContainer.addEventListener("click", (e) => {
-          if (e.target.tagName === "BUTTON") {
-            const selectedAirline = e.target.getAttribute("data-airline");
+                // Tab Click Event
+                tabsContainer.addEventListener("click", (e) => {
+                    if (e.target.tagName === "BUTTON") {
+                        const selectedAirline = e.target.getAttribute("data-airline");
 
-            // Update Active Tab
-            document.querySelectorAll("#airline-tabs button").forEach(tab => {
-              tab.classList.remove("border-blue-500", "text-blue-500");
-              tab.classList.add("border-transparent", "text-gray-500");
-            });
-            e.target.classList.add("border-blue-500", "text-blue-500");
+                        // Update Active Tab
+                        document.querySelectorAll("#airline-tabs button").forEach(tab => {
+                            tab.classList.remove("border-blue-500", "text-blue-500");
+                            tab.classList.add("border-transparent", "text-gray-500");
+                        });
+                        e.target.classList.add("border-blue-500", "text-blue-500");
 
-            // Render Flights for Selected Airline or All Airlines
-            const filteredFlights = selectedAirline === "ALL"
-              ? flights
-              : flights.filter(flight => flight.airline === selectedAirline);
+                        // Render Flights for Selected Airline or All Airlines
+                        const filteredFlights = selectedAirline === "ALL" ?
+                            flights :
+                            flights.filter(flight => flight.airline === selectedAirline);
 
-            renderFlights(filteredFlights);
-          }
-        });
+                        renderFlights(filteredFlights);
+                    }
+                });
 
-        // Airline Search Functionality
-        searchInput.addEventListener("input", (e) => {
-          const searchTerm = e.target.value.toLowerCase();
-          const filteredAirlines = airlines.filter(airline =>
-            airline.toLowerCase().includes(searchTerm)
-          );
+                // Airline Search Functionality
+                searchInput.addEventListener("input", (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const filteredAirlines = airlines.filter(airline =>
+                        airline.toLowerCase().includes(searchTerm)
+                    );
 
-          // Regenerate airline tabs based on search
-          tabsContainer.innerHTML = `
+                    // Regenerate airline tabs based on search
+                    tabsContainer.innerHTML = `
             <li class="-mb-px mr-1">
               <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-blue-500 text-blue-500" data-airline="ALL">
                 ALL
@@ -139,41 +135,41 @@
             </li>
           `;
 
-          filteredAirlines.forEach((airline) => {
-            tabsContainer.innerHTML += `
+                    filteredAirlines.forEach((airline) => {
+                        tabsContainer.innerHTML += `
               <li class="-mb-px mr-1">
                 <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-transparent text-gray-500" data-airline="${airline}">
                   ${airline}
                 </button>
               </li>
             `;
-          });
+                    });
 
-          // Restore click event listeners after updating tabs
-          document.querySelectorAll("#airline-tabs button").forEach(button => {
-            button.addEventListener("click", (e) => {
-              const selectedAirline = e.target.getAttribute("data-airline");
+                    // Restore click event listeners after updating tabs
+                    document.querySelectorAll("#airline-tabs button").forEach(button => {
+                        button.addEventListener("click", (e) => {
+                            const selectedAirline = e.target.getAttribute("data-airline");
 
-              // Update Active Tab
-              document.querySelectorAll("#airline-tabs button").forEach(tab => {
-                tab.classList.remove("border-blue-500", "text-blue-500");
-                tab.classList.add("border-transparent", "text-gray-500");
-              });
-              e.target.classList.add("border-blue-500", "text-blue-500");
+                            // Update Active Tab
+                            document.querySelectorAll("#airline-tabs button").forEach(tab => {
+                                tab.classList.remove("border-blue-500", "text-blue-500");
+                                tab.classList.add("border-transparent", "text-gray-500");
+                            });
+                            e.target.classList.add("border-blue-500", "text-blue-500");
 
-              // Render Flights
-              const filteredFlights = selectedAirline === "ALL"
-                ? flights
-                : flights.filter(flight => flight.airline === selectedAirline);
+                            // Render Flights
+                            const filteredFlights = selectedAirline === "ALL" ?
+                                flights :
+                                flights.filter(flight => flight.airline === selectedAirline);
 
-              renderFlights(filteredFlights);
-            });
-          });
-        });
+                            renderFlights(filteredFlights);
+                        });
+                    });
+                });
 
-        // Render Flights Function
-        function renderFlights(flights) {
-          flightsContainer.innerHTML = `
+                // Render Flights Function
+                function renderFlights(flights) {
+                    flightsContainer.innerHTML = `
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               ${flights.map(flight => `
                 <a href="${flight.link}" target="_blank" class="bg-white rounded-lg shadow-md p-4 block hover:shadow-lg transition-shadow duration-200">
@@ -191,14 +187,11 @@
               `).join("")}
             </div>
           `;
-        }
-      })
-      .catch(error => console.error("Error loading flights:", error));
-  });
-</script>
-
-
-
-
+                }
+            })
+            .catch(error => console.error("Error loading flights:", error));
+    });
+    </script>
 </body>
-</html> 
+
+</html>

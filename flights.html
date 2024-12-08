@@ -23,29 +23,41 @@
   <div id="header"></div>
 
   <!-- Main Section -->
-  <section class="container mx-auto py-8 px-4 md:px-16">
-    <!-- Trip.com Embed -->
-    <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
-    <div class="mb-8">
-      <iframe
-        src="https://www.trip.com/partners/ad/S683160?Allianceid=5582984&SID=127216986&trip_sub1=search_box_flights"
-        frameborder="0"
-        style="width: 100%; height: 250px; border: none;"
-        title="Search Flights with Trip.com"
-        allowfullscreen>
-      </iframe>
-    </div>
+<section class="container mx-auto py-8 px-4 md:px-16">
+  <!-- Trip.com Embed -->
+  <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
+  <div class="mb-8">
+    <iframe
+      src="https://www.trip.com/partners/ad/S683160?Allianceid=5582984&SID=127216986&trip_sub1=search_box_flights"
+      frameborder="0"
+      style="width: 100%; height: 250px; border: none;"
+      title="Search Flights with Trip.com"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-    <!-- Airline Tabs Section -->
-    <div>
-      <ul class="flex border-b" id="airline-tabs">
-        <!-- Airline tabs will be dynamically injected here -->
-      </ul>
-      <div class="mt-6" id="flights-container">
-        <!-- Flights will be dynamically injected here -->
-      </div>
+  <!-- Airline Tabs and Search Box -->
+  <div class="flex justify-between items-center mb-4">
+    <ul class="flex border-b overflow-x-auto whitespace-nowrap flex-grow" id="airline-tabs" style="scrollbar-width: thin;">
+      <!-- Airline tabs will be dynamically injected here -->
+    </ul>
+    <div class="ml-4">
+      <input
+        id="airline-search"
+        type="text"
+        placeholder="Search airline..."
+        class="border border-gray-300 rounded-md px-4 py-2 w-64"
+      />
     </div>
-  </section>
+  </div>
+
+  <!-- Flights Container -->
+  <div class="mt-6" id="flights-container">
+    <!-- Flights will be dynamically injected here -->
+  </div>
+</section>
+
+
 
   <!-- Footer -->
   <div id="footer"></div>
@@ -61,6 +73,7 @@
         const airlines = [...new Set(flights.map(flight => flight.airline))];
         const tabsContainer = document.getElementById("airline-tabs");
         const flightsContainer = document.getElementById("flights-container");
+        const searchInput = document.getElementById("airline-search");
 
         // Add "ALL" tab as the first tab
         tabsContainer.innerHTML += `
@@ -81,6 +94,10 @@
             </li>
           `;
         });
+
+        // Make tabs container scrollable
+        tabsContainer.parentElement.style.overflowX = "auto";
+        tabsContainer.parentElement.style.whiteSpace = "nowrap";
 
         // Initial Render for "ALL" Tab
         renderFlights(flights);
@@ -104,6 +121,54 @@
 
             renderFlights(filteredFlights);
           }
+        });
+
+        // Airline Search Functionality
+        searchInput.addEventListener("input", (e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          const filteredAirlines = airlines.filter(airline =>
+            airline.toLowerCase().includes(searchTerm)
+          );
+
+          // Regenerate airline tabs based on search
+          tabsContainer.innerHTML = `
+            <li class="-mb-px mr-1">
+              <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-blue-500 text-blue-500" data-airline="ALL">
+                ALL
+              </button>
+            </li>
+          `;
+
+          filteredAirlines.forEach((airline) => {
+            tabsContainer.innerHTML += `
+              <li class="-mb-px mr-1">
+                <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 border-transparent text-gray-500" data-airline="${airline}">
+                  ${airline}
+                </button>
+              </li>
+            `;
+          });
+
+          // Restore click event listeners after updating tabs
+          document.querySelectorAll("#airline-tabs button").forEach(button => {
+            button.addEventListener("click", (e) => {
+              const selectedAirline = e.target.getAttribute("data-airline");
+
+              // Update Active Tab
+              document.querySelectorAll("#airline-tabs button").forEach(tab => {
+                tab.classList.remove("border-blue-500", "text-blue-500");
+                tab.classList.add("border-transparent", "text-gray-500");
+              });
+              e.target.classList.add("border-blue-500", "text-blue-500");
+
+              // Render Flights
+              const filteredFlights = selectedAirline === "ALL"
+                ? flights
+                : flights.filter(flight => flight.airline === selectedAirline);
+
+              renderFlights(filteredFlights);
+            });
+          });
         });
 
         // Render Flights Function
@@ -131,6 +196,7 @@
       .catch(error => console.error("Error loading flights:", error));
   });
 </script>
+
 
 
 

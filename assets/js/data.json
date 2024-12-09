@@ -94,7 +94,7 @@
                 "https://example.com/images/economy-package-2.jpg"
             ],
             "description": "Affordable pricing with great amenities.",
-            "itineraryId": "economy-itinerary",
+            "itineraryId": "default-itinerary",
             "inclusions": [
                 "Shared Transfers",
                 "3-Star Hotel Accommodation",

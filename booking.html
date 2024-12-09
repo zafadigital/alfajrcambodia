@@ -190,30 +190,29 @@
         };
 
         // Replace with your Google Apps Script Web App URL
-        const googleScriptURL = 'https://script.google.com/macros/s/AKfycbyGZ4tIxfO_p9NSQDe1x1LM6Xl4naoem7WLvtmDbsuTkckRDIbomd9C7RV2vQfsdAKweQ/exec';
+        const googleScriptURL = 'https://script.google.com/macros/s/AKfycbxH75llujjskihFfxIT-RsE5WVWBq7nmC_TjTNvusheiiUhQJlsk0aYd_iDWM12zfKxFQ/exec';
 
         // Send data to Google Sheets
         fetch(googleScriptURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bookingData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
-                    alert('Booking confirmed and sent to Google Sheets!');
-                    // Redirect to a confirmation page if necessary
-                } else {
-                    alert('Failed to send booking. Please try again.');
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(bookingData),
+})
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Booking confirmed and sent to Google Sheets!');
+        } else {
+            alert(`Failed to send booking: ${data.error}`);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while sending the booking. Please try again.');
     });
-</script>
 
+    });
+    </script>
 </body>
 
 </html>

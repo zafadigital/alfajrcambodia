@@ -20,6 +20,7 @@
 <body class="font-sans antialiased bg-gray-100">
     <!-- Header -->
     <div id="header"></div>
+
     <!-- Main Section -->
     <section class="container mx-auto py-8 px-4 md:px-16">
         <!-- Trip.com Embed -->
@@ -28,6 +29,7 @@
             <iframe src="https://www.trip.com/partners/ad/S683258?Allianceid=5582984&SID=127216986&trip_sub1=booking-hotel" frameborder="0" style="width: 100%; height: 250px; border: none;" title="Search Hotels with Trip.com" allowfullscreen>
             </iframe>
         </div>
+
         <!-- Filters and Sidebar -->
         <div class="flex flex-col md:flex-row">
             <!-- Sidebar -->
@@ -46,6 +48,7 @@
                     </div>
                 </div>
             </aside>
+
             <!-- Hotels and Main Content -->
             <div class="flex-grow">
                 <h3 class="text-xl font-semibold mb-4">Available Hotels</h3>
@@ -56,84 +59,86 @@
             </div>
         </div>
     </section>
+
     <!-- Footer -->
     <div id="footer"></div>
+
     <!-- Scripts -->
     <script src="assets/js/scripts.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        fetch("components/datajson/hotels.json")
-            .then(response => response.json())
-            .then(data => {
-                const tabsContainer = document.getElementById("hotel-tabs");
-                const hotelsContainer = document.getElementById("hotels-container");
-                const searchInput = document.getElementById("location-search");
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("components/datajson/hotels.json")
+                .then(response => response.json())
+                .then(data => {
+                    const tabsContainer = document.getElementById("hotel-tabs");
+                    const hotelsContainer = document.getElementById("hotels-container");
+                    const searchInput = document.getElementById("location-search");
 
-                // Get unique locations for tabs
-                const locations = [...new Set(data.hotels.map(hotel => hotel.location))];
+                    // Get unique locations for tabs
+                    const locations = [...new Set(data.hotels.map(hotel => hotel.location))];
 
-                // Generate Tabs
-                locations.forEach((location, index) => {
-                    const activeClass = index === 0 ? "text-blue-500 border-blue-500" : "text-gray-500 border-transparent";
-                    tabsContainer.innerHTML += `
+                    // Generate Tabs
+                    locations.forEach((location, index) => {
+                        const activeClass = index === 0 ? "text-blue-500 border-blue-500" : "text-gray-500 border-transparent";
+                        tabsContainer.innerHTML += `
                         <li class="-mb-px mr-1">
                             <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 ${activeClass}" data-location="${location}">
                                 ${location}
                             </button>
                         </li>`;
-                });
+                    });
 
-                // Initial Render for the first location
-                renderHotels(data.hotels.filter(hotel => hotel.location === locations[0]));
+                    // Initial Render for the first location
+                    renderHotels(data.hotels.filter(hotel => hotel.location === locations[0]));
 
-                // Tab Click Event
-                tabsContainer.addEventListener("click", (e) => {
-                    if (e.target.tagName === "BUTTON") {
-                        const selectedLocation = e.target.getAttribute("data-location");
+                    // Tab Click Event
+                    tabsContainer.addEventListener("click", (e) => {
+                        if (e.target.tagName === "BUTTON") {
+                            const selectedLocation = e.target.getAttribute("data-location");
 
-                        // Update Active Tab Styling
-                        document.querySelectorAll("#hotel-tabs button").forEach(tab => {
-                            tab.classList.remove("text-blue-500", "border-blue-500");
-                            tab.classList.add("text-gray-500", "border-transparent");
-                        });
-                        e.target.classList.add("text-blue-500", "border-blue-500");
+                            // Update Active Tab Styling
+                            document.querySelectorAll("#hotel-tabs button").forEach(tab => {
+                                tab.classList.remove("text-blue-500", "border-blue-500");
+                                tab.classList.add("text-gray-500", "border-transparent");
+                            });
+                            e.target.classList.add("text-blue-500", "border-blue-500");
 
-                        // Render Hotels for Selected Location
-                        const filteredHotels = data.hotels.filter(hotel => hotel.location === selectedLocation);
-                        renderHotels(filteredHotels);
-                    }
-                });
+                            // Render Hotels for Selected Location
+                            const filteredHotels = data.hotels.filter(hotel => hotel.location === selectedLocation);
+                            renderHotels(filteredHotels);
+                        }
+                    });
 
-                // Location Search Functionality
-                searchInput.addEventListener("input", (e) => {
-                    const searchTerm = e.target.value.toLowerCase();
-                    const filteredLocations = locations.filter(location =>
-                        location.toLowerCase().includes(searchTerm)
-                    );
+                    // Location Search Functionality
+                    searchInput.addEventListener("input", (e) => {
+                        const searchTerm = e.target.value.toLowerCase();
+                        const filteredLocations = locations.filter(location =>
+                            location.toLowerCase().includes(searchTerm)
+                        );
 
-                    // Regenerate location tabs based on search
-                    tabsContainer.innerHTML = "";
-                    filteredLocations.forEach((location, index) => {
-                        const activeClass = index === 0 ? "text-blue-500 border-blue-500" : "text-gray-500 border-transparent";
-                        tabsContainer.innerHTML += `
+                        // Regenerate location tabs based on search
+                        tabsContainer.innerHTML = "";
+                        filteredLocations.forEach((location, index) => {
+                            const activeClass = index === 0 ? "text-blue-500 border-blue-500" : "text-gray-500 border-transparent";
+                            tabsContainer.innerHTML += `
                             <li class="-mb-px mr-1">
                                 <button class="bg-transparent inline-block py-2 px-4 text-sm font-semibold border-b-2 ${activeClass}" data-location="${location}">
                                     ${location}
                                 </button>
                             </li>`;
+                        });
+
+                        // Automatically select the first tab
+                        if (filteredLocations.length > 0) {
+                            renderHotels(data.hotels.filter(hotel => hotel.location === filteredLocations[0]));
+                        } else {
+                            hotelsContainer.innerHTML = `<p class="text-gray-500">No hotels found for this location.</p>`;
+                        }
                     });
 
-                    // Automatically select the first tab
-                    if (filteredLocations.length > 0) {
-                        renderHotels(data.hotels.filter(hotel => hotel.location === filteredLocations[0]));
-                    } else {
-                        hotelsContainer.innerHTML = `<p class="text-gray-500">No hotels found for this location.</p>`;
-                    }
-                });
-
-                // Render Hotels Function
-                function renderHotels(hotels) {
-                    hotelsContainer.innerHTML = hotels.map(hotel => `
+                    // Render Hotels Function
+                    function renderHotels(hotels) {
+                        hotelsContainer.innerHTML = hotels.map(hotel => `
                         <a href="${hotel.link}" target="_blank" class="block bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200">
                             <img src="${hotel.image}" alt="${hotel.name}" class="rounded-lg mb-4 w-full h-[150px] object-cover">
                             <div class="flex items-center justify-between mb-2">
@@ -144,10 +149,10 @@
                             <p class="text-gray-500 text-sm mb-2">${hotel.description}</p>
                             <p class="text-gray-800 font-bold">From ${hotel.currency}${hotel.price}</p>
                         </a>`).join('');
-                }
-            })
-            .catch(error => console.error("Error loading hotels:", error));
-    });
+                    }
+                })
+                .catch(error => console.error("Error loading hotels:", error));
+        });
     </script>
 </body>
 

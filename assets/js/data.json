@@ -1,320 +1,321 @@
 {
     "packages": [
-    {
-        "id": "jeddah-stopover",
-        "title": "Jeddah Stopover Package",
-        "adults": 2,
-        "location": "Jeddah",
-        "duration": "1 Nights · 2 Days",
-        "price": 153.30,
-        "startDate": "2025-01-08",
-        "endDate": "2025-01-09",
-        "features":
         {
-            "flight": "No Flight",
-            "hotels": "1 Hotel",
-            "transfers": "1 Transfer",
-            "activities": "No Activity"
+            "id": "jeddah-stopover",
+            "title": "Jeddah Stopover Package",
+            "adults": 2,
+            "location": "Jeddah",
+            "duration": "1 Nights · 2 Days",
+            "price": 153.30,
+            "startDate": "2025-01-08",
+            "endDate": "2025-01-09",
+            "features":
+            {
+                "flight": "No Flight",
+                "hotels": "1 Hotel",
+                "transfers": "1 Transfer",
+                "activities": "No Activity"
+            },
+            "images": [
+                "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
+                "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
+                "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
+            ],
+            "description": "Discover the vibrant charm of Jeddah with our exclusive stopover package. Perfect for travelers with a layover at King Abdulaziz International Airport, this package offers a glimpse of the city’s rich cultural heritage and its stunning waterfront attractions, with plenty of opportunities to explore and enjoy Jeddah’s unique experiences during your short stay.",
+            "itineraryId": "jeddah-itinerary",
+            "inclusions": [
+                "Accommodation | In Jeddah",
+                "Private Airport Transfers",
+                "Flights (Optional)",
+                "Tours and Activities (Optional)"
+            ],
+            "exclusions": [
+                "Add-ons not included",
+                "Early check-in and late check-out charges",
+                "Anything not mentioned in Inclusions",
+                "Room Extras",
+                "Additional Meals",
+                "Personal Expenses",
+                "Hotel Parking"
+            ]
         },
-        "images": [
-            "https://media-distribution.traveazy.com/package/1726645343/1737a320-74e2-43ca-b395-0e5a7fed5586/large.jpg",
-            "https://media-distribution.traveazy.com/package/1726645343/ccb54f4b-25d1-49d3-946e-be449dbee7d0/original.jpg",
-            "https://media-distribution.traveazy.com/package/1726645343/f56755fc-aa41-419e-a6b7-6824c1707227/original.jpg"
-        ],
-        "description": "Discover the vibrant charm of Jeddah with our exclusive stopover package. Perfect for travelers with a layover at King Abdulaziz International Airport, this package offers a glimpse of the city’s rich cultural heritage and its stunning waterfront attractions, with plenty of opportunities to explore and enjoy Jeddah’s unique experiences during your short stay.",
-        "itineraryId": "jeddah-itinerary",
-        "inclusions": [
-            "Accommodation | In Jeddah",
-            "Private Airport Transfers",
-            "Flights (Optional)",
-            "Tours and Activities (Optional)"
-        ],
-        "exclusions": [
-            "Add-ons not included",
-            "Early check-in and late check-out charges",
-            "Anything not mentioned in Inclusions",
-            "Room Extras",
-            "Additional Meals",
-            "Personal Expenses",
-            "Hotel Parking"
-        ]
-    },
-    {
-        "id": "premium-umrah",
-        "title": "Premium Umrah Package",
-        "adults": 1,
-        "location": "Makkah",
-        "duration": "7 Nights · 8 Days",
-        "price": 1999.00,
-        "startDate": "2025-02-01",
-        "endDate": "2025-02-08",
-        "features":
         {
-            "flight": "Included",
-            "hotels": "5-Star Hotels",
-            "transfers": "Private Transfers",
-            "activities": "Guided Tours"
+            "id": "premium-umrah",
+            "title": "Premium Umrah Package",
+            "adults": 1,
+            "location": "Makkah",
+            "duration": "7 Nights · 8 Days",
+            "price": 1999.00,
+            "startDate": "2025-02-01",
+            "endDate": "2025-02-08",
+            "features":
+            {
+                "flight": "Included",
+                "hotels": "5-Star Hotels",
+                "transfers": "Private Transfers",
+                "activities": "Guided Tours"
+            },
+            "images": [
+                "https://example.com/images/premium-package-1.jpg",
+                "https://example.com/images/premium-package-2.jpg"
+            ],
+            "description": "5-star accommodation, round-trip flights, and guided tours.",
+            "itineraryId": "premium-itinerary",
+            "inclusions": [
+                "Round-trip flights",
+                "5-Star Hotel Accommodation",
+                "Daily Meals",
+                "Guided Tours"
+            ],
+            "exclusions": [
+                "Personal Expenses",
+                "Travel Insurance",
+                "Early check-in and late check-out charges"
+            ]
         },
-        "images": [
-            "https://example.com/images/premium-package-1.jpg",
-            "https://example.com/images/premium-package-2.jpg"
-        ],
-        "description": "5-star accommodation, round-trip flights, and guided tours.",
-        "itineraryId": "premium-itinerary",
-        "inclusions": [
-            "Round-trip flights",
-            "5-Star Hotel Accommodation",
-            "Daily Meals",
-            "Guided Tours"
-        ],
-        "exclusions": [
-            "Personal Expenses",
-            "Travel Insurance",
-            "Early check-in and late check-out charges"
-        ]
-    },
-    {
-        "id": "economy-umrah",
-        "title": "Economy Umrah Package",
-        "adults": 1,
-        "location": "Makkah",
-        "duration": "5 Nights · 6 Days",
-        "price": 1299.00,
-        "startDate": "2025-03-01",
-        "endDate": "2025-03-06",
-        "features":
         {
-            "flight": "Not Included",
-            "hotels": "3-Star Hotels",
-            "transfers": "Shared Transfers",
-            "activities": "Basic Amenities"
+            "id": "economy-umrah",
+            "title": "Economy Umrah Package",
+            "adults": 1,
+            "location": "Makkah",
+            "duration": "5 Nights · 6 Days",
+            "price": 1299.00,
+            "startDate": "2025-03-01",
+            "endDate": "2025-03-06",
+            "features":
+            {
+                "flight": "Not Included",
+                "hotels": "3-Star Hotels",
+                "transfers": "Shared Transfers",
+                "activities": "Basic Amenities"
+            },
+            "images": [
+                "https://example.com/images/economy-package-1.jpg",
+                "https://example.com/images/economy-package-2.jpg"
+            ],
+            "description": "Affordable pricing with great amenities.",
+            "itineraryId": "economy-itinerary",
+            "inclusions": [
+                "Shared Transfers",
+                "3-Star Hotel Accommodation",
+                "Basic Meals"
+            ],
+            "exclusions": [
+                "Flights",
+                "Travel Insurance",
+                "Personal Expenses",
+                "Additional Meals"
+            ]
         },
-        "images": [
-            "https://example.com/images/economy-package-1.jpg",
-            "https://example.com/images/economy-package-2.jpg"
-        ],
-        "description": "Affordable pricing with great amenities.",
-        "itineraryId": "economy-itinerary",
-        "inclusions": [
-            "Shared Transfers",
-            "3-Star Hotel Accommodation",
-            "Basic Meals"
-        ],
-        "exclusions": [
-            "Flights",
-            "Travel Insurance",
-            "Personal Expenses",
-            "Additional Meals"
-        ]
-    },
-    {
-        "id": "family-umrah",
-        "title": "Family Umrah Package",
-        "adults": 4,
-        "location": "Makkah and Madinah",
-        "duration": "10 Nights · 11 Days",
-        "price": 2499.00,
-        "startDate": "2025-04-01",
-        "endDate": "2025-04-11",
-        "features":
         {
-            "flight": "Included",
-            "hotels": "Family-friendly Hotels",
-            "transfers": "Private Family Transfers",
-            "activities": "Family-focused Activities"
+            "id": "family-umrah",
+            "title": "Family Umrah Package",
+            "adults": 4,
+            "location": "Makkah and Madinah",
+            "duration": "10 Nights · 11 Days",
+            "price": 2499.00,
+            "startDate": "2025-04-01",
+            "endDate": "2025-04-11",
+            "features":
+            {
+                "flight": "Included",
+                "hotels": "Family-friendly Hotels",
+                "transfers": "Private Family Transfers",
+                "activities": "Family-focused Activities"
+            },
+            "images": [
+                "https://example.com/images/family-package-1.jpg",
+                "https://example.com/images/family-package-2.jpg"
+            ],
+            "description": "Special package for families with children.",
+            "itineraryId": "family-itinerary",
+            "inclusions": [
+                "Round-trip flights",
+                "Family-friendly Hotel Accommodation",
+                "Daily Meals",
+                "Guided Tours"
+            ],
+            "exclusions": [
+                "Personal Expenses",
+                "Room Service Extras",
+                "Travel Insurance"
+            ]
         },
-        "images": [
-            "https://example.com/images/family-package-1.jpg",
-            "https://example.com/images/family-package-2.jpg"
-        ],
-        "description": "Special package for families with children.",
-        "itineraryId": "family-itinerary",
-        "inclusions": [
-            "Round-trip flights",
-            "Family-friendly Hotel Accommodation",
-            "Daily Meals",
-            "Guided Tours"
-        ],
-        "exclusions": [
-            "Personal Expenses",
-            "Room Service Extras",
-            "Travel Insurance"
-        ]
-    },
-    {
-        "id": "group-umrah",
-        "title": "Group Umrah Package",
-        "adults": 10,
-        "location": "Makkah and Madinah",
-        "duration": "7 Nights · 8 Days",
-        "price": 2299.00,
-        "startDate": "2025-05-01",
-        "endDate": "2025-05-08",
-        "features":
         {
-            "flight": "Included",
-            "hotels": "4-Star Hotels",
-            "transfers": "Group Transfers",
-            "activities": "Customizable Group Tours"
+            "id": "group-umrah",
+            "title": "Group Umrah Package",
+            "adults": 10,
+            "location": "Makkah and Madinah",
+            "duration": "7 Nights · 8 Days",
+            "price": 2299.00,
+            "startDate": "2025-05-01",
+            "endDate": "2025-05-08",
+            "features":
+            {
+                "flight": "Included",
+                "hotels": "4-Star Hotels",
+                "transfers": "Group Transfers",
+                "activities": "Customizable Group Tours"
+            },
+            "images": [
+                "https://example.com/images/group-package-1.jpg",
+                "https://example.com/images/group-package-2.jpg"
+            ],
+            "description": "Perfect for groups traveling together.",
+            "itineraryId": "group-itinerary",
+            "inclusions": [
+                "Round-trip flights",
+                "Group Transfers",
+                "Hotel Accommodation",
+                "Daily Meals"
+            ],
+            "exclusions": [
+                "Travel Insurance",
+                "Personal Expenses",
+                "Room Service Charges"
+            ]
         },
-        "images": [
-            "https://example.com/images/group-package-1.jpg",
-            "https://example.com/images/group-package-2.jpg"
-        ],
-        "description": "Perfect for groups traveling together.",
-        "itineraryId": "group-itinerary",
-        "inclusions": [
-            "Round-trip flights",
-            "Group Transfers",
-            "Hotel Accommodation",
-            "Daily Meals"
-        ],
-        "exclusions": [
-            "Travel Insurance",
-            "Personal Expenses",
-            "Room Service Charges"
-        ]
-    },
-    {
-        "id": "visit-cambodia",
-        "title": "Visit Cambodia Package",
-        "adults": 2,
-        "location": "Phnom Penh, Siem Reap, Kirirom, Mondulkiri",
-        "duration": "5 Nights · 6 Days",
-        "price": 350.00,
-        "startDate": "2025-03-01",
-        "endDate": "2025-03-06",
-        "features":
         {
-            "flight": "Included",
-            "hotels": "3 Hotels",
-            "transfers": "Included",
-            "activities": "4 Activities"
+            "id": "visit-cambodia",
+            "title": "Visit Cambodia Package",
+            "adults": 2,
+            "location": "Phnom Penh, Siem Reap, Kirirom, Mondulkiri",
+            "duration": "5 Nights · 6 Days",
+            "price": 350.00,
+            "startDate": "2025-03-01",
+            "endDate": "2025-03-06",
+            "features":
+            {
+                "flight": "Included",
+                "hotels": "3 Hotels",
+                "transfers": "Included",
+                "activities": "4 Activities"
+            },
+            "images": [
+                "https://example.com/cambodia-image1.jpg",
+                "https://example.com/cambodia-image2.jpg",
+                "https://example.com/cambodia-image3.jpg"
+            ],
+            "description": "Explore Cambodia's rich culture and breathtaking landscapes from Phnom Penh to Siem Reap, Kirirom, and Mondulkiri.",
+            "itineraryId": "cambodia-itinerary",
+            "inclusions": [
+                "Accommodation | In Phnom Penh, Siem Reap, Kirirom, and Mondulkiri",
+                "Private Airport Transfers",
+                "Flights Included",
+                "Tours of Angkor Wat and Phnom Penh"
+            ],
+            "exclusions": [
+                "Add-ons not included",
+                "Early check-in and late check-out charges",
+                "Personal Expenses"
+            ]
         },
-        "images": [
-            "https://example.com/cambodia-image1.jpg",
-            "https://example.com/cambodia-image2.jpg",
-            "https://example.com/cambodia-image3.jpg"
-        ],
-        "description": "Explore Cambodia's rich culture and breathtaking landscapes from Phnom Penh to Siem Reap, Kirirom, and Mondulkiri.",
-        "itineraryId": "cambodia-itinerary",
-        "inclusions": [
-            "Accommodation | In Phnom Penh, Siem Reap, Kirirom, and Mondulkiri",
-            "Private Airport Transfers",
-            "Flights Included",
-            "Tours of Angkor Wat and Phnom Penh"
-        ],
-        "exclusions": [
-            "Add-ons not included",
-            "Early check-in and late check-out charges",
-            "Personal Expenses"
-        ]
-    },
-    {
-        "id": "singapore-trip",
-        "title": "Singapore Highlights Package",
-        "adults": 2,
-        "location": "Singapore",
-        "duration": "3 Nights · 4 Days",
-        "price": 500.00,
-        "startDate": "2025-04-01",
-        "endDate": "2025-04-04",
-        "features":
         {
-            "flight": "Included",
-            "hotels": "1 Hotel",
-            "transfers": "Included",
-            "activities": "5 Activities"
+            "id": "singapore-trip",
+            "title": "Singapore Highlights Package",
+            "adults": 2,
+            "location": "Singapore",
+            "duration": "3 Nights · 4 Days",
+            "price": 500.00,
+            "startDate": "2025-04-01",
+            "endDate": "2025-04-04",
+            "features":
+            {
+                "flight": "Included",
+                "hotels": "1 Hotel",
+                "transfers": "Included",
+                "activities": "5 Activities"
+            },
+            "images": [
+                "https://example.com/singapore-image1.jpg",
+                "https://example.com/singapore-image2.jpg",
+                "https://example.com/singapore-image3.jpg"
+            ],
+            "description": "Enjoy Singapore's vibrant culture, iconic landmarks, and world-class attractions.",
+            "itineraryId": "singapore-itinerary",
+            "inclusions": [
+                "Accommodation | In Singapore",
+                "Private Airport Transfers",
+                "Flights Included",
+                "Universal Studios Tickets"
+            ],
+            "exclusions": [
+                "Add-ons not included",
+                "Early check-in and late check-out charges",
+                "Personal Expenses"
+            ]
         },
-        "images": [
-            "https://example.com/singapore-image1.jpg",
-            "https://example.com/singapore-image2.jpg",
-            "https://example.com/singapore-image3.jpg"
-        ],
-        "description": "Enjoy Singapore's vibrant culture, iconic landmarks, and world-class attractions.",
-        "itineraryId": "singapore-itinerary",
-        "inclusions": [
-            "Accommodation | In Singapore",
-            "Private Airport Transfers",
-            "Flights Included",
-            "Universal Studios Tickets"
-        ],
-        "exclusions": [
-            "Add-ons not included",
-            "Early check-in and late check-out charges",
-            "Personal Expenses"
-        ]
-    },
-    {
-        "id": "kuala-lumpur-trip",
-        "title": "Kuala Lumpur Explorer Package",
-        "adults": 2,
-        "location": "Kuala Lumpur",
-        "duration": "2 Nights · 3 Days",
-        "price": 300.00,
-        "startDate": "2025-05-01",
-        "endDate": "2025-05-03",
-        "features":
         {
-            "flight": "Included",
-            "hotels": "1 Hotel",
-            "transfers": "Included",
-            "activities": "3 Activities"
+            "id": "kuala-lumpur-trip",
+            "title": "Kuala Lumpur Explorer Package",
+            "adults": 2,
+            "location": "Kuala Lumpur",
+            "duration": "2 Nights · 3 Days",
+            "price": 300.00,
+            "startDate": "2025-05-01",
+            "endDate": "2025-05-03",
+            "features":
+            {
+                "flight": "Included",
+                "hotels": "1 Hotel",
+                "transfers": "Included",
+                "activities": "3 Activities"
+            },
+            "images": [
+                "https://example.com/kuala-lumpur-image1.jpg",
+                "https://example.com/kuala-lumpur-image2.jpg",
+                "https://example.com/kuala-lumpur-image3.jpg"
+            ],
+            "description": "Discover the vibrant city of Kuala Lumpur with its iconic landmarks and rich cultural experiences.",
+            "itineraryId": "kuala-lumpur-itinerary",
+            "inclusions": [
+                "Accommodation | In Kuala Lumpur",
+                "Private Airport Transfers",
+                "Flights Included",
+                "Petronas Towers Visit"
+            ],
+            "exclusions": [
+                "Add-ons not included",
+                "Early check-in and late check-out charges",
+                "Personal Expenses"
+            ]
         },
-        "images": [
-            "https://example.com/kuala-lumpur-image1.jpg",
-            "https://example.com/kuala-lumpur-image2.jpg",
-            "https://example.com/kuala-lumpur-image3.jpg"
-        ],
-        "description": "Discover the vibrant city of Kuala Lumpur with its iconic landmarks and rich cultural experiences.",
-        "itineraryId": "kuala-lumpur-itinerary",
-        "inclusions": [
-            "Accommodation | In Kuala Lumpur",
-            "Private Airport Transfers",
-            "Flights Included",
-            "Petronas Towers Visit"
-        ],
-        "exclusions": [
-            "Add-ons not included",
-            "Early check-in and late check-out charges",
-            "Personal Expenses"
-        ]
-    },
-    {
-        "id": "vietnam-explorer",
-        "title": "Vietnam Ho Chi Minh Package",
-        "adults": 2,
-        "location": "Ho Chi Minh, Vietnam",
-        "duration": "4 Nights · 5 Days",
-        "price": 400.00,
-        "startDate": "2025-06-01",
-        "endDate": "2025-06-05",
-        "features":
         {
-            "flight": "Included",
-            "hotels": "2 Hotels",
-            "transfers": "Included",
-            "activities": "5 Activities"
-        },
-        "images": [
-            "https://example.com/vietnam-image1.jpg",
-            "https://example.com/vietnam-image2.jpg",
-            "https://example.com/vietnam-image3.jpg"
-        ],
-        "description": "Experience the charm of Vietnam with an exclusive package featuring Ho Chi Minh City and surrounding attractions.",
-        "itineraryId": "vietnam-itinerary",
-        "inclusions": [
-            "Accommodation | In Ho Chi Minh",
-            "Private Airport Transfers",
-            "Flights Included",
-            "Cultural and Historical Tours"
-        ],
-        "exclusions": [
-            "Add-ons not included",
-            "Early check-in and late check-out charges",
-            "Personal Expenses"
-        ]
-    }],
+            "id": "vietnam-explorer",
+            "title": "Vietnam Ho Chi Minh Package",
+            "adults": 2,
+            "location": "Ho Chi Minh, Vietnam",
+            "duration": "4 Nights · 5 Days",
+            "price": 400.00,
+            "startDate": "2025-06-01",
+            "endDate": "2025-06-05",
+            "features":
+            {
+                "flight": "Included",
+                "hotels": "2 Hotels",
+                "transfers": "Included",
+                "activities": "5 Activities"
+            },
+            "images": [
+                "https://example.com/vietnam-image1.jpg",
+                "https://example.com/vietnam-image2.jpg",
+                "https://example.com/vietnam-image3.jpg"
+            ],
+            "description": "Experience the charm of Vietnam with an exclusive package featuring Ho Chi Minh City and surrounding attractions.",
+            "itineraryId": "vietnam-itinerary",
+            "inclusions": [
+                "Accommodation | In Ho Chi Minh",
+                "Private Airport Transfers",
+                "Flights Included",
+                "Cultural and Historical Tours"
+            ],
+            "exclusions": [
+                "Add-ons not included",
+                "Early check-in and late check-out charges",
+                "Personal Expenses"
+            ]
+        }
+    ],
     "global":
     {
         "terms": [

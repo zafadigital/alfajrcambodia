@@ -29,6 +29,7 @@
 .btn-primary:hover {
     background-color: #E84100;
 }
+
 body {
     padding-top: 60px;
 }
@@ -93,12 +94,15 @@ h2 {
    Scrollbar
 ========================= */
 .scrollbar-hide {
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    display: none;
+    /* Chrome, Safari, Edge */
 }
 
 /* =========================

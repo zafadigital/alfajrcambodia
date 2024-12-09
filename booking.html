@@ -194,10 +194,10 @@
 
         // Send data to Google Sheets
         fetch(googleScriptURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bookingData),
-        })
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingData),
+            })
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
@@ -212,8 +212,7 @@
                 alert('An error occurred. Please try again.');
             });
     });
-</script>
-
+    </script>
 </body>
 
 </html>

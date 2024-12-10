@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile-Only Site</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #desktop-blocker {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      #content {
+        display: none;
+      }
+      #desktop-blocker {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <!-- Content for Mobile Devices -->
+  <div id="content" class="text-center">
+    <h1 class="text-2xl font-bold text-gray-800">Welcome to the Mobile-Only Site</h1>
+    <p class="text-gray-600 mt-4">This content is accessible only on mobile devices.</p>
+  </div>
+
+  <!-- Blocker for Desktop Devices -->
+  <div id="desktop-blocker" class="text-center">
+    <h1 class="text-2xl font-bold text-red-600">Access Denied</h1>
+    <p class="text-gray-600 mt-4">Please switch to a mobile device to access this site.</p>
+  </div>
+
+  <script>
+    // Client-side check for spoofing
+    function isMobileDevice() {
+        const touchSupported = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth < 768;
+
+        return touchSupported && isSmallScreen;
+    }
+
+    function blockDesktopUsers() {
+        if (!isMobileDevice()) {
+            document.body.innerHTML = `
+                <div class="flex items-center justify-center min-h-screen bg-gray-100 text-center">
+                    <div>
+                        <h1 class="text-2xl font-bold text-red-600">Access Denied</h1>
+                        <p class="text-gray-600 mt-4">This site is accessible only on mobile devices.</p>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Run check on page load
+    window.onload = blockDesktopUsers;
+
+    // Monitor screen changes in case of manipulation
+    window.addEventListener('resize', blockDesktopUsers);
+  </script>
+</body>
+</html>

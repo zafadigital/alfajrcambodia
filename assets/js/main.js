@@ -187,36 +187,38 @@ function renderPackageDetails(pkg) {
         </div>
       </div>
       <div class="bg-white p-6 rounded-lg shadow-md">
-  <h2 class="text-lg font-semibold text-gray-800">Booking Details</h2>
-  <div class="mt-4 space-y-2">
-    <p><strong>Start Date:</strong> ${pkg.startDate}</p>
-    <p><strong>End Date:</strong> ${pkg.endDate}</p>
-    <p><strong>Guests:</strong> ${pkg.adults} Adults</p>
-  </div>
-  <div class="text-right mt-4">
-    <h3 class="text-2xl font-bold text-green-600">USD ${pkg.price}</h3>
-  </div>
-  <a href="booking.html?id=${pkg.id}&startDate=${pkg.startDate}&endDate=${pkg.endDate}&adults=${pkg.adults}&price=${pkg.price}" 
-     class="bg-green-500  text-white w-full mt-4 py-2 rounded-lg hover:bg-green-600 block text-center">
-    Booking Now
-  </a>
-</div>
-
+        <h2 class="text-lg font-semibold text-gray-800">Booking Details</h2>
+        <div class="mt-4 space-y-2">
+          <p><strong>Start Date:</strong> ${pkg.startDate}</p>
+          <p><strong>End Date:</strong> ${pkg.endDate}</p>
+          <p><strong>Guests:</strong> ${pkg.adults} Adults</p>
+        </div>
+        <div class="text-right mt-4">
+          <h3 class="text-2xl font-bold text-green-600">USD ${pkg.price}</h3>
+        </div>
+        <a href="booking.html?id=${pkg.id}&startDate=${pkg.startDate}&endDate=${pkg.endDate}&adults=${pkg.adults}&price=${pkg.price}" 
+           class="bg-green-500 text-white w-full mt-4 py-2 rounded-lg hover:bg-green-600 block text-center">
+          Booking Now
+        </a>
+      </div>
     </div>
-    <div class="mt-8 space-y-8">
-      <div>
-        <h2 class="text-xl font-bold text-gray-800">Description</h2>
-        <p class="text-gray-600 mt-2">
-          ${pkg.description || "No description available for this package."}
-        </p>
-      </div>
-      <div id="itinerary-section">
-        <h2 class="text-xl font-bold text-gray-800">Itinerary</h2>
-        <ul id="itinerary-list" class="text-gray-600 mt-2 list-disc list-inside"></ul>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> 
+        <div class="md:col-span-2 space-y-8 mt-8">
+          <div>
+            <h2 class="text-xl font-bold text-gray-800">Description</h2>
+            <p class="text-gray-600 mt-2">
+              ${pkg.description || "No description available for this package."}
+            </p>
+          </div>
+          <div id="itinerary-section">
+            <h2 class="text-xl font-bold text-gray-800">Itinerary</h2>
+            <ul id="itinerary-list" class="text-gray-600 mt-2 list-disc list-inside"></ul>
+          </div>
+        </div>
     </div>
   `;
 }
+
 
 // Function to load itinerary (as in the original script)
 function loadItinerary(itineraryId) {

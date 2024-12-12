@@ -60,7 +60,7 @@
                 "https://example.com/images/premium-package-2.jpg"
             ],
             "description": "5-star accommodation, round-trip flights, and guided tours.",
-            "itineraryId": "premium-itinerary",
+            "itineraryId": "jeddah-itinerary",
             "inclusions": [
                 "Round-trip flights",
                 "5-Star Hotel Accommodation",
@@ -319,7 +319,7 @@
     "global":
     {
         "terms": [
-            "Umrahme reserves the right to modify the services to accommodate any unforeseen circumstances.",
+            "DataJson",
             "Check-in for flight begins 3 hrs. before departure.",
             "Passport must be valid for at least six months from the date of departure.",
             "Early check-in or Late check-out are subject to availability and will incur extra charges.",

@@ -1,0 +1,28 @@
+{
+    "global":
+    {
+        "terms": [
+            "Umrahme reserves the right to modify the services to accommodate any unforeseen circumstances.",
+            "Check-in for flight begins 3 hrs. before departure.",
+            "Passport must be valid for at least six months from the date of departure.",
+            "Early check-in or Late check-out are subject to availability and will incur extra charges.",
+            "Any additional extras shall be paid by the guest. (Incl CC guarantee at the hotel).",
+            "Failure to vacate the room as per the checkout time will result in additional charges.",
+            "Trips & activities may change or cancel due weather or any other unforeseen circumstances.",
+            "Modifications are subject to airline, hotel & Umrahme policy, and may incur additional charges.",
+            "Umrahme is not responsible if passengers are unable to travel due to passport or visa issues.",
+            "Flight timings may result in early check-in or late check-out and may incur additional charges.",
+            "Refund will not be applicable for any unutilized service.",
+            "In case of Hotel non-availability, an alternate option of similar or higher category will be provided."
+        ],
+        "cancellation": [
+            "For all cancellations, please contact our customer support to understand the specific cancellation terms for each component within your package, as some services, particularly hotel bookings, may be strictly non-refundable.",
+            "Flights: Once confirmed and paid, flights are non-refundable.",
+            "Land Services (Hotels, Transfers, Tours & Excursions)",
+            "Up to 14 days before departure: Cancellations may qualify for a partial or full refund based on each travel component’s policy. Please be aware that certain hotel bookings are strictly non-refundable within this period.",
+            "7 to 14 days before departure: A cancellation fee of 50% of the total package amount will apply. For hotel bookings that are non-refundable, this portion remains non-refundable regardless of the cancellation timing.",
+            "Less than 7 days before departure: 100% of the total package amount will be charged as a cancellation fee, with no refund for any component, including strictly non-refundable hotels.",
+            "No-show: If a guest does not arrive on the scheduled date, 100% of the total amount will be charged, and all components, including hotels, are non-refundable."
+        ]
+    }
+}

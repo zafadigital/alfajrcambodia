@@ -30,8 +30,19 @@ function loadAllPackageDetails() {
         "assets/js/umrah-package.json",
     ];
 
-    // Fetch all JSON files and combine the data
-    Promise.all(sources.map((src) => fetch(src).then((res) => res.json())))
+    // Fetch all JSON files and remove "global" except from global.json
+    Promise.all(
+        sources.map((src) =>
+            fetch(src)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (src !== "assets/js/global.json") {
+                        delete data.global;
+                    }
+                    return data;
+                })
+        )
+    )
         .then((allData) => {
             const combinedData = allData.flatMap((data) => data.packages || []);
             const selectedPackage = combinedData.find((pkg) => pkg.id === packageId);
@@ -60,28 +71,34 @@ function loadAllPackageDetails() {
 function renderTermsAndCancellation(pkg) {
     const detailsContainer = document.getElementById("details-container");
 
-    const termsSection = pkg.terms ?
-        `
-    <div class="mt-8 space-y-8">
-      <h2 class="text-xl font-bold text-gray-800">Terms and Conditions</h2>
-      <ul class="text-gray-600 mt-2 text-sm list-disc list-inside">
-        ${pkg.terms.map((term) => `<li>${term}</li>`).join("")}
-      </ul>
-    </div>` :
-        "";
+    // Validate and construct the Terms and Conditions section
+    const termsSection = Array.isArray(pkg.terms) && pkg.terms.length > 0
+        ? `
+        <div class="mt-8 space-y-8">
+          <h2 class="text-xl font-bold text-gray-800">Terms and Conditions</h2>
+          <ul class="text-gray-600 mt-2 text-sm list-disc list-inside">
+            ${pkg.terms.map((term) => `<li>${term}</li>`).join("")}
+          </ul>
+        </div>`
+        : "";
 
-    const cancellationSection = pkg.cancellation ?
-        `
-    <div class="mt-8 space-y-8">
-      <h2 class="text-xl font-bold text-gray-800">Cancellation Policy</h2>
-      <ul class="text-gray-600 mt-2 text-sm list-disc list-inside">
-        ${pkg.cancellation.map((policy) => `<li>${policy}</li>`).join("")}
-      </ul>
-    </div>` :
-        "";
+    // Validate and construct the Cancellation Policy section
+    const cancellationSection = Array.isArray(pkg.cancellation) && pkg.cancellation.length > 0
+        ? `
+        <div class="mt-8 space-y-8">
+          <h2 class="text-xl font-bold text-gray-800">Cancellation Policy</h2>
+          <ul class="text-gray-600 mt-2 text-sm list-disc list-inside">
+            ${pkg.cancellation.map((policy) => `<li>${policy}</li>`).join("")}
+          </ul>
+        </div>`
+        : "";
 
-    // Append the sections
-    detailsContainer.innerHTML += termsSection + cancellationSection;
+    // Safely append sections to details container
+    if (termsSection || cancellationSection) {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = termsSection + cancellationSection;
+        detailsContainer.appendChild(wrapper);
+    }
 }
 
 // Function to load itinerary
@@ -91,7 +108,14 @@ function loadItinerary(itineraryId) {
         .then((itinerary) => {
             const itineraryList = document.getElementById("itinerary-list");
             itineraryList.innerHTML = itinerary
-                .map((item) => `<li>${item}</li>`)
+                .map((item) => {
+                    const [boldPart, ...rest] = item.split("\n\n");
+                    return `
+                        <li class="mb-4">
+                            <strong>${boldPart}</strong>
+                            <p class="mt-2">${rest.join("\n\n")}</p>
+                        </li>`;
+                })
                 .join("");
         })
         .catch((error) => {
@@ -103,40 +127,17 @@ function loadItinerary(itineraryId) {
 
 // Fetch global details for fallback terms and conditions
 function loadGlobalDetails() {
-    fetch("assets/js/data.json")
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.global) renderTermsAndCancellation(data.global);
+    const globalSource = "assets/js/global.json";
+
+    fetch(globalSource)
+        .then((res) => res.json())
+        .then((globalData) => {
+            if (globalData.global) renderTermsAndCancellation(globalData.global);
         })
-        .catch((error) =>
-            console.error("Error fetching global terms and cancellation:", error)
-        );
+        .catch((error) => console.error("Error fetching global terms and cancellation:", error));
 }
 
-// Fetch global details for fallback terms and conditions
-function loadGlobalDetails() {
-    fetch("assets/js/umrah-holiday.json")
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.global) renderTermsAndCancellation(data.global);
-        })
-        .catch((error) =>
-            console.error("Error fetching global terms and cancellation:", error)
-        );
-}
-// Fetch global details for fallback terms and conditions
-function loadGlobalDetails() {
-    fetch("assets/js/umrah-package.json")
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.global) renderTermsAndCancellation(data.global);
-        })
-        .catch((error) =>
-            console.error("Error fetching global terms and cancellation:", error)
-        );
-}
-
-// Function to render package details (as in the original script)
+// Function to render package details
 function renderPackageDetails(pkg) {
     const detailsContainer = document.getElementById("details-container");
 
@@ -212,27 +213,9 @@ function renderPackageDetails(pkg) {
           </div>
           <div id="itinerary-section">
             <h2 class="text-xl font-bold text-gray-800">Itinerary</h2>
-            <ul id="itinerary-list" class="text-gray-600 mt-2 list-disc list-inside"></ul>
+            <ul id="itinerary-list" class="text-gray-600 mt-2 list-disc list-inside text-justify"></ul>
           </div>
         </div>
     </div>
   `;
-}
-
-
-// Function to load itinerary (as in the original script)
-function loadItinerary(itineraryId) {
-    fetch(`assets/js/itineraries/${itineraryId}.json`)
-        .then((response) => response.json())
-        .then((itinerary) => {
-            const itineraryList = document.getElementById("itinerary-list");
-            itineraryList.innerHTML = itinerary
-                .map((item) => `<li>${item}</li>`)
-                .join("");
-        })
-        .catch((error) => {
-            console.error("Error loading itinerary:", error);
-            document.getElementById("itinerary-section").innerHTML =
-                "<p class='text-gray-600'>Itinerary not available.</p>";
-        });
 }

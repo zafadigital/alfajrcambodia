@@ -54,20 +54,21 @@
                     <div id="passenger-details" class="space-y-4"></div>
                 </div>
                 <!-- Right Column: Summary -->
-                <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-lg font-bold mb-6">Summary</h3>
-                    <div class="mb-6">
-                        <p class="text-sm text-gray-600"><strong>Package:</strong> <span id="summary-package-name" style="text-transform: uppercase;"></span></p>
-                        <p id="summary-package-details" class="text-sm text-gray-600">1 x USD 50</p>
-                    </div>
-                    <div class="mb-6">
-                        <p class="text-sm text-gray-600">Total Deposit</p>
-                        <p id="total-deposit" class="text-2xl font-bold text-green-600">USD 50.00</p>
-                    </div>
-                    <button class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
-                        Confirm Booking
-                    </button>
-                </div>
+<div class="bg-gray-50 p-6 rounded-lg shadow-lg sticky top-4">
+    <h3 class="text-lg font-bold mb-6">Summary</h3>
+    <div class="mb-6">
+        <p class="text-sm text-gray-600"><strong>Package:</strong> <span id="summary-package-name" style="text-transform: uppercase;"></span></p>
+        <p id="summary-package-details" class="text-sm text-gray-600">1 x USD 50</p>
+    </div>
+    <div class="mb-6">
+        <p class="text-sm text-gray-600">Total Deposit</p>
+        <p id="total-deposit" class="text-2xl font-bold text-green-600">USD 50.00</p>
+    </div>
+    <button class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
+        Confirm Booking
+    </button>
+</div>
+
             </div>
         </div>
     </section>
@@ -75,144 +76,153 @@
     <div id="footer"></div>
     <script src="assets/js/scripts.js"></script>
     <script>
-    // Parse URL query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const packageId = urlParams.get('id');
-    const startDate = urlParams.get('startDate');
-    const endDate = urlParams.get('endDate');
-    const depositAmount = 50; // Deposit amount per adult
+    document.addEventListener("DOMContentLoaded", () => {
+        // Parse URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const packageId = urlParams.get('id');
+        const startDate = urlParams.get('startDate');
+        const endDate = urlParams.get('endDate');
+        const depositAmount = 50; // Deposit amount per adult
 
-    // Fill booking details dynamically
-    document.getElementById('package-name').textContent = packageId ? packageId.replace('-', ' ') : 'Unknown Package';
-    document.getElementById('start-date').textContent = startDate || 'N/A';
-    document.getElementById('end-date').textContent = endDate || 'N/A';
-    document.getElementById('duration').textContent = calculateDuration(startDate, endDate) || 'N/A';
-    document.getElementById('summary-package-name').textContent = packageId ? packageId.replace('-', ' ') : 'Unknown Package';
+        // Fill booking details dynamically
+        const packageNameElement = document.getElementById('package-name');
+        const startDateElement = document.getElementById('start-date');
+        const endDateElement = document.getElementById('end-date');
+        const durationElement = document.getElementById('duration');
+        const summaryPackageNameElement = document.getElementById('summary-package-name');
+        const summaryPackageDetailsElement = document.getElementById('summary-package-details');
+        const totalDepositElement = document.getElementById('total-deposit');
 
-    // Helper function to calculate the duration between start and end dates
-    function calculateDuration(start, end) {
-        if (!start || !end) return null;
-        const startDateObj = new Date(start);
-        const endDateObj = new Date(end);
-        const durationDays = (endDateObj - startDateObj) / (1000 * 60 * 60 * 24);
-        return `${durationDays} Days`;
-    }
+        // Populate Booking Details
+        if (packageNameElement) packageNameElement.textContent = packageId ? packageId.replace('-', ' ') : 'Unknown Package';
+        if (startDateElement) startDateElement.textContent = startDate || 'N/A';
+        if (endDateElement) endDateElement.textContent = endDate || 'N/A';
+        if (durationElement) durationElement.textContent = calculateDuration(startDate, endDate) || 'N/A';
+        if (summaryPackageNameElement) summaryPackageNameElement.textContent = packageId ? packageId.replace('-', ' ') : 'Unknown Package';
 
-    // Update passenger details dynamically
-    const numAdults = document.getElementById('num-adults');
-    const passengerDetails = document.getElementById('passenger-details');
-    const totalDepositElement = document.getElementById('total-deposit');
-    const summaryPackageDetails = document.getElementById('summary-package-details');
-
-    function updatePassengerDetails() {
-        passengerDetails.innerHTML = ''; // Clear existing passengers
-        for (let i = 0; i < numAdults.value; i++) {
-            const passengerDiv = document.createElement('div');
-            passengerDiv.classList.add('border', 'p-4', 'rounded-lg', 'relative');
-            passengerDiv.innerHTML = `
-                <h4 class="font-bold mb-2">Passenger ${i + 1}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Title</label>
-                        <select class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
-                            <option value="Mr">Mr</option>
-                            <option value="Mrs">Mrs</option>
-                            <option value="Ms">Ms</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm text-gray-600 mb-1">Full Name</label>
-                        <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Full Name">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">NRIC/Passport</label>
-                        <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="NRIC/Passport">
-                    </div>
-                    <div class="md:col-span-1">
-                        <label class="block text-sm text-gray-600 mb-1">Date of Birth</label>
-                        <input type="date" class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
-                    </div>
-                    <div class="md:col-span-1">
-                        <label class="block text-sm text-gray-600 mb-1">Phone Number</label>
-                        <input type="tel" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Phone Number">
-                    </div>
-                </div>
-            `;
-            passengerDetails.appendChild(passengerDiv);
+        // Helper function to calculate the duration between start and end dates
+        function calculateDuration(start, end) {
+            if (!start || !end) return null;
+            const startDateObj = new Date(start);
+            const endDateObj = new Date(end);
+            const durationDays = (endDateObj - startDateObj) / (1000 * 60 * 60 * 24);
+            return `${durationDays} Days`;
         }
-    }
 
-    // Function to calculate and update the total deposit and package summary
-    function updateTotalDeposit() {
-        const numAdultsValue = parseInt(numAdults.value, 10) || 0; // Get number of adults
-        const totalDeposit = depositAmount * numAdultsValue; // Calculate total deposit
+        // Update passenger details dynamically
+        const numAdults = document.getElementById('num-adults');
+        const passengerDetails = document.getElementById('passenger-details');
 
-        // Update the summary section
-        summaryPackageDetails.textContent = `${numAdultsValue} x USD ${depositAmount}`;
-        totalDepositElement.textContent = `USD ${totalDeposit.toFixed(2)}`;
-    }
+        function updatePassengerDetails() {
+            passengerDetails.innerHTML = ''; // Clear existing passengers
+            for (let i = 0; i < numAdults.value; i++) {
+                const passengerDiv = document.createElement('div');
+                passengerDiv.classList.add('border', 'p-4', 'rounded-lg', 'relative');
+                passengerDiv.innerHTML = `
+                    <h4 class="font-bold mb-2">Passenger ${i + 1}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Title</label>
+                            <select class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Ms">Ms</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm text-gray-600 mb-1">Full Name</label>
+                            <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Full Name">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">NRIC/Passport</label>
+                            <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="NRIC/Passport">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Date of Birth</label>
+                            <input type="date" class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Phone Number</label>
+                            <input type="tel" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Phone Number">
+                        </div>
+                    </div>
+                `;
+                passengerDetails.appendChild(passengerDiv);
+            }
+        }
 
-    // Add event listener to dynamically update passenger details and total deposit
-    numAdults.addEventListener('input', () => {
+        // Function to calculate and update the total deposit and package summary
+        function updateTotalDeposit() {
+            const numAdultsValue = parseInt(numAdults.value, 10) || 0; // Get number of adults
+            const totalDeposit = depositAmount * numAdultsValue; // Calculate total deposit
+
+            // Update the summary section
+            if (summaryPackageDetailsElement) summaryPackageDetailsElement.textContent = `${numAdultsValue} x USD ${depositAmount}`;
+            if (totalDepositElement) totalDepositElement.textContent = `USD ${totalDeposit.toFixed(2)}`;
+        }
+
+        // Add event listener to dynamically update passenger details and total deposit
+        numAdults.addEventListener('input', () => {
+            updatePassengerDetails();
+            updateTotalDeposit();
+        });
+
+        // Initialize passenger details and total deposit on page load
         updatePassengerDetails();
         updateTotalDeposit();
+
+        // Confirm booking and send data to Google Sheets
+        document.querySelector('button').addEventListener('click', () => {
+            const packageName = document.getElementById('package-name').textContent;
+            const startDate = document.getElementById('start-date').textContent;
+            const endDate = document.getElementById('end-date').textContent;
+            const duration = document.getElementById('duration').textContent;
+
+            // Collect passenger details
+            const passengerElements = document.querySelectorAll('#passenger-details > div');
+            const passengers = Array.from(passengerElements).map((passenger) => ({
+                title: passenger.querySelector('select').value,
+                fullName: passenger.querySelector('input[placeholder="Full Name"]').value,
+                nricPassport: passenger.querySelector('input[placeholder="NRIC/Passport"]').value,
+                dateOfBirth: passenger.querySelector('input[type="date"]').value,
+                phoneNumber: passenger.querySelector('input[placeholder="Phone Number"]').value,
+            }));
+
+            // Build the payload
+            const bookingData = {
+                packageName,
+                startDate,
+                endDate,
+                duration,
+                depositAmount,
+                passengers,
+            };
+
+            // Replace with your Google Apps Script Web App URL
+            const googleScriptURL = 'https://script.google.com/macros/s/AKfycbxH75llujjskihFfxIT-RsE5WVWBq7nmC_TjTNvusheiiUhQJlsk0aYd_iDWM12zfKxFQ/exec';
+
+            // Send data to Google Sheets
+            fetch(googleScriptURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        alert('Booking confirmed and sent to Google Sheets!');
+                    } else {
+                        alert(`Failed to send booking: ${data.error}`);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while sending the booking. Please try again.');
+                });
+        });
     });
+</script>
 
-    // Initialize passenger details and total deposit on page load
-    updatePassengerDetails();
-    updateTotalDeposit();
-
-    // Confirm booking and send data to Google Sheets
-    document.querySelector('button').addEventListener('click', () => {
-        const packageName = document.getElementById('package-name').textContent;
-        const startDate = document.getElementById('start-date').textContent;
-        const endDate = document.getElementById('end-date').textContent;
-        const duration = document.getElementById('duration').textContent;
-
-        // Collect passenger details
-        const passengerElements = document.querySelectorAll('#passenger-details > div');
-        const passengers = Array.from(passengerElements).map((passenger) => ({
-            title: passenger.querySelector('select').value,
-            fullName: passenger.querySelector('input[placeholder="Full Name"]').value,
-            nricPassport: passenger.querySelector('input[placeholder="NRIC/Passport"]').value,
-            dateOfBirth: passenger.querySelector('input[type="date"]').value,
-            phoneNumber: passenger.querySelector('input[placeholder="Phone Number"]').value,
-        }));
-
-        // Build the payload
-        const bookingData = {
-            packageName,
-            startDate,
-            endDate,
-            duration,
-            depositAmount,
-            passengers,
-        };
-
-        // Replace with your Google Apps Script Web App URL
-        const googleScriptURL = 'https://script.google.com/macros/s/AKfycbxH75llujjskihFfxIT-RsE5WVWBq7nmC_TjTNvusheiiUhQJlsk0aYd_iDWM12zfKxFQ/exec';
-
-        // Send data to Google Sheets
-        fetch(googleScriptURL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(bookingData),
-})
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Booking confirmed and sent to Google Sheets!');
-        } else {
-            alert(`Failed to send booking: ${data.error}`);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while sending the booking. Please try again.');
-    });
-
-    });
-    </script>
 </body>
 
 </html>

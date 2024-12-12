@@ -28,21 +28,21 @@
                 <!-- Left Column: Booking Details -->
                 <div class="md:col-span-2 bg-white p-6 rounded-lg shadow-lg">
                     <h3 class="text-lg font-bold mb-6">Booking Information</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-1 mb-6">
                         <div class="col-span-2 flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Package Name:</p>
+                            <p class="text-sm font-semibold">Package Name:</p>
                             <p id="package-name" class="text-lg font-semibold text-gray-900" style="text-transform: uppercase;"></p>
                         </div>
                         <div class="col-span-2 flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Departure Date:</p>
+                            <p class="text-sm font-semibold">Departure Date:</p>
                             <p id="start-date" class="text-lg text-gray-900"></p>
                         </div>
                         <div class="col-span-2 flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Return Date:</p>
+                            <p class="text-sm font-semibold">Return Date:</p>
                             <p id="end-date" class="text-lg text-gray-900"></p>
                         </div>
                         <div class="col-span-2 flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Duration:</p>
+                            <p class="text-sm font-semibold">Duration:</p>
                             <p id="duration" class="text-lg text-gray-900"></p>
                         </div>
                     </div>
@@ -54,21 +54,20 @@
                     <div id="passenger-details" class="space-y-4"></div>
                 </div>
                 <!-- Right Column: Summary -->
-<div class="bg-gray-50 p-6 rounded-lg shadow-lg sticky top-4">
-    <h3 class="text-lg font-bold mb-6">Summary</h3>
-    <div class="mb-6">
-        <p class="text-sm text-gray-600"><strong>Package:</strong> <span id="summary-package-name" style="text-transform: uppercase;"></span></p>
-        <p id="summary-package-details" class="text-sm text-gray-600">1 x USD 50</p>
-    </div>
-    <div class="mb-6">
-        <p class="text-sm text-gray-600">Total Deposit</p>
-        <p id="total-deposit" class="text-2xl font-bold text-green-600">USD 50.00</p>
-    </div>
-    <button class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
-        Confirm Booking
-    </button>
-</div>
-
+                <div class="bg-gray-50 p-6 rounded-lg shadow-lg sticky top-20 self-start">
+                    <h3 class="text-lg font-bold mb-6">Summary</h3>
+                    <div class="mb-6">
+                        <p class="text-sm font-semibold"><strong>Package:</strong> <span id="summary-package-name" style="text-transform: uppercase;"></span></p>
+                        <p id="summary-package-details" class="text-sm text-gray-600">1 x USD 50</p>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-sm font-semibold">Total Deposit</p>
+                        <p id="total-deposit" class="text-2xl font-bold text-green-600">USD 50.00</p>
+                    </div>
+                    <button class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
+                        Confirm Booking
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -76,15 +75,23 @@
     <div id="footer"></div>
     <script src="assets/js/scripts.js"></script>
     <script>
+
+    document.addEventListener('input', (event) => {
+    const target = event.target;
+
+        // Enforce phone number validation
+        if (target.placeholder === '+Country Code (+855)') {
+            target.value = target.value.replace(/[^+\d]/g, ''); // Allow only '+' and digits
+        }
+    });
+    
     document.addEventListener("DOMContentLoaded", () => {
-        // Parse URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
         const packageId = urlParams.get('id');
         const startDate = urlParams.get('startDate');
         const endDate = urlParams.get('endDate');
-        const depositAmount = 50; // Deposit amount per adult
+        const depositAmount = 50;
 
-        // Fill booking details dynamically
         const packageNameElement = document.getElementById('package-name');
         const startDateElement = document.getElementById('start-date');
         const endDateElement = document.getElementById('end-date');
@@ -93,14 +100,13 @@
         const summaryPackageDetailsElement = document.getElementById('summary-package-details');
         const totalDepositElement = document.getElementById('total-deposit');
 
-        // Populate Booking Details
+
         if (packageNameElement) packageNameElement.textContent = packageId ? packageId.replace('-', ' ') : 'Unknown Package';
         if (startDateElement) startDateElement.textContent = startDate || 'N/A';
         if (endDateElement) endDateElement.textContent = endDate || 'N/A';
         if (durationElement) durationElement.textContent = calculateDuration(startDate, endDate) || 'N/A';
         if (summaryPackageNameElement) summaryPackageNameElement.textContent = packageId ? packageId.replace('-', ' ') : 'Unknown Package';
 
-        // Helper function to calculate the duration between start and end dates
         function calculateDuration(start, end) {
             if (!start || !end) return null;
             const startDateObj = new Date(start);
@@ -109,120 +115,167 @@
             return `${durationDays} Days`;
         }
 
-        // Update passenger details dynamically
         const numAdults = document.getElementById('num-adults');
         const passengerDetails = document.getElementById('passenger-details');
 
         function updatePassengerDetails() {
-            passengerDetails.innerHTML = ''; // Clear existing passengers
-            for (let i = 0; i < numAdults.value; i++) {
-                const passengerDiv = document.createElement('div');
-                passengerDiv.classList.add('border', 'p-4', 'rounded-lg', 'relative');
-                passengerDiv.innerHTML = `
-                    <h4 class="font-bold mb-2">Passenger ${i + 1}</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Title</label>
-                            <select class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Ms">Ms</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm text-gray-600 mb-1">Full Name</label>
-                            <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Full Name">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">NRIC/Passport</label>
-                            <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="NRIC/Passport">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Date of Birth</label>
-                            <input type="date" class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Phone Number</label>
-                            <input type="tel" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Phone Number">
-                        </div>
+    passengerDetails.innerHTML = '';
+    for (let i = 0; i < numAdults.value; i++) {
+        const passengerDiv = document.createElement('div');
+        passengerDiv.classList.add('border', 'p-4', 'rounded-lg', 'relative');
+        passengerDiv.innerHTML = `
+            <form id="passenger-form-${i}" class="passenger-form">
+                <h4 class="font-bold mb-2">Passenger ${i + 1}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Title</label>
+                        <select class="w-full px-4 py-2 border bg-gray-100 rounded-lg">
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Ms">Ms</option>
+                        </select>
                     </div>
-                `;
-                passengerDetails.appendChild(passengerDiv);
-            }
-        }
+                    <div class="md:col-span-2">
+                        <label class="block text-sm text-gray-600 mb-1">Full Name</label>
+                        <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="Full Name" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">NRIC/Passport</label>
+                        <input type="text" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" placeholder="NRIC/Passport" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Date of Birth</label>
+                        <input type="date" class="w-full px-4 py-2 border bg-gray-100 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Phone Number</label>
+                        <input type="tel" id="phone-number-${i}" class="w-full px-4 py-2 border bg-gray-100 rounded-lg phone-number" placeholder="+Country Code (+855)" pattern="^\\+\\d{1,15}$" title="Enter a valid phone number starting with +, followed by up to 15 digits." required>
+                    </div>
+                </div>
+            </form>
+        `;
+        passengerDetails.appendChild(passengerDiv);
+    }
 
-        // Function to calculate and update the total deposit and package summary
+    // Sync phone numbers across all passengers
+    syncPhoneNumbers();
+}
+
+// Function to sync phone numbers across all passenger forms
+function syncPhoneNumbers() {
+    const phoneInputs = document.querySelectorAll('.phone-number');
+    if (phoneInputs.length > 0) {
+        // Update all phone inputs whenever the first one changes
+        phoneInputs[0].addEventListener('input', (event) => {
+            phoneInputs.forEach((input) => {
+                input.value = event.target.value;
+            });
+        });
+    }
+}
+
+
         function updateTotalDeposit() {
-            const numAdultsValue = parseInt(numAdults.value, 10) || 0; // Get number of adults
-            const totalDeposit = depositAmount * numAdultsValue; // Calculate total deposit
+            const numAdultsValue = parseInt(numAdults.value, 10) || 0;
+            const totalDeposit = depositAmount * numAdultsValue;
 
-            // Update the summary section
             if (summaryPackageDetailsElement) summaryPackageDetailsElement.textContent = `${numAdultsValue} x USD ${depositAmount}`;
             if (totalDepositElement) totalDepositElement.textContent = `USD ${totalDeposit.toFixed(2)}`;
         }
 
-        // Add event listener to dynamically update passenger details and total deposit
         numAdults.addEventListener('input', () => {
             updatePassengerDetails();
             updateTotalDeposit();
         });
 
-        // Initialize passenger details and total deposit on page load
         updatePassengerDetails();
         updateTotalDeposit();
 
-        // Confirm booking and send data to Google Sheets
         document.querySelector('button').addEventListener('click', () => {
-            const packageName = document.getElementById('package-name').textContent;
-            const startDate = document.getElementById('start-date').textContent;
-            const endDate = document.getElementById('end-date').textContent;
-            const duration = document.getElementById('duration').textContent;
+    // Get all forms for passengers
+    const passengerForms = document.querySelectorAll('.passenger-form');
+    let allValid = true;
 
-            // Collect passenger details
-            const passengerElements = document.querySelectorAll('#passenger-details > div');
-            const passengers = Array.from(passengerElements).map((passenger) => ({
-                title: passenger.querySelector('select').value,
-                fullName: passenger.querySelector('input[placeholder="Full Name"]').value,
-                nricPassport: passenger.querySelector('input[placeholder="NRIC/Passport"]').value,
-                dateOfBirth: passenger.querySelector('input[type="date"]').value,
-                phoneNumber: passenger.querySelector('input[placeholder="Phone Number"]').value,
-            }));
+    passengerForms.forEach((form) => {
+        if (!form.checkValidity()) {
+            allValid = false;
+            form.reportValidity(); // Highlight invalid fields
+        }
+    });
 
-            // Build the payload
-            const bookingData = {
-                packageName,
-                startDate,
-                endDate,
-                duration,
-                depositAmount,
-                passengers,
-            };
+    if (!allValid) {
+        alert("Please fill all required fields before confirming the booking.");
+        return;
+    }
 
-            // Replace with your Google Apps Script Web App URL
-            const googleScriptURL = 'https://script.google.com/macros/s/AKfycbxH75llujjskihFfxIT-RsE5WVWBq7nmC_TjTNvusheiiUhQJlsk0aYd_iDWM12zfKxFQ/exec';
+    // Continue with submission if all forms are valid
+    const packageName = document.getElementById('package-name').textContent;
+    const startDate = document.getElementById('start-date').textContent;
+    const endDate = document.getElementById('end-date').textContent;
+    const duration = document.getElementById('duration').textContent;
 
-            // Send data to Google Sheets
-            fetch(googleScriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(bookingData),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert('Booking confirmed and sent to Google Sheets!');
-                    } else {
-                        alert(`Failed to send booking: ${data.error}`);
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert('An error occurred while sending the booking. Please try again.');
-                });
+    const passengers = Array.from(passengerForms).map((form) => ({
+        title: form.querySelector('select').value,
+        fullName: form.querySelector('input[placeholder="Full Name"]').value,
+        nricPassport: form.querySelector('input[placeholder="NRIC/Passport"]').value,
+        dateOfBirth: form.querySelector('input[type="date"]').value,
+        phoneNumber: form.querySelector('input[placeholder="+Country Code (+855)"]').value,
+    }));
+
+    const bookingData = {
+        packageName,
+        startDate,
+        endDate,
+        duration,
+        depositAmount,
+        passengers,
+    };
+
+    const googleScriptURL = 'https://script.google.com/macros/s/AKfycbxH75llujjskihFfxIT-RsE5WVWBq7nmC_TjTNvusheiiUhQJlsk0aYd_iDWM12zfKxFQ/exec';
+
+// Select the confirm button
+const confirmButton = document.querySelector('.bg-green-500');
+
+// Update button to show "Processing..." immediately upon click
+confirmButton.textContent = 'Processing...';
+confirmButton.disabled = true;
+
+fetch(googleScriptURL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(bookingData),
+})
+    .then(() => {
+        // Update button and show Thank You message
+        confirmButton.textContent = 'Booked';
+        confirmButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+        confirmButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+
+        const summaryCard = document.querySelector('.bg-gray-50');
+        const thankYouMessage = document.createElement('div');
+        thankYouMessage.style.marginTop = '20px';
+        thankYouMessage.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: text-align: center; font-family: Arial, sans-serif;">
+                <img src="https://cdni.iconscout.com/illustration/premium/thumb/people-at-hajj-pilgrimage-illustration-download-in-svg-png-gif-file-formats--islamic-kaaba-or-umrah-mabroor-pack-culture-religion-festivals-illustrations-4618550.png?f=webp" 
+                     alt="Thank You" 
+                     style="width: 300px; margin-bottom: 10px;">
+                <h2 style="font-size: 18px; color: #333;">Thank you!</h2>
+                <p style="color: #555;">We have received your booking details. We’ll reach out to you immediately!</p>
+            </div>
+        `;
+        summaryCard.appendChild(thankYouMessage);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while sending the booking. Please try again.');
+        confirmButton.textContent = 'Confirm Booking'; // Revert button text in case of an error
+        confirmButton.disabled = false; // Re-enable the button
+    });
+
         });
     });
-</script>
-
+    </script>
 </body>
 
 </html>

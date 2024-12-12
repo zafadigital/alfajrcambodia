@@ -21,44 +21,38 @@
             </div>
             <!-- Navigation List -->
             <ul class="flex flex-col space-y-4 text-black p-6 md:space-y-0 md:flex-row md:items-center md:space-x-8 md:p-0">
-                <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-                    <img src="assets/images/icons/home.svg" alt="Home Icon" class="w-6 h-6 md:hidden">
+                <li>
                     <a href="index.html" class="hover:text-blue-500 text-lg flex items-center">
                         Home
                     </a>
                 </li>
-                <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-                    <img src="assets/images/icons/kaaba.svg" alt="Umrah Icon" class="w-6 h-6 md:hidden">
+                <li>
                     <a href="umrah-package.html" class="hover:text-blue-500 text-lg flex items-center">
                         Umrah Packages
                     </a>
                 </li>
-                <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-                    <img src="assets/images/icons/traveler-with-a-suitcase.svg" alt="Holidays Icon" class="w-6 h-6 md:hidden">
+                <li>
                     <a href="umrah-holiday.html" class="hover:text-blue-500 text-lg flex items-center">
-                        Umrah + Holidays
+                        Umrah Holidays
                     </a>
                 </li>
-                <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-                    <img src="assets/images/icons/hotel.svg" alt="Hotels Icon" class="w-6 h-6 md:hidden">
+                <li>
                     <a href="hotels.html" class="hover:text-blue-500 text-lg flex items-center">
                         Hotels
                     </a>
                 </li>
-                <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-                    <img src="assets/images/icons/airplane-ticket.svg" alt="Flights Icon" class="w-6 h-6 md:hidden">
+                <li>
                     <a href="flights.html" class="hover:text-blue-500 text-lg flex items-center">
                         Flights
                     </a>
                 </li>
-                <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-                    <img src="assets/images/icons/customer-service.svg" alt="Contact Icon" class="w-6 h-6 md:hidden">
+                <li>
                     <a href="contact.html" class="hover:text-blue-500 text-lg flex items-center">
                         About us
                     </a>
                 </li>
-                <li class="flex items-center space-x-4 md:space-x-0 md:space-y-0 md:flex-col md:items-center md:py-2">
-                    <a href="https://wa.me/85569556444?text=Hello" target="_blank" class="inline-flex items-center px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600 transition">
+                <li>
+                    <a href="https://wa.me/85569556444?text=Hello" target="_blank" class="inline-flex items-center px-4 py-2 text-white bg-green-600 rounded hover:bg-green-600 transition">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" class="w-5 h-5 mr-2">
                         Contact us
                     </a>
@@ -78,3 +72,18 @@
         </div>
     </div>
 </header>
+
+<script>
+    // Ensure the active link gets underlined dynamically
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentPage = window.location.pathname.split("/").pop(); // Get the current file name
+        const navLinks = document.querySelectorAll("nav ul a");
+
+        navLinks.forEach(link => {
+            const linkHref = link.getAttribute("href").split("/").pop(); // Extract file name from href
+            if (linkHref === currentPage) {
+                link.classList.add("border-b-2", "border-blue-500", "pb-2");
+            }
+        });
+    });
+</script>

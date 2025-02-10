@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlFajr Cambodia | Hub</title>
+    <title>ALFAJR Cambodia | Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 </head>
@@ -12,8 +12,8 @@
     <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md text-center">
         <!-- Profile Section (Fixed at Top) -->
         <div class="flex flex-col items-center">
-            <img src="assets/images/logo/logo_black.png" alt="AlFajr Logo" class="w-24 h-24 mx-auto rounded-full mb-4">
-            <h1 class="text-2xl font-semibold text-gray-800">AlFajr Cambodia</h1>
+            <img src="assets/images/logo/logo_black.png" alt="ALFAJR Logo" class="w-24 h-24 mx-auto rounded-full mb-4">
+            <h1 class="text-2xl font-semibold text-gray-800">ALFAJR Cambodia</h1>
             <p class="text-gray-600 text-sm mt-1">Your Trusted Partner for Islamic Essentials</p>
         </div>
 
@@ -27,24 +27,36 @@
 
         <!-- Actionable Links -->
         <div class="mt-6 space-y-3">
-            <a href="https://alfajrcambodia.com/shop" class="block bg-blue-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-600">
+            <a href="https://ALFAJRcambodia.com/shop" class="block bg-blue-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-600">
                 🛍️ Visit Our Shop
             </a>
-            <a href="https://wa.me/yourwhatsapp" class="block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
-                📞 Chat on WhatsApp
-            </a>
-            <a href="mailto:info@alfajrcambodia.com" class="block bg-gray-700 text-white font-semibold py-2 px-4 rounded-xl hover:bg-gray-800">
-                📩 Contact Us
+            <a href="https://t.me/yourtelegram" class="block bg-cyan-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-cyan-600">
+                📩 Chat on Telegram
             </a>
         </div>
 
-        <!-- Beautiful Image Slider (Full-width, Rounded Corners, No Arrows) -->
+        <!-- Beautiful Image Slider (Full-width, One Image at a Time) -->
         <div class="mt-6">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Umrah Package 1" class="rounded-xl w-full shadow-lg"></div>
-                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Umrah Package 2" class="rounded-xl w-full shadow-lg"></div>
-                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Umrah Package 3" class="rounded-xl w-full shadow-lg"></div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/packages/umrahpackages.webp" alt="I want to book Umrah Package 1 prices $1599" class="rounded-xl w-full shadow-lg">
+                        <a href="https://wa.me/yourwhatsapp?text=I%20want%20to%20book%20Umrah%20Package%201%20prices%20$1599" class="mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
+                            📞 Chat on WhatsApp
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/packages/umrahpackages.webp" alt="I want to book Umrah Package 2 prices $1899" class="rounded-xl w-full shadow-lg">
+                        <a href="https://wa.me/yourwhatsapp?text=I%20want%20to%20book%20Umrah%20Package%202%20prices%20$1899" class="mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
+                            📞 Chat on WhatsApp
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/packages/umrahpackages.webp" alt="I want to book Umrah Package 3 prices $2099" class="rounded-xl w-full shadow-lg">
+                        <a href="https://wa.me/yourwhatsapp?text=I%20want%20to%20book%20Umrah%20Package%203%20prices%20$2099" class="mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
+                            📞 Chat on WhatsApp
+                        </a>
+                    </div>
                 </div>
                 <!-- Pagination Dots -->
                 <div class="swiper-pagination"></div>
@@ -52,7 +64,7 @@
         </div>
 
         <!-- Footer -->
-        <p class="text-xs text-gray-500 mt-6">&copy; 2025 AlFajr Cambodia. All Rights Reserved.</p>
+        <p class="text-xs text-gray-500 mt-6">&copy; 2025 ALFAJR Cambodia. All Rights Reserved.</p>
     </div>
 
     <!-- Swiper.js for Smooth Image Carousel -->
@@ -62,6 +74,8 @@
             loop: true,
             autoplay: { delay: 4000 },
             pagination: { el: '.swiper-pagination', clickable: true },
+            slidesPerView: 1, // Only one image visible at a time
+            spaceBetween: 10
         });
     </script>
 

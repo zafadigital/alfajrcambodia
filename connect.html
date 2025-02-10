@@ -10,12 +10,12 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
     <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md text-center">
-        <!-- Profile Image -->
-        <img src="assets/images/logo/logo_black.png" alt="AlFajr Logo" class="w-24 h-24 mx-auto rounded-full mb-4">
-
-        <!-- Name & Bio -->
-        <h1 class="text-2xl font-semibold text-gray-800">AlFajr Cambodia</h1>
-        <p class="text-gray-600 text-sm mt-1">Your Trusted Partner for Islamic Essentials</p>
+        <!-- Profile Section (Fixed at Top) -->
+        <div class="flex flex-col items-center">
+            <img src="assets/images/logo/logo_black.png" alt="AlFajr Logo" class="w-24 h-24 mx-auto rounded-full mb-4">
+            <h1 class="text-2xl font-semibold text-gray-800">AlFajr Cambodia</h1>
+            <p class="text-gray-600 text-sm mt-1">Your Trusted Partner for Islamic Essentials</p>
+        </div>
 
         <!-- Social Media Links -->
         <div class="mt-4 flex justify-center space-x-4">
@@ -38,17 +38,14 @@
             </a>
         </div>
 
-        <!-- Image Carousel -->
+        <!-- Beautiful Image Slider (Full-width, Rounded Corners, No Arrows) -->
         <div class="mt-6">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Slide 1" class="rounded-lg w-full"></div>
-                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Slide 2" class="rounded-lg w-full"></div>
-                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Slide 3" class="rounded-lg w-full"></div>
+                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Umrah Package 1" class="rounded-xl w-full shadow-lg"></div>
+                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Umrah Package 2" class="rounded-xl w-full shadow-lg"></div>
+                    <div class="swiper-slide"><img src="assets/images/packages/umrahpackages.webp" alt="Umrah Package 3" class="rounded-xl w-full shadow-lg"></div>
                 </div>
-                <!-- Navigation Arrows -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
                 <!-- Pagination Dots -->
                 <div class="swiper-pagination"></div>
             </div>
@@ -58,14 +55,13 @@
         <p class="text-xs text-gray-500 mt-6">&copy; 2025 AlFajr Cambodia. All Rights Reserved.</p>
     </div>
 
-    <!-- Swiper.js for Carousel -->
+    <!-- Swiper.js for Smooth Image Carousel -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
         var swiper = new Swiper('.swiper-container', {
             loop: true,
-            autoplay: { delay: 3000 },
+            autoplay: { delay: 4000 },
             pagination: { el: '.swiper-pagination', clickable: true },
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
         });
     </script>
 

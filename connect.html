@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALFAJR Cambodia | Hub</title>
+    <title>AlFajr Cambodia | Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 </head>
 <body class="bg-gray-100">
 
     <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md mx-auto pt-6">
-        <!-- Profile Section (Fixed at Top) -->
+        <!-- Profile Section -->
         <div class="flex flex-col items-center">
-            <img src="assets/images/logo/logo_black.png" alt="ALFAJR Logo" class="w-24 h-24 mx-auto rounded-full mb-4">
-            <h1 class="text-2xl font-semibold text-gray-800">ALFAJR Cambodia</h1>
+            <img src="assets/images/logo/logo_black.png" alt="AlFajr Logo" class="w-24 h-24 mx-auto rounded-full mb-4">
+            <h1 class="text-2xl font-semibold text-gray-800">AlFajr Cambodia</h1>
             <p class="text-gray-600 text-sm mt-1">Your Trusted Partner for Islamic Essentials</p>
         </div>
 
         <!-- Social Media Links -->
         <div class="mt-4 flex justify-center space-x-4">
             <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-facebook fa-lg"></i></a>
-            <a href="#" class="text-red-500 hover:text-red-700"><i class="fab fa-instagram fa-lg"></i></a>
-            <a href="#" class="text-black-400 hover:text-black-600"><i class="fab fa-tiktok fa-lg"></i></a>
-            <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-telegram fa-lg"></i></a>
+            <a href="#" class="text-red-500 hover:text-red-700"><i class="fab fa-youtube fa-lg"></i></a>
+            <a href="#" class="text-blue-400 hover:text-blue-600"><i class="fab fa-twitter fa-lg"></i></a>
+            <a href="#" class="text-pink-500 hover:text-pink-700"><i class="fab fa-instagram fa-lg"></i></a>
         </div>
 
         <!-- Actionable Links -->
@@ -35,25 +35,25 @@
             </a>
         </div>
 
-        <!-- Beautiful Image Slider (Full-width, One Image at a Time) -->
+        <!-- Image Slider with Dynamic WhatsApp Link -->
         <div class="mt-6">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <img src="assets/images/packages/umrahpackages.webp" alt="I want to book Umrah Package 1 prices $1599" class="rounded-xl w-full shadow-lg">
-                        <a href="https://wa.me/85569556444?text=I%20want%20to%20book%20Umrah%20Package%201%20prices%20$1599" class="mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
+                        <a href="#" class="whatsapp-link mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
                             📞 Chat on WhatsApp
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <img src="assets/images/packages/umrahpackages.webp" alt="I want to book Umrah Package 2 prices $1899" class="rounded-xl w-full shadow-lg">
-                        <a href="https://wa.me/85569556444?text=I%20want%20to%20book%20Umrah%20Package%202%20prices%20$1899" class="mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
+                        <a href="#" class="whatsapp-link mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
                             📞 Chat on WhatsApp
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <img src="assets/images/packages/umrahpackages.webp" alt="I want to book Umrah Package 3 prices $2099" class="rounded-xl w-full shadow-lg">
-                        <a href="https://wa.me/85569556444?text=I%20want%20to%20book%20Umrah%20Package%203%20prices%20$2099" class="mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
+                        <a href="#" class="whatsapp-link mt-2 block bg-green-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-green-600">
                             📞 Chat on WhatsApp
                         </a>
                     </div>
@@ -64,7 +64,7 @@
         </div>
 
         <!-- Footer -->
-        <p class="text-xs text-gray-500 mt-6">&copy; 2025 ALFAJR Cambodia. All Rights Reserved.</p>
+        <p class="text-xs text-gray-500 mt-6">&copy; 2025 AlFajr Cambodia. All Rights Reserved.</p>
     </div>
 
     <!-- Swiper.js for Smooth Image Carousel -->
@@ -76,6 +76,20 @@
             pagination: { el: '.swiper-pagination', clickable: true },
             slidesPerView: 1, // Only one image visible at a time
             spaceBetween: 10
+        });
+
+        // WhatsApp Number
+        const whatsappNumber = "85569556444"; 
+
+        // Dynamically Set WhatsApp Links
+        document.querySelectorAll(".swiper-slide").forEach(slide => {
+            const image = slide.querySelector("img");
+            const whatsappLink = slide.querySelector(".whatsapp-link");
+
+            if (image && whatsappLink) {
+                const encodedMessage = encodeURIComponent(image.alt);
+                whatsappLink.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            }
         });
     </script>
 

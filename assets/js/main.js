@@ -210,13 +210,17 @@ function renderPackageDetails(pkg) {
     // WhatsApp Dynamic URL with Proper Formatting (Based on Real Package Data)
     const phoneNumber = "85569556444";
     const packageName = `*${pkg.title}*`;
-    const programType = `*${pkg.packageType || "Umrah Package"}*`; // Dynamically fetch package type
+    const programType = `*${pkg.packageType || "Umrah Package"}*`;
     const duration = `*${pkg.duration || "Unknown Duration"}*`;
     const startDate = `*${pkg.startDate}*`;
     const endDate = `*${pkg.endDate}*`;
     const guests = `*${pkg.adults || "1"}* pax`;
-    const departureAirport = `*${pkg.departure || "Unknown Airport"}*`; // Dynamically fetch airport if available
-    const packageURL = encodeURIComponent(pkg.url || "https://uhudtour.com");
+    const departureAirport = `*${pkg.departure || "Unknown Airport"}*`;
+
+    // Fix Localhost Issue: Convert URL to Real Domain
+    let packageURL = pkg.url || window.location.href;
+    packageURL = packageURL.replace("localhost", "alfajrcambodia.com");
+    packageURL = encodeURIComponent(packageURL);
 
     // Dynamic Room Information (If Available)
     let roomDetails = "";

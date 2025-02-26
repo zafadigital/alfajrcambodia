@@ -205,48 +205,43 @@ function renderPackageDetails(pkg) {
         </a>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> 
-        <div class="md:col-span-2 space-y-8 mt-8">
-          <div>
-            <h2 class="text-xl font-bold text-gray-800">Description</h2>
-            <p class="text-gray-600 mt-2">
-              ${pkg.description || "No description available for this package."}
-            </p>
-          </div>
-          <div id="itinerary-section">
-            <h2 class="text-xl font-bold text-gray-800">Itinerary</h2>
-            <ul id="itinerary-list" class="text-gray-600 mt-2 list-disc list-inside text-justify"></ul>
-          </div>
-        </div>
-    </div>
   `;
 
-    // WhatsApp Dynamic URL with Proper Formatting
+    // WhatsApp Dynamic URL with Proper Formatting (Based on Real Package Data)
     const phoneNumber = "85569556444";
-    const packageName = "*UHDU TOUR*";
-    const programName = `*${pkg.title}*`;
-    const duration = `*${pkg.duration}*`;
+    const packageName = `*${pkg.title}*`;
+    const programType = `*${pkg.packageType || "Umrah Package"}*`; // Dynamically fetch package type
+    const duration = `*${pkg.duration || "Unknown Duration"}*`;
     const startDate = `*${pkg.startDate}*`;
     const endDate = `*${pkg.endDate}*`;
-    const guests = `*${pkg.adults}* pax`;
-    const departureAirport = "*Soekarno-Hatta International Airport*";
-    const packageURL = encodeURIComponent("https://uhudtour.com/transaksi/paket-umrah/detail/194/17-maret-2025-platinum-akhir-ramadhan");
+    const guests = `*${pkg.adults || "1"}* pax`;
+    const departureAirport = `*${pkg.departure || "Unknown Airport"}*`; // Dynamically fetch airport if available
+    const packageURL = encodeURIComponent(pkg.url || "https://uhudtour.com");
 
+    // Dynamic Room Information (If Available)
+    let roomDetails = "";
+    if (pkg.rooms) {
+        roomDetails = pkg.rooms.map(room => `- *${room.type}*: ${room.count} pax`).join("\n");
+    } else {
+        roomDetails = "- *Double*: 1 pax\n- *Triple*: 2 pax"; // Default values
+    }
+
+    // Construct the WhatsApp Message
     const message = `Assalamualaikum ${packageName}
 
-Saya ingin mendaftar paket umrah ${programName}
+Saya ingin mendaftar paket ${programType}
 Program: ${duration}
 Keberangkatan: ${startDate} hingga ${endDate}
 Dari Bandara: ${departureAirport}
 
 Dengan kamar:
-- *Double*: 1 pax
-- *Triple*: 20 pax
+${roomDetails}
 
 Mohon informasi lebih lanjut terkait paket tersebut.
 
 ${packageURL}`;
 
+    // Encode the message for WhatsApp URL
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
     // Update WhatsApp button link

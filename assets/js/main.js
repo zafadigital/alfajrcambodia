@@ -209,17 +209,17 @@ function renderPackageDetails(pkg) {
 
     // WhatsApp Dynamic URL with Proper Formatting
     const phoneNumber = "85569556444";
-    const packageName = `*${pkg.title}*`;
-    const programType = `*${pkg.packageType || "Umrah Package"}*`;
-    const duration = `*${pkg.duration || "Unknown Duration"}*`;
+    const companyName = "Alfajr Cambodia"; // Fixed company name
+    const packageName = `*${pkg.title}*`; // Package title in bold
     const startDate = `*${pkg.startDate}*`;
     const endDate = `*${pkg.endDate}*`;
     const guests = `*${pkg.adults || "1"}* pax`;
+    const duration = `*${pkg.duration || "Unknown Duration"}*`;
     const departureAirport = `*${pkg.departure || "Unknown Airport"}*`;
 
     // Fix Localhost Issue: Convert URL to Real Domain
     let packageURL = pkg.url || window.location.href;
-    packageURL = packageURL.replace("localhost", "www.alfajrcambodia.com"); // Ensure it replaces correctly
+    packageURL = packageURL.replace("localhost", "www.alfajrcambodia.com"); // Ensure correct domain
 
     // Dynamic Room Information (If Available)
     let roomDetails = "";
@@ -229,10 +229,10 @@ function renderPackageDetails(pkg) {
         roomDetails = "- *Double*: 1 pax\n- *Triple*: 2 pax"; // Default values
     }
 
-    // Construct the WhatsApp Message (Keep URL Unencoded)
-    const message = `Assalamualaikum ${packageName}
+    // Construct the WhatsApp Message
+    const message = `Assalamualaikum ${companyName}
 
-Saya ingin mendaftar paket ${programType}
+Saya ingin mendaftar paket ${packageName}
 Program: ${duration}
 Keberangkatan: ${startDate} hingga ${endDate}
 Dari Bandara: ${departureAirport}
@@ -242,7 +242,7 @@ ${roomDetails}
 
 Mohon informasi lebih lanjut terkait paket tersebut.
 
-${packageURL}`; // URL should not be encoded
+${packageURL}`;
 
     // Encode only the text message (not the URL)
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;

@@ -142,13 +142,6 @@ function loadGlobalDetails() {
 function renderPackageDetails(pkg) {
     const detailsContainer = document.getElementById("details-container");
 
-    const featuresIcons = {
-        flight: "https://media.umrahme.com/prod/saas/assets/media/icons/plane.png",
-        hotels: "https://media.umrahme.com/prod/saas/assets/media/icons/hotel.png",
-        transfers: "https://media.umrahme.com/prod/saas/assets/media/icons/car.png",
-        activities: "https://media.umrahme.com/prod/saas/assets/media/icons/activity.png",
-    };
-
     detailsContainer.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="md:col-span-2 space-y-6">
@@ -157,29 +150,6 @@ function renderPackageDetails(pkg) {
           <div class="flex items-center space-x-4 mt-2">
             <p class="text-sm bg-gray-200 text-gray-800 py-1 px-3 rounded-full">${pkg.location}</p>
             <p class="text-sm bg-gray-200 text-gray-800 py-1 px-3 rounded-full">${pkg.duration}</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <img src="${pkg.images[0]}" alt="Main Image" class="col-span-2 w-full h-[400px] object-cover rounded-lg">
-          <img src="${pkg.images[1] || pkg.images[0]}" alt="Sub Image 1" class="w-full h-[200px] object-cover rounded-lg">
-          <div class="relative">
-            <img src="${pkg.images[2] || pkg.images[0]}" alt="Sub Image 2" class="w-full h-[200px] object-cover rounded-lg">
-            ${pkg.images.length > 3
-                ? `<div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white font-bold text-lg rounded-lg">
-                  +${pkg.images.length - 3}
-                </div>` : ""}
-          </div>
-        </div>
-        <div class="bg-white mt-8 p-6 rounded-lg shadow-md">
-          <h2 class="text-xl font-bold text-gray-800">Features</h2>
-          <div class="grid grid-cols-4 gap-4 text-center mt-4">
-            ${Object.keys(pkg.features)
-                .map(key => `
-              <div>
-                <img src="${featuresIcons[key]}" alt="${key}" class="w-6 h-6 mx-auto">
-                <p class="text-gray-500 text-sm mt-1">${pkg.features[key]}</p>
-              </div>`)
-                .join("")}
           </div>
         </div>
       </div>
@@ -205,33 +175,35 @@ function renderPackageDetails(pkg) {
         </a>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> 
-        <div class="md:col-span-2 space-y-8 mt-8">
-          <div>
-            <h2 class="text-xl font-bold text-gray-800">Description</h2>
-            <p class="text-gray-600 mt-2">
-              ${pkg.description || "No description available for this package."}
-            </p>
-          </div>
-          <div id="itinerary-section">
-            <h2 class="text-xl font-bold text-gray-800">Itinerary</h2>
-            <ul id="itinerary-list" class="text-gray-600 mt-2 list-disc list-inside text-justify"></ul>
-          </div>
-        </div>
-    </div>
   `;
 
-    // WhatsApp Dynamic URL
+    // WhatsApp Dynamic URL with Proper Formatting
     const phoneNumber = "85569556444";
-    const packageName = encodeURIComponent(pkg.title || "UHDU TOUR");
-    const startDate = encodeURIComponent(pkg.startDate);
-    const endDate = encodeURIComponent(pkg.endDate);
-    const guests = encodeURIComponent(`${pkg.adults} Adults`);
-    const price = encodeURIComponent(`USD ${pkg.price}`);
+    const packageName = "*UHDU TOUR*";
+    const programName = `*${pkg.title}*`;
+    const duration = `*${pkg.duration}*`;
+    const startDate = `*${pkg.startDate}*`;
+    const endDate = `*${pkg.endDate}*`;
+    const guests = `*${pkg.adults}* pax`;
+    const departureAirport = "*Soekarno-Hatta International Airport*";
+    const packageURL = encodeURIComponent("https://uhudtour.com/transaksi/paket-umrah/detail/194/17-maret-2025-platinum-akhir-ramadhan");
 
-    const message = `Assalamualaikum *${packageName}*\n\nSaya ingin mendaftar paket umrah *${startDate}* hingga *${endDate}* untuk *${guests}* dengan harga *${price}*.\n\nMohon informasi lebih lanjut.`;
-    
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+    const message = `Assalamualaikum ${packageName}
+
+Saya ingin mendaftar paket umrah ${programName}
+Program: ${duration}
+Keberangkatan: ${startDate} hingga ${endDate}
+Dari Bandara: ${departureAirport}
+
+Dengan kamar:
+- *Double*: 1 pax
+- *Triple*: 20 pax
+
+Mohon informasi lebih lanjut terkait paket tersebut.
+
+${packageURL}`;
+
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
     // Update WhatsApp button link
     document.getElementById("whatsapp-btn").href = whatsappUrl;

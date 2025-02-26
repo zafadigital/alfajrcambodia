@@ -209,7 +209,7 @@ function renderPackageDetails(pkg) {
 
     // WhatsApp Dynamic URL with Proper Formatting
     const phoneNumber = "85569556444";
-    const companyName = "Alfajr Cambodia"; // Fixed company name
+    const companyName = "*Alfajr Cambodia*"; // Fixed company name
     const packageName = `*${pkg.title}*`; // Package title in bold
     const startDate = `*${pkg.startDate}*`;
     const endDate = `*${pkg.endDate}*`;
@@ -219,7 +219,7 @@ function renderPackageDetails(pkg) {
 
     // Fix Localhost Issue: Convert URL to Real Domain
     let packageURL = pkg.url || window.location.href;
-    packageURL = packageURL.replace("localhost", "www.alfajrcambodia.com"); // Ensure correct domain
+    packageURL = packageURL.replace("localhost", "alfajrcambodia.com"); // Ensure correct domain
 
     // Dynamic Room Information (If Available)
     let roomDetails = "";

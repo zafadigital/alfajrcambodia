@@ -207,7 +207,7 @@ function renderPackageDetails(pkg) {
     </div>
   `;
 
-    // WhatsApp Dynamic URL with Proper Formatting (Based on Real Package Data)
+    // WhatsApp Dynamic URL with Proper Formatting
     const phoneNumber = "85569556444";
     const packageName = `*${pkg.title}*`;
     const programType = `*${pkg.packageType || "Umrah Package"}*`;
@@ -219,8 +219,7 @@ function renderPackageDetails(pkg) {
 
     // Fix Localhost Issue: Convert URL to Real Domain
     let packageURL = pkg.url || window.location.href;
-    packageURL = packageURL.replace("localhost", "alfajrcambodia.com");
-    packageURL = encodeURIComponent(packageURL);
+    packageURL = packageURL.replace("localhost", "www.alfajrcambodia.com"); // Ensure it replaces correctly
 
     // Dynamic Room Information (If Available)
     let roomDetails = "";
@@ -230,7 +229,7 @@ function renderPackageDetails(pkg) {
         roomDetails = "- *Double*: 1 pax\n- *Triple*: 2 pax"; // Default values
     }
 
-    // Construct the WhatsApp Message
+    // Construct the WhatsApp Message (Keep URL Unencoded)
     const message = `Assalamualaikum ${packageName}
 
 Saya ingin mendaftar paket ${programType}
@@ -243,9 +242,9 @@ ${roomDetails}
 
 Mohon informasi lebih lanjut terkait paket tersebut.
 
-${packageURL}`;
+${packageURL}`; // URL should not be encoded
 
-    // Encode the message for WhatsApp URL
+    // Encode only the text message (not the URL)
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
     // Update WhatsApp button link

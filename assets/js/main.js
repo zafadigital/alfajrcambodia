@@ -138,6 +138,7 @@ function loadGlobalDetails() {
 }
 
 // Function to render package details
+
 function renderPackageDetails(pkg) {
     const detailsContainer = document.getElementById("details-container");
 
@@ -163,27 +164,22 @@ function renderPackageDetails(pkg) {
           <img src="${pkg.images[1] || pkg.images[0]}" alt="Sub Image 1" class="w-full h-[200px] object-cover rounded-lg">
           <div class="relative">
             <img src="${pkg.images[2] || pkg.images[0]}" alt="Sub Image 2" class="w-full h-[200px] object-cover rounded-lg">
-            ${
-              pkg.images.length > 3
+            ${pkg.images.length > 3
                 ? `<div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white font-bold text-lg rounded-lg">
                   +${pkg.images.length - 3}
-                </div>`
-                : ""
-            }
+                </div>` : ""}
           </div>
         </div>
         <div class="bg-white mt-8 p-6 rounded-lg shadow-md">
           <h2 class="text-xl font-bold text-gray-800">Features</h2>
           <div class="grid grid-cols-4 gap-4 text-center mt-4">
             ${Object.keys(pkg.features)
-              .map(
-                (key) => `
+                .map(key => `
               <div>
                 <img src="${featuresIcons[key]}" alt="${key}" class="w-6 h-6 mx-auto">
                 <p class="text-gray-500 text-sm mt-1">${pkg.features[key]}</p>
-              </div>`
-              )
-              .join("")}
+              </div>`)
+                .join("")}
           </div>
         </div>
       </div>
@@ -200,6 +196,12 @@ function renderPackageDetails(pkg) {
         <a href="booking.html?id=${pkg.id}&startDate=${pkg.startDate}&endDate=${pkg.endDate}&adults=${pkg.adults}&price=${pkg.price}" 
            class="bg-green-500 text-white w-full mt-4 py-2 rounded-lg hover:bg-green-600 block text-center">
           Booking Now
+        </a>
+        
+        <!-- WhatsApp Button -->
+        <a id="whatsapp-btn" href="#" target="_blank"
+           class="bg-green-700 text-white w-full mt-2 py-2 rounded-lg hover:bg-green-800 block text-center">
+          Contact via WhatsApp
         </a>
       </div>
     </div>
@@ -218,4 +220,19 @@ function renderPackageDetails(pkg) {
         </div>
     </div>
   `;
+
+    // WhatsApp Dynamic URL
+    const phoneNumber = "85569556444";
+    const packageName = encodeURIComponent(pkg.title || "UHDU TOUR");
+    const startDate = encodeURIComponent(pkg.startDate);
+    const endDate = encodeURIComponent(pkg.endDate);
+    const guests = encodeURIComponent(`${pkg.adults} Adults`);
+    const price = encodeURIComponent(`USD ${pkg.price}`);
+
+    const message = `Assalamualaikum *${packageName}*\n\nSaya ingin mendaftar paket umrah *${startDate}* hingga *${endDate}* untuk *${guests}* dengan harga *${price}*.\n\nMohon informasi lebih lanjut.`;
+    
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+
+    // Update WhatsApp button link
+    document.getElementById("whatsapp-btn").href = whatsappUrl;
 }

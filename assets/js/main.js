@@ -209,8 +209,8 @@ function renderPackageDetails(pkg) {
 
     // WhatsApp Dynamic URL with Proper Formatting
     const phoneNumber = "85569556444";
-    const packageName = `*Alfajr Cambodia*`;
-    const programType = `*${pkg.packageType || "${pkg.title}"}*`;
+    const packageName = `*${pkg.title}*`;
+    const programType = `*${pkg.packageType || "Umrah Package"}*`;
     const duration = `*${pkg.duration || "Unknown Duration"}*`;
     const startDate = `*${pkg.startDate}*`;
     const endDate = `*${pkg.endDate}*`;

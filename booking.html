@@ -58,11 +58,11 @@
                     <h3 class="text-lg font-bold mb-6">Summary</h3>
                     <div class="mb-6">
                         <p class="text-sm font-semibold"><strong>Package:</strong> <span id="summary-package-name" style="text-transform: uppercase;"></span></p>
-                        <p id="summary-package-details" class="text-sm text-gray-600">1 x USD 50</p>
+                        <p id="summary-package-details" class="text-sm text-gray-600">1 x USD 1000</p>
                     </div>
                     <div class="mb-6">
                         <p class="text-sm font-semibold">Total Deposit</p>
-                        <p id="total-deposit" class="text-2xl font-bold text-green-600">USD 50.00</p>
+                        <p id="total-deposit" class="text-2xl font-bold text-green-600">USD 1000.00</p>
                     </div>
                     <button class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
                         Confirm Booking
@@ -90,7 +90,7 @@
         const packageId = urlParams.get('id');
         const startDate = urlParams.get('startDate');
         const endDate = urlParams.get('endDate');
-        const depositAmount = 50;
+        const depositAmount = 1000;
 
         const packageNameElement = document.getElementById('package-name');
         const startDateElement = document.getElementById('start-date');

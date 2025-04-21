@@ -2,76 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfajr Cambodia</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Favicon Meta -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/favicon/site.webmanifest">
-    <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
-    <meta name="theme-color" content="#FF4800">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alfajr Cambodia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon Meta -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="assets/images/favicon/site.webmanifest">
+  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico">
+  <meta name="theme-color" content="#FF4800" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
 <body class="font-sans antialiased bg-gray-100">
-    <!-- Header -->
-    <div id="header"></div>
-    <!-- Main Section -->
-    <section class="bg-gray-50 py-8 px-4 md:px-16">
-        <div class="container mx-auto max-w-[1440px]">
-            <!-- Dynamic Content -->
-            <div id="details-container">
-                <!-- The content will be dynamically injected here -->
-            </div>
-            <!-- Terms and Conditions Section -->
-            <div id="terms-section"></div>
-            <!-- Cancellation Policy Section -->
-            <div id="cancellation-section"></div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <div id="footer"></div>
-    <script src="assets/js/scripts.js" defer></script>
-    <script src="assets/js/utils.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // Fetch and Display Package Details
-        const urlParams = new URLSearchParams(window.location.search);
-        const packageId = urlParams.get("id");
-        const jsonFile = urlParams.get("type") === "holiday" ? "components/datajson/umrah-holiday.json" : "components/datajson/umrah-package.json";
+  <!-- Header -->
+  <div id="header"></div>
 
-        fetch(jsonFile)
-            .then(response => response.json())
-            .then(data => {
-                const selectedPackage = data.packages.find(pkg => pkg.id === packageId);
+  <!-- Main Section -->
+  <section class="bg-gray-50 py-8 px-4 md:px-16">
+    <div class="container mx-auto max-w-[1440px]">
+      <!-- Dynamic Package Details -->
+      <div id="details-container"></div>
 
-                if (selectedPackage) {
-                    document.getElementById("package-details").innerHTML = `
-              <h2 class="text-2xl font-bold text-gray-800 mb-4">${selectedPackage.name}</h2>
-              <img src="${selectedPackage.image}" alt="${selectedPackage.name}" class="rounded-lg mb-4 w-full h-[300px] object-cover">
-              <p class="text-gray-600 text-sm mb-4">${selectedPackage.details}</p>
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Inclusions</h3>
-              <ul class="list-disc list-inside text-gray-600 mb-4">
-                ${selectedPackage.inclusions.map(item => `<li>${item}</li>`).join("")}
-              </ul>
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Exclusions</h3>
-              <ul class="list-disc list-inside text-gray-600">
-                ${selectedPackage.exclusions.map(item => `<li>${item}</li>`).join("")}
-              </ul>
-              <p class="text-gray-800 font-bold mt-4">From ${selectedPackage.currency}${selectedPackage.price}</p>
-            `;
-                } else {
-                    document.getElementById("package-details").innerHTML = `<p class="text-red-500">Package not found.</p>`;
-                }
-            })
-            .catch(error => console.error("Error loading package details:", error));
-    });
-    </script>
+      <!-- Itinerary Section -->
+      <div class="mt-12">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Itinerary</h2>
+        <ul id="itinerary-list" class="list-disc list-inside text-gray-600 space-y-4"></ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/scripts.js" defer></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Travels - Hajj & Umrah Tours</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper.js for Carousel -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb; /* gray-200 */
+        }
+        .hero-bg {
+            background-image: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('https://placehold.co/1600x800/22c55e/ffffff?text=Kaaba');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Custom scrollbar for webkit browsers */
+        .app-main::-webkit-scrollbar {
+            width: 4px;
+        }
+        .app-main::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .app-main::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        .app-main::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+        .nav-btn.active {
+            color: #16a34a; /* green-600 */
+        }
+        /* Swiper Carousel styles */
+        .swiper-pagination-bullet-active {
+            background-color: #16a34a !important;
+        }
+        /* Accordion transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .accordion-content.open {
+           max-height: 500px; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <!-- App Container -->
+    <div id="app-container" class="relative bg-gray-50 w-full max-w-sm h-[90vh] max-h-[800px] rounded-3xl shadow-2xl overflow-hidden flex flex-col border-4 border-black">
+        
+        <!-- Main Content Area -->
+        <main id="app-main" class="flex-grow overflow-y-auto">
+
+            <!-- Home View -->
+            <section id="view-home" class="view">
+                <div class="hero-bg text-white h-64 flex flex-col justify-end p-6">
+                    <h1 class="text-4xl font-bold">Islamic Travels</h1>
+                    <p class="text-lg mt-2">Your Sacred Journey to Mecca & Medina awaits.</p>
+                </div>
+                <div class="p-6">
+                    <h2 class="text-xl font-bold mb-4">Featured Packages</h2>
+                    <div id="featured-packages-list" class="space-y-4">
+                        <!-- Featured packages will be injected here -->
+                    </div>
+                </div>
+                 <div class="p-6 bg-gray-100">
+                    <h2 class="text-xl font-bold mb-4">Why Choose Us?</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 text-lg mr-4 mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold">Trusted & Experienced</h3>
+                                <p class="text-gray-600 text-sm">Over 15 years of experience in providing Hajj & Umrah services.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start">
+                            <i class="fas fa-users text-green-600 text-lg mr-4 mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold">Expert Guides</h3>
+                                <p class="text-gray-600 text-sm">Learn from knowledgeable scholars who guide you every step of the way.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start">
+                             <i class="fas fa-hotel text-blue-500 text-lg mr-4 mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold">Premium Comfort</h3>
+                                <p class="text-gray-600 text-sm">We provide comfortable accommodation and transport for a peaceful journey.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Packages View -->
+            <section id="view-packages" class="view hidden p-6">
+                <h1 class="text-2xl font-bold mb-6">Our Packages</h1>
+                <div id="package-list" class="grid grid-cols-1 gap-4">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <!-- Package Detail View -->
+            <section id="view-detail" class="view hidden bg-white">
+                <!-- Dynamic content here -->
+            </section>
+
+            <!-- Donation View -->
+            <section id="view-donation" class="view hidden p-6">
+                 <div class="text-center mb-6">
+                    <h1 class="text-2xl font-bold">Make a Difference</h1>
+                    <p class="text-gray-600">Choose a cause to support with your generosity.</p>
+                </div>
+                <div class="space-y-5">
+                    <!-- Donation Option 1 -->
+                    <div class="bg-white rounded-lg shadow p-5 text-center">
+                        <i class="fas fa-kaaba text-3xl text-green-600 mb-3"></i>
+                        <h2 class="text-xl font-bold mb-2">Sponsor a Pilgrim</h2>
+                        <p class="text-gray-600 mb-4 text-sm">Help a brother or sister fulfill the dream of a lifetime to perform Hajj or Umrah.</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded-full font-semibold hover:bg-green-700">Donate for Umrah</button>
+                    </div>
+                    <!-- Donation Option 2 -->
+                     <div class="bg-white rounded-lg shadow p-5 text-center">
+                        <i class="fas fa-hand-holding-heart text-3xl text-red-500 mb-3"></i>
+                        <h2 class="text-xl font-bold mb-2">Sadaqah Jariyah</h2>
+                        <p class="text-gray-600 mb-4 text-sm">Contribute to ongoing charity projects like building wells or schools for continuous rewards.</p>
+                        <button class="w-full bg-red-500 text-white py-2 rounded-full font-semibold hover:bg-red-600">Give Sadaqah</button>
+                    </div>
+                    <!-- Donation Option 3 -->
+                     <div class="bg-white rounded-lg shadow p-5 text-center">
+                        <i class="fas fa-utensils text-3xl text-blue-500 mb-3"></i>
+                        <h2 class="text-xl font-bold mb-2">Feed the Needy</h2>
+                        <p class="text-gray-600 mb-4 text-sm">Provide warm meals to poor families and pilgrims in the holy cities of Makkah and Madinah.</p>
+                        <button class="w-full bg-blue-500 text-white py-2 rounded-full font-semibold hover:bg-blue-600">Donate Food</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact View -->
+            <section id="view-contact" class="view hidden p-6">
+                <h1 class="text-2xl font-bold mb-6">Contact Us</h1>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <i class="fas fa-phone text-green-600 mr-3"></i>
+                        <span>+1 (234) 567-890</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <i class="fas fa-envelope text-green-600 mr-3"></i>
+                        <span>contact@islamictravels.com</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <i class="fas fa-map-marker-alt text-green-600 mr-3"></i>
+                        <span>123 Islamic Center, Makkah</span>
+                    </div>
+                </div>
+                <div class="mt-8">
+                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.839097782744!2d39.82390401540671!3d21.42248558579457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c204b7a783491b%3A0x448a038f9b884968!2sKaaba!5e0!3m2!1sen!2sus!4v1648234567890" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" class="rounded-lg"></iframe>
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- Bottom Navigation -->
+        <nav id="bottom-nav" class="w-full bg-white border-t border-gray-200 flex justify-around items-center h-16">
+            <button data-view="home" class="nav-btn active flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs mt-1">Home</span>
+            </button>
+            <button data-view="packages" class="nav-btn flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+                <i class="fas fa-box-open text-xl"></i>
+                <span class="text-xs mt-1">Packages</span>
+            </button>
+            <button data-view="donation" class="nav-btn flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+                <i class="fas fa-hand-holding-heart text-xl"></i>
+                <span class="text-xs mt-1">Donate</span>
+            </button>
+            <button data-view="contact" class="nav-btn flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+                <i class="fas fa-user-circle text-xl"></i>
+                <span class="text-xs mt-1">Contact</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Booking Modal (still used for the final step) -->
+    <div id="booking-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl max-w-sm w-full mx-auto relative">
+             <button id="close-booking-modal" class="absolute top-3 right-4 text-2xl text-gray-500 hover:text-gray-800">&times;</button>
+             <div class="p-6">
+                <h2 class="text-xl font-bold mb-4 text-center">Book Your Tour</h2>
+                <form id="booking-form">
+                    <input type="hidden" id="booking-package-id">
+                    <h3 id="booking-package-name" class="text-lg font-semibold mb-3 text-green-700 text-center"></h3>
+                    <div class="mb-3">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    </div>
+                     <div class="mb-3">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    </div>
+                     <div class="mb-3">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                        <input type="tel" id="phone" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="travelers" class="block text-sm font-medium text-gray-700">Travelers</label>
+                        <input type="number" id="travelers" min="1" value="1" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-2.5 rounded-full font-semibold hover:bg-green-700 transition duration-300">Submit Request</button>
+                    <p id="booking-success-message" class="text-center mt-3 text-green-600 hidden">Request sent! We'll contact you soon.</p>
+                </form>
+             </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- PRODUCT DATA ---
+            const products = [
+                {
+                    id: 1, type: 'Umrah', name: '10-Day Economy Umrah', price: '1800', duration: '10 Days', 
+                    images: [
+                        'https://placehold.co/600x400/34d399/ffffff?text=Makkah+Hotel',
+                        'https://placehold.co/600x400/34d399/ffffff?text=Masjid+al-Nabawi',
+                        'https://placehold.co/600x400/34d399/ffffff?text=Group+Ziyarat'
+                    ],
+                    description: 'An affordable package for those wanting to perform Umrah with all the essentials covered. Focus on your worship without any worries.',
+                    includes: ['Visa Processing', 'Return Flights', '3-Star Hotel', 'Transportation', 'Guided Ziyarat'],
+                    itinerary: [
+                        { day: 1, title: 'Arrival in Jeddah & Transfer to Makkah', details: 'Arrive at King Abdulaziz International Airport, meet our representative, and transfer to your hotel in Makkah to perform Umrah.' },
+                        { day: 2, title: 'Rest & Ibadah in Makkah', details: 'Spend the day in personal prayer and worship at the Grand Mosque.' },
+                        { day: 5, title: 'Transfer to Madinah', details: 'Check out from your Makkah hotel and travel to Madinah. Check into your hotel and pray at Masjid al-Nabawi.' },
+                        { day: 8, title: 'Ziyarat in Madinah', details: 'Guided tour of historical Islamic sites in Madinah, including Quba Mosque and Mount Uhud.' },
+                        { day: 10, title: 'Departure', details: 'Check out from your hotel and transfer to Madinah Airport for your flight home.' }
+                    ]
+                },
+                {
+                    id: 2, type: 'Umrah', name: '14-Day Deluxe Umrah', price: '2500', duration: '14 Days',
+                    images: [
+                        'https://placehold.co/600x400/10b981/ffffff?text=Deluxe+Hotel+View',
+                        'https://placehold.co/600x400/10b981/ffffff?text=Haram+Courtyard',
+                        'https://placehold.co/600x400/10b981/ffffff?text=Luxury+Bus'
+                    ],
+                    description: 'A comfortable journey. Stay in premium hotels close to the Haramain, with extra guided tours and services.', 
+                    includes: ['Visa & Fees', 'Direct Flights', '5-Star Hotel', 'Private Transport', 'Ziyarat', 'Breakfast Buffet'],
+                     itinerary: [
+                        { day: 1, title: 'Arrival in Madinah', details: 'Arrive at Madinah Airport, transfer to your 5-star hotel near Masjid al-Nabawi.' },
+                        { day: 4, title: 'Ziyarat in Madinah', details: 'Exclusive guided tour of important sites in Madinah.' },
+                        { day: 6, title: 'Travel to Makkah', details: 'Travel to Makkah via high-speed train and perform Umrah upon arrival.' },
+                        { day: 10, title: 'Ziyarat in Makkah', details: 'Guided tour of historical sites around Makkah.' },
+                        { day: 14, title: 'Departure from Jeddah', details: 'Enjoy a final morning of worship before transferring to Jeddah for your departure.' }
+                    ]
+                },
+                {
+                    id: 3, type: 'Hajj', name: '21-Day Classic Hajj', price: '8500', duration: '21 Days', 
+                    images: [
+                        'https://placehold.co/600x400/059669/ffffff?text=Arafat+Tents',
+                        'https://placehold.co/600x400/059669/ffffff?text=Jamarat+Stoning',
+                        'https://placehold.co/600x400/059669/ffffff?text=Group+Tawaf'
+                    ],
+                    description: 'Our most popular Hajj package. A complete package that covers all rituals with guidance from experienced scholars.', 
+                    includes: ['Hajj Visa', 'Return Flights', 'Haram-view Hotel', 'AC Tents', 'Full Transport', 'Qurbani'],
+                    itinerary: [
+                        { day: 1, title: 'Arrival & Makkah', details: 'Arrive in Saudi Arabia and proceed to your hotel in Makkah.' },
+                        { day: 8, title: 'Journey to Mina', details: 'Travel to the tent city of Mina to begin the rituals of Hajj.' },
+                        { day: 9, title: 'Day of Arafat', details: 'The most important day of Hajj. Spend the day in prayer on the plains of Arafat, followed by travel to Muzdalifah.' },
+                        { day: 10, title: 'Eid al-Adha & Stoning', details: 'Perform the stoning of the Jamarat, Qurbani (sacrifice), and shave/cut hair.' },
+                        { day: 11, title: 'Tawaf al-Ifadah', details: 'Return to Makkah to perform Tawaf al-Ifadah and Sa\'i.' },
+                        { day: 12, title: 'Days in Mina', details: 'Spend the next two or three days in Mina, performing the stoning ritual each day.' },
+                        { day: 15, title: 'Return to Makkah & Madinah', details: 'Return to your Makkah hotel. Later, travel to Madinah.' },
+                        { day: 21, title: 'Departure', details: 'Depart for home from Madinah Airport.' }
+                    ]
+                },
+                {
+                    id: 4, type: 'Hajj', name: '30-Day Premium Hajj', price: '12000', duration: '30 Days',
+                    images: [
+                        'https://placehold.co/600x400/047857/ffffff?text=Kaaba+View+Room',
+                        'https://placehold.co/600x400/047857/ffffff?text=VIP+Mina+Tent',
+                        'https://placehold.co/600x400/047857/ffffff?text=Business+Class'
+                    ],
+                    description: 'The ultimate Hajj experience with top-tier services, the best hotels, and exclusive access for a serene pilgrimage.', 
+                    includes: ['VIP Visa', 'Business Class', '5-Star Kaaba View', 'VIP Tents', 'Luxury Transport', 'Personal Guide'],
+                     itinerary: [
+                        { day: 1, title: 'Arrival & Makkah', details: 'Arrive in style and check into your 5-star hotel with a Kaaba view.' },
+                        { day: 8, title: 'Journey to Mina', details: 'Travel to your VIP tent in Mina, with premium amenities.' },
+                        { day: 9, title: 'Day of Arafat', details: 'Spend the day in prayer in exclusive, air-conditioned tents in Arafat.' },
+                        { day: 10, title: 'Eid & VIP Rituals', details: 'Perform rituals with ease and dedicated assistance.' },
+                        { day: 15, title: 'Extended stay in Makkah', details: 'Enjoy an extended period of worship and reflection in Makkah post-Hajj rituals.' },
+                        { day: 22, title: 'Travel to Madinah', details: 'Travel in luxury to Madinah and check into your premium hotel.' },
+                        { day: 30, title: 'Departure', details: 'Depart for home from Madinah Airport.' }
+                    ]
+                }
+            ];
+
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const views = document.querySelectorAll('.view');
+            const mainContentArea = document.getElementById('app-main');
+            const packageListContainer = document.getElementById('package-list');
+            const detailViewContainer = document.getElementById('view-detail');
+            const bookingModal = document.getElementById('booking-modal');
+            const closeBookingModalBtn = document.getElementById('close-booking-modal');
+            const bookingForm = document.getElementById('booking-form');
+
+            // --- NAVIGATION LOGIC ---
+            function showView(viewId) {
+                views.forEach(view => view.classList.add('hidden'));
+                const activeView = document.getElementById(`view-${viewId}`);
+                if (activeView) activeView.classList.remove('hidden');
+                navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.view === viewId));
+                mainContentArea.scrollTop = 0;
+            }
+
+            navButtons.forEach(button => button.addEventListener('click', () => showView(button.dataset.view)));
+
+            // --- RENDER CONTENT ---
+            function renderAllPackages() {
+                packageListContainer.innerHTML = '';
+                products.forEach(product => packageListContainer.appendChild(createPackageCard(product, 'list')));
+            }
+
+            function renderFeaturedPackages() {
+                const featuredContainer = document.getElementById('featured-packages-list');
+                featuredContainer.innerHTML = '';
+                products.slice(0, 3).forEach(product => featuredContainer.appendChild(createPackageCard(product, 'featured')));
+            }
+
+            function createPackageCard(product, type) {
+                const card = document.createElement('div');
+                card.dataset.id = product.id;
+                card.className = 'bg-white rounded-lg shadow flex items-center p-3 cursor-pointer transition-transform transform hover:scale-105';
+                
+                const image = product.images[0] || 'https://placehold.co/400x300/cccccc/ffffff?text=Image';
+                
+                let contentHTML = `
+                    <img src="${image}" alt="${product.name}" class="w-20 h-20 object-cover rounded-md mr-4">
+                    <div class="flex-grow">`;
+                
+                if (type === 'featured') {
+                    contentHTML += `
+                        <h3 class="font-bold">${product.name}</h3>
+                        <p class="text-sm text-gray-600">${product.duration}</p>
+                        <p class="text-lg font-bold text-green-700 mt-1">$${product.price}</p>`;
+                } else {
+                    contentHTML += `
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full">${product.type}</span>
+                        <h3 class="font-bold mt-1">${product.name}</h3>
+                        <p class="text-sm text-gray-600">${product.duration}</p>`;
+                }
+                
+                contentHTML += `</div>`;
+                
+                if (type === 'featured') {
+                    contentHTML += `<i class="fas fa-chevron-right text-gray-400"></i>`;
+                } else {
+                     contentHTML += `<p class="text-lg font-bold text-green-700">$${product.price}</p>`;
+                }
+                
+                card.innerHTML = contentHTML;
+                card.addEventListener('click', () => showPackageDetail(product.id));
+                return card;
+            }
+
+            // --- DETAIL VIEW LOGIC ---
+            function showPackageDetail(productId) {
+                const product = products.find(p => p.id === productId);
+                detailViewContainer.innerHTML = `
+                    <div class="relative">
+                        <!-- Swiper Carousel -->
+                        <div class="swiper-container h-56">
+                            <div class="swiper-wrapper">
+                                ${product.images.map(img => `<div class="swiper-slide"><img src="${img}" alt="${product.name}" class="w-full h-full object-cover"></div>`).join('')}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <button id="back-btn" class="absolute top-4 left-4 z-10 bg-white bg-opacity-70 text-gray-800 rounded-full w-9 h-9 flex items-center justify-center shadow-md">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 pb-24">
+                        <span class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">${product.type}</span>
+                        <h2 class="text-3xl font-bold my-3">${product.name}</h2>
+                        <p class="text-gray-600 mb-6">${product.description}</p>
+                        
+                        <h4 class="font-bold text-lg mb-3">What's Included:</h4>
+                        <ul class="space-y-2.5 mb-8 grid grid-cols-2 gap-x-4">
+                            ${product.includes.map(item => `<li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i><span class="text-sm">${item}</span></li>`).join('')}
+                        </ul>
+
+                        <h4 class="font-bold text-lg mb-3">Itinerary</h4>
+                        <div id="itinerary-accordion" class="space-y-2 border-t border-b border-gray-200 py-4">
+                            ${product.itinerary.map(item => `
+                                <div>
+                                    <button class="accordion-toggle w-full flex justify-between items-center text-left py-2 px-3 bg-gray-100 rounded-lg">
+                                        <span class="font-semibold">Day ${item.day}</span>
+                                        <i class="fas fa-chevron-down transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content bg-white p-4 rounded-b-lg border-t border-gray-200">
+                                        <h5 class="font-bold text-md mb-2">${item.title}</h5>
+                                        <p class="text-sm text-gray-600">${item.details}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="sticky bottom-0 bg-white p-4 border-t">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-gray-600">Price per person</span>
+                            <p class="text-2xl font-bold text-green-700">$${product.price}</p>
+                        </div>
+                        <button data-id="${product.id}" class="open-booking-btn w-full bg-green-600 text-white py-3 rounded-full font-semibold hover:bg-green-700 transition duration-300">Book This Package</button>
+                    </div>
+                `;
+
+                // Initialize Swiper
+                new Swiper('.swiper-container', {
+                    loop: true,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    autoplay: { delay: 3000 },
+                });
+
+                // Add Accordion Listeners
+                detailViewContainer.querySelectorAll('.accordion-toggle').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.nextElementSibling;
+                        const icon = button.querySelector('i');
+                        content.classList.toggle('open');
+                        icon.classList.toggle('rotate-180');
+                    });
+                });
+                
+                // Back Button Listener
+                detailViewContainer.querySelector('#back-btn').addEventListener('click', () => {
+                    const fromView = detailViewContainer.dataset.from || 'packages';
+                    showView(fromView);
+                });
+
+                detailViewContainer.querySelector('.open-booking-btn').addEventListener('click', () => openBookingModal(product));
+                
+                const currentView = document.querySelector('.view:not(.hidden)').id.replace('view-','');
+                detailViewContainer.dataset.from = currentView;
+                showView('detail');
+            }
+
+            // --- BOOKING MODAL LOGIC ---
+            function openBookingModal(product) {
+                document.getElementById('booking-package-id').value = product.id;
+                document.getElementById('booking-package-name').textContent = product.name;
+                bookingModal.classList.remove('hidden');
+                bookingModal.classList.add('flex');
+            }
+
+            closeBookingModalBtn.addEventListener('click', () => {
+                bookingModal.classList.add('hidden');
+                bookingModal.classList.remove('flex');
+                bookingForm.reset();
+                document.getElementById('booking-success-message').classList.add('hidden');
+            });
+
+            bookingForm.addEventListener('submit', function(e){
+                e.preventDefault();
+                console.log('Booking submitted for package ID:', document.getElementById('booking-package-id').value);
+                document.getElementById('booking-success-message').classList.remove('hidden');
+                setTimeout(() => {
+                    bookingModal.classList.add('hidden');
+                    bookingModal.classList.remove('flex');
+                    bookingForm.reset();
+                    document.getElementById('booking-success-message').classList.add('hidden');
+                }, 3000);
+            });
+
+            // --- INITIALIZE APP ---
+            renderAllPackages();
+            renderFeaturedPackages();
+            showView('home');
+        });
+    </script>
+</body>
+</html>

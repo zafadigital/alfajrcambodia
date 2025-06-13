@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Islamic Travels - Hajj & Umrah Tours</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16a34a">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
@@ -15,91 +20,99 @@
     <!-- Swiper.js for Carousel -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Configure Tailwind for Dark Mode
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <style>
         /* Custom Styles */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #e5e7eb; /* gray-200 */
         }
-        .hero-bg {
-            background-image: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('https://placehold.co/1600x800/22c55e/ffffff?text=Kaaba');
-            background-size: cover;
-            background-position: center;
+        html.dark body {
+            background-color: #111827; /* gray-900 */
         }
         /* Custom scrollbar for webkit browsers */
-        .app-main::-webkit-scrollbar {
-            width: 4px;
-        }
-        .app-main::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .app-main::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 4px;
-        }
-        .app-main::-webkit-scrollbar-thumb:hover {
-            background: #aaa;
-        }
-        .nav-btn.active {
-            color: #16a34a; /* green-600 */
-        }
+        .app-main::-webkit-scrollbar { width: 4px; }
+        .app-main::-webkit-scrollbar-track { background: #f1f1f1; }
+        .app-main::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        html.dark .app-main::-webkit-scrollbar-track { background: #2d3748; }
+        html.dark .app-main::-webkit-scrollbar-thumb { background: #4a5568; }
+
+        .nav-btn.active { color: #16a34a; }
+        html.dark .nav-btn.active { color: #34d399; }
+        
         /* Swiper Carousel styles */
-        .swiper-pagination-bullet-active {
-            background-color: #16a34a !important;
-        }
+        .swiper-pagination-bullet-active { background-color: #16a34a !important; }
+        
         /* Accordion transition */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out;
         }
-        .accordion-content.open {
-           max-height: 500px; /* Adjust as needed */
+        .accordion-content.open { max-height: 500px; }
+
+        /* Page Transition */
+        #view-detail {
+            transition: transform 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body class="flex items-center justify-center min-h-screen p-0 sm:p-4">
 
     <!-- App Container -->
-    <div id="app-container" class="relative bg-gray-50 w-full max-w-sm h-[90vh] max-h-[800px] rounded-3xl shadow-2xl overflow-hidden flex flex-col border-4 border-black">
+    <div id="app-container" class="relative bg-gray-50 dark:bg-gray-900 w-full max-w-sm h-screen sm:h-[90vh] sm:max-h-[800px] sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col sm:border-4 border-black">
         
         <!-- Main Content Area -->
         <main id="app-main" class="flex-grow overflow-y-auto">
+            
+            <!-- Loading Skeleton View -->
+            <section id="view-loading" class="view p-6 animate-pulse">
+                <!-- Skeleton content is injected here -->
+            </section>
 
             <!-- Home View -->
-            <section id="view-home" class="view">
-                <div class="hero-bg text-white h-64 flex flex-col justify-end p-6">
-                    <h1 class="text-4xl font-bold">Islamic Travels</h1>
-                    <p class="text-lg mt-2">Your Sacred Journey to Mecca & Medina awaits.</p>
-                </div>
-                <div class="p-6">
-                    <h2 class="text-xl font-bold mb-4">Featured Packages</h2>
-                    <div id="featured-packages-list" class="space-y-4">
-                        <!-- Featured packages will be injected here -->
+            <section id="view-home" class="view hidden">
+                 <div class="p-6 pt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Home</h1>
+                        <button id="dark-mode-toggle-home" class="text-gray-500 dark:text-gray-400 text-xl"><i class="fas fa-moon"></i></button>
                     </div>
                 </div>
-                 <div class="p-6 bg-gray-100">
-                    <h2 class="text-xl font-bold mb-4">Why Choose Us?</h2>
+                <div class="hero-bg text-white h-56 flex flex-col justify-end p-6 -mt-6">
+                    <h2 class="text-3xl font-bold">Islamic Travels</h2>
+                    <p class="text-md mt-1">Your Sacred Journey to Mecca & Medina awaits.</p>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Featured Packages</h3>
+                    <div id="featured-packages-list" class="space-y-4"></div>
+                </div>
+                 <div class="p-6 bg-gray-100 dark:bg-gray-800">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Why Choose Us?</h3>
                     <div class="space-y-4">
                         <div class="flex items-start">
                             <i class="fas fa-star text-yellow-500 text-lg mr-4 mt-1"></i>
                             <div>
-                                <h3 class="font-semibold">Trusted & Experienced</h3>
-                                <p class="text-gray-600 text-sm">Over 15 years of experience in providing Hajj & Umrah services.</p>
+                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">Trusted & Experienced</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">15+ years of dedicated service.</p>
                             </div>
                         </div>
                          <div class="flex items-start">
-                            <i class="fas fa-users text-green-600 text-lg mr-4 mt-1"></i>
+                            <i class="fas fa-users text-green-500 dark:text-green-400 text-lg mr-4 mt-1"></i>
                             <div>
-                                <h3 class="font-semibold">Expert Guides</h3>
-                                <p class="text-gray-600 text-sm">Learn from knowledgeable scholars who guide you every step of the way.</p>
+                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">Expert Guides</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Guidance from knowledgeable scholars.</p>
                             </div>
                         </div>
                          <div class="flex items-start">
-                             <i class="fas fa-hotel text-blue-500 text-lg mr-4 mt-1"></i>
+                             <i class="fas fa-hotel text-blue-500 dark:text-blue-400 text-lg mr-4 mt-1"></i>
                             <div>
-                                <h3 class="font-semibold">Premium Comfort</h3>
-                                <p class="text-gray-600 text-sm">We provide comfortable accommodation and transport for a peaceful journey.</p>
+                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">Premium Comfort</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Comfortable stays and transport.</p>
                             </div>
                         </div>
                     </div>
@@ -108,43 +121,37 @@
 
             <!-- Packages View -->
             <section id="view-packages" class="view hidden p-6">
-                <h1 class="text-2xl font-bold mb-6">Our Packages</h1>
-                <div id="package-list" class="grid grid-cols-1 gap-4">
-                    <!-- Products will be dynamically inserted here -->
+                 <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Our Packages</h1>
+                    <button id="dark-mode-toggle-packages" class="text-gray-500 dark:text-gray-400 text-xl"><i class="fas fa-moon"></i></button>
                 </div>
-            </section>
-
-            <!-- Package Detail View -->
-            <section id="view-detail" class="view hidden bg-white">
-                <!-- Dynamic content here -->
+                <div id="package-list" class="grid grid-cols-1 gap-4"></div>
             </section>
 
             <!-- Donation View -->
             <section id="view-donation" class="view hidden p-6">
-                 <div class="text-center mb-6">
-                    <h1 class="text-2xl font-bold">Make a Difference</h1>
-                    <p class="text-gray-600">Choose a cause to support with your generosity.</p>
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Make a Difference</h1>
+                    <button id="dark-mode-toggle-donation" class="text-gray-500 dark:text-gray-400 text-xl"><i class="fas fa-moon"></i></button>
                 </div>
+                <p class="text-center text-gray-600 dark:text-gray-400 -mt-2 mb-6">Choose a cause to support with your generosity.</p>
                 <div class="space-y-5">
-                    <!-- Donation Option 1 -->
-                    <div class="bg-white rounded-lg shadow p-5 text-center">
-                        <i class="fas fa-kaaba text-3xl text-green-600 mb-3"></i>
-                        <h2 class="text-xl font-bold mb-2">Sponsor a Pilgrim</h2>
-                        <p class="text-gray-600 mb-4 text-sm">Help a brother or sister fulfill the dream of a lifetime to perform Hajj or Umrah.</p>
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-5 text-center">
+                        <i class="fas fa-kaaba text-3xl text-green-600 dark:text-green-400 mb-3"></i>
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Sponsor a Pilgrim</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">Help someone fulfill their dream of a lifetime.</p>
                         <button class="w-full bg-green-600 text-white py-2 rounded-full font-semibold hover:bg-green-700">Donate for Umrah</button>
                     </div>
-                    <!-- Donation Option 2 -->
-                     <div class="bg-white rounded-lg shadow p-5 text-center">
-                        <i class="fas fa-hand-holding-heart text-3xl text-red-500 mb-3"></i>
-                        <h2 class="text-xl font-bold mb-2">Sadaqah Jariyah</h2>
-                        <p class="text-gray-600 mb-4 text-sm">Contribute to ongoing charity projects like building wells or schools for continuous rewards.</p>
+                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-5 text-center">
+                        <i class="fas fa-hand-holding-heart text-3xl text-red-500 dark:text-red-400 mb-3"></i>
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Sadaqah Jariyah</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">Contribute to ongoing charity projects.</p>
                         <button class="w-full bg-red-500 text-white py-2 rounded-full font-semibold hover:bg-red-600">Give Sadaqah</button>
                     </div>
-                    <!-- Donation Option 3 -->
-                     <div class="bg-white rounded-lg shadow p-5 text-center">
-                        <i class="fas fa-utensils text-3xl text-blue-500 mb-3"></i>
-                        <h2 class="text-xl font-bold mb-2">Feed the Needy</h2>
-                        <p class="text-gray-600 mb-4 text-sm">Provide warm meals to poor families and pilgrims in the holy cities of Makkah and Madinah.</p>
+                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-5 text-center">
+                        <i class="fas fa-utensils text-3xl text-blue-500 dark:text-blue-400 mb-3"></i>
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Feed the Needy</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">Provide warm meals to poor families.</p>
                         <button class="w-full bg-blue-500 text-white py-2 rounded-full font-semibold hover:bg-blue-600">Donate Food</button>
                     </div>
                 </div>
@@ -152,85 +159,131 @@
 
             <!-- Contact View -->
             <section id="view-contact" class="view hidden p-6">
-                <h1 class="text-2xl font-bold mb-6">Contact Us</h1>
+                 <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Contact Us</h1>
+                    <button id="dark-mode-toggle-contact" class="text-gray-500 dark:text-gray-400 text-xl"><i class="fas fa-moon"></i></button>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white p-4 rounded-lg shadow">
-                        <i class="fas fa-phone text-green-600 mr-3"></i>
-                        <span>+1 (234) 567-890</span>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                        <i class="fas fa-phone text-green-600 dark:text-green-400 mr-3"></i>
+                        <span class="text-gray-700 dark:text-gray-300">+1 (234) 567-890</span>
                     </div>
-                    <div class="bg-white p-4 rounded-lg shadow">
-                        <i class="fas fa-envelope text-green-600 mr-3"></i>
-                        <span>contact@islamictravels.com</span>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                        <i class="fas fa-envelope text-green-600 dark:text-green-400 mr-3"></i>
+                        <span class="text-gray-700 dark:text-gray-300">contact@islamictravels.com</span>
                     </div>
-                    <div class="bg-white p-4 rounded-lg shadow">
-                        <i class="fas fa-map-marker-alt text-green-600 mr-3"></i>
-                        <span>123 Islamic Center, Makkah</span>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                        <i class="fas fa-map-marker-alt text-green-600 dark:text-green-400 mr-3"></i>
+                        <span class="text-gray-700 dark:text-gray-300">123 Islamic Center, Makkah</span>
                     </div>
                 </div>
                 <div class="mt-8">
                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.839097782744!2d39.82390401540671!3d21.42248558579457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c204b7a783491b%3A0x448a038f9b884968!2sKaaba!5e0!3m2!1sen!2sus!4v1648234567890" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" class="rounded-lg"></iframe>
                 </div>
             </section>
-
         </main>
+
+        <!-- Full Page Package Detail View -->
+        <section id="view-detail" class="absolute inset-0 bg-gray-50 dark:bg-gray-900 z-20 transform translate-x-full overflow-y-auto">
+            <!-- Dynamic content here -->
+        </section>
         
         <!-- Bottom Navigation -->
-        <nav id="bottom-nav" class="w-full bg-white border-t border-gray-200 flex justify-around items-center h-16">
-            <button data-view="home" class="nav-btn active flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+        <nav id="bottom-nav" class="w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around items-center h-16 flex-shrink-0">
+            <button data-view="home" class="nav-btn active flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                 <i class="fas fa-home text-xl"></i>
                 <span class="text-xs mt-1">Home</span>
             </button>
-            <button data-view="packages" class="nav-btn flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+            <button data-view="packages" class="nav-btn flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                 <i class="fas fa-box-open text-xl"></i>
                 <span class="text-xs mt-1">Packages</span>
             </button>
-            <button data-view="donation" class="nav-btn flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+            <button data-view="donation" class="nav-btn flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                 <i class="fas fa-hand-holding-heart text-xl"></i>
                 <span class="text-xs mt-1">Donate</span>
             </button>
-            <button data-view="contact" class="nav-btn flex flex-col items-center justify-center text-gray-500 hover:text-green-600 transition-colors">
+            <button data-view="contact" class="nav-btn flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                 <i class="fas fa-user-circle text-xl"></i>
                 <span class="text-xs mt-1">Contact</span>
             </button>
         </nav>
     </div>
 
-    <!-- Booking Modal (still used for the final step) -->
+    <!-- Booking Modal -->
     <div id="booking-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-2xl max-w-sm w-full mx-auto relative">
-             <button id="close-booking-modal" class="absolute top-3 right-4 text-2xl text-gray-500 hover:text-gray-800">&times;</button>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl max-w-sm w-full mx-auto relative">
+             <button id="close-booking-modal" class="absolute top-3 right-4 text-2xl text-gray-500 dark:text-gray-300 hover:text-gray-800">&times;</button>
              <div class="p-6">
-                <h2 class="text-xl font-bold mb-4 text-center">Book Your Tour</h2>
+                <h2 class="text-xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">Book Your Tour</h2>
                 <form id="booking-form">
                     <input type="hidden" id="booking-package-id">
-                    <h3 id="booking-package-name" class="text-lg font-semibold mb-3 text-green-700 text-center"></h3>
+                    <h3 id="booking-package-name" class="text-lg font-semibold mb-3 text-green-700 dark:text-green-400 text-center"></h3>
                     <div class="mb-3">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                        <input type="text" id="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+                        <input type="text" id="name" required class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-green-500 focus:border-green-500">
                     </div>
                      <div class="mb-3">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <input type="email" id="email" required class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-green-500 focus:border-green-500">
                     </div>
                      <div class="mb-3">
-                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-                        <input type="tel" id="phone" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
+                        <input type="tel" id="phone" required class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-green-500 focus:border-green-500">
                     </div>
                     <div class="mb-4">
-                        <label for="travelers" class="block text-sm font-medium text-gray-700">Travelers</label>
-                        <input type="number" id="travelers" min="1" value="1" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <label for="travelers" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Travelers</label>
+                        <input type="number" id="travelers" min="1" value="1" required class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-green-500 focus:border-green-500">
                     </div>
                     <button type="submit" class="w-full bg-green-600 text-white py-2.5 rounded-full font-semibold hover:bg-green-700 transition duration-300">Submit Request</button>
-                    <p id="booking-success-message" class="text-center mt-3 text-green-600 hidden">Request sent! We'll contact you soon.</p>
+                    <p id="booking-success-message" class="text-center mt-3 text-green-600 dark:text-green-400 hidden">Request sent! We'll contact you soon.</p>
                 </form>
              </div>
         </div>
     </div>
 
-
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- PWA Service Worker Registration ---
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered successfully'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            }
+
+            // --- DARK MODE LOGIC ---
+            const themeToggleBtns = document.querySelectorAll('[id^="dark-mode-toggle-"]');
+            const sunIcon = `<i class="fas fa-sun"></i>`;
+            const moonIcon = `<i class="fas fa-moon"></i>`;
+
+            const userTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            const themeCheck = () => {
+                if (userTheme === 'dark' || (!userTheme && systemTheme)) {
+                    document.documentElement.classList.add('dark');
+                    themeToggleBtns.forEach(btn => btn.innerHTML = sunIcon);
+                    return;
+                }
+                document.documentElement.classList.remove('dark');
+                themeToggleBtns.forEach(btn => btn.innerHTML = moonIcon);
+            };
+
+            const themeSwitch = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    themeToggleBtns.forEach(btn => btn.innerHTML = moonIcon);
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleBtns.forEach(btn => btn.innerHTML = sunIcon);
+                }
+            };
+            
+            themeToggleBtns.forEach(btn => btn.addEventListener('click', themeSwitch));
+            themeCheck();
+
             // --- PRODUCT DATA ---
             const products = [
                 {
@@ -308,22 +361,55 @@
                 }
             ];
 
+            // --- APP STATE & ELEMENTS ---
             const navButtons = document.querySelectorAll('.nav-btn');
-            const views = document.querySelectorAll('.view');
-            const mainContentArea = document.getElementById('app-main');
+            const views = document.querySelectorAll('#app-main > .view');
+            const loadingView = document.getElementById('view-loading');
             const packageListContainer = document.getElementById('package-list');
             const detailViewContainer = document.getElementById('view-detail');
             const bookingModal = document.getElementById('booking-modal');
             const closeBookingModalBtn = document.getElementById('close-booking-modal');
             const bookingForm = document.getElementById('booking-form');
 
+            // --- SKELETON TEMPLATES ---
+            const skeletons = {
+                home: `
+                    <div class="h-8 w-1/3 bg-gray-300 dark:bg-gray-700 rounded mb-6"></div>
+                    <div class="h-48 bg-gray-300 dark:bg-gray-700 rounded-lg mb-6"></div>
+                    <div class="h-6 w-1/2 bg-gray-300 dark:bg-gray-700 rounded mb-4"></div>
+                    <div class="space-y-4">
+                        <div class="h-20 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                        <div class="h-20 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                        <div class="h-20 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                    </div>`,
+                packages: `
+                    <div class="h-8 w-1/2 bg-gray-300 dark:bg-gray-700 rounded mb-6"></div>
+                    <div class="space-y-4">
+                        <div class="h-24 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                        <div class="h-24 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                        <div class="h-24 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                        <div class="h-24 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                    </div>`,
+                donation: `<div class="h-8 w-1/2 bg-gray-300 dark:bg-gray-700 rounded mb-6 mx-auto"></div><div class="h-4 w-3/4 bg-gray-300 dark:bg-gray-700 rounded mb-6 mx-auto"></div><div class="space-y-5"><div class="h-40 bg-gray-300 dark:bg-gray-700 rounded-lg"></div><div class="h-40 bg-gray-300 dark:bg-gray-700 rounded-lg"></div><div class="h-40 bg-gray-300 dark:bg-gray-700 rounded-lg"></div></div>`,
+                contact: `<div class="h-8 w-1/2 bg-gray-300 dark:bg-gray-700 rounded mb-6"></div><div class="space-y-4"><div class="h-16 bg-gray-300 dark:bg-gray-700 rounded-lg"></div><div class="h-16 bg-gray-300 dark:bg-gray-700 rounded-lg"></div><div class="h-16 bg-gray-300 dark:bg-gray-700 rounded-lg"></div></div><div class="h-48 bg-gray-300 dark:bg-gray-700 rounded-lg mt-8"></div>`
+            };
+            
             // --- NAVIGATION LOGIC ---
             function showView(viewId) {
+                // Show skeleton first
+                loadingView.innerHTML = skeletons[viewId] || '';
                 views.forEach(view => view.classList.add('hidden'));
-                const activeView = document.getElementById(`view-${viewId}`);
-                if (activeView) activeView.classList.remove('hidden');
-                navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.view === viewId));
-                mainContentArea.scrollTop = 0;
+                loadingView.classList.remove('hidden');
+
+                setTimeout(() => {
+                    const activeView = document.getElementById(`view-${viewId}`);
+                    if (activeView) activeView.classList.remove('hidden');
+                    loadingView.classList.add('hidden');
+
+                    navButtons.forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.view === viewId);
+                    });
+                }, 300); // Simulate loading
             }
 
             navButtons.forEach(button => button.addEventListener('click', () => showView(button.dataset.view)));
@@ -343,35 +429,18 @@
             function createPackageCard(product, type) {
                 const card = document.createElement('div');
                 card.dataset.id = product.id;
-                card.className = 'bg-white rounded-lg shadow flex items-center p-3 cursor-pointer transition-transform transform hover:scale-105';
-                
+                card.className = 'bg-white dark:bg-gray-800 rounded-lg shadow flex items-center p-3 cursor-pointer transition-transform transform hover:scale-105';
                 const image = product.images[0] || 'https://placehold.co/400x300/cccccc/ffffff?text=Image';
                 
-                let contentHTML = `
-                    <img src="${image}" alt="${product.name}" class="w-20 h-20 object-cover rounded-md mr-4">
-                    <div class="flex-grow">`;
-                
-                if (type === 'featured') {
-                    contentHTML += `
-                        <h3 class="font-bold">${product.name}</h3>
-                        <p class="text-sm text-gray-600">${product.duration}</p>
-                        <p class="text-lg font-bold text-green-700 mt-1">$${product.price}</p>`;
-                } else {
-                    contentHTML += `
-                        <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full">${product.type}</span>
-                        <h3 class="font-bold mt-1">${product.name}</h3>
-                        <p class="text-sm text-gray-600">${product.duration}</p>`;
-                }
-                
-                contentHTML += `</div>`;
-                
-                if (type === 'featured') {
-                    contentHTML += `<i class="fas fa-chevron-right text-gray-400"></i>`;
-                } else {
-                     contentHTML += `<p class="text-lg font-bold text-green-700">$${product.price}</p>`;
-                }
-                
-                card.innerHTML = contentHTML;
+                card.innerHTML = `
+                    <img src="${image}" alt="${product.name}" class="w-20 h-20 object-cover rounded-md mr-4 flex-shrink-0">
+                    <div class="flex-grow overflow-hidden">
+                        <h3 class="font-bold text-gray-800 dark:text-gray-100 truncate">${product.name}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">${product.duration}</p>
+                        <p class="text-lg font-bold text-green-700 dark:text-green-400 mt-1">$${product.price}</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 dark:text-gray-500 ml-2"></i>
+                `;
                 card.addEventListener('click', () => showPackageDetail(product.id));
                 return card;
             }
@@ -380,81 +449,67 @@
             function showPackageDetail(productId) {
                 const product = products.find(p => p.id === productId);
                 detailViewContainer.innerHTML = `
-                    <div class="relative">
-                        <!-- Swiper Carousel -->
-                        <div class="swiper-container h-56">
-                            <div class="swiper-wrapper">
-                                ${product.images.map(img => `<div class="swiper-slide"><img src="${img}" alt="${product.name}" class="w-full h-full object-cover"></div>`).join('')}
-                            </div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                        <button id="back-btn" class="absolute top-4 left-4 z-10 bg-white bg-opacity-70 text-gray-800 rounded-full w-9 h-9 flex items-center justify-center shadow-md">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                    </div>
-                    <div class="p-6 pb-24">
-                        <span class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">${product.type}</span>
-                        <h2 class="text-3xl font-bold my-3">${product.name}</h2>
-                        <p class="text-gray-600 mb-6">${product.description}</p>
-                        
-                        <h4 class="font-bold text-lg mb-3">What's Included:</h4>
-                        <ul class="space-y-2.5 mb-8 grid grid-cols-2 gap-x-4">
-                            ${product.includes.map(item => `<li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i><span class="text-sm">${item}</span></li>`).join('')}
-                        </ul>
-
-                        <h4 class="font-bold text-lg mb-3">Itinerary</h4>
-                        <div id="itinerary-accordion" class="space-y-2 border-t border-b border-gray-200 py-4">
-                            ${product.itinerary.map(item => `
-                                <div>
-                                    <button class="accordion-toggle w-full flex justify-between items-center text-left py-2 px-3 bg-gray-100 rounded-lg">
-                                        <span class="font-semibold">Day ${item.day}</span>
-                                        <i class="fas fa-chevron-down transition-transform"></i>
-                                    </button>
-                                    <div class="accordion-content bg-white p-4 rounded-b-lg border-t border-gray-200">
-                                        <h5 class="font-bold text-md mb-2">${item.title}</h5>
-                                        <p class="text-sm text-gray-600">${item.details}</p>
-                                    </div>
+                    <div class="absolute inset-0 overflow-y-auto">
+                        <div class="relative">
+                            <div class="swiper-container h-64">
+                                <div class="swiper-wrapper">
+                                    ${product.images.map(img => `<div class="swiper-slide"><img src="${img}" alt="${product.name}" class="w-full h-full object-cover"></div>`).join('')}
                                 </div>
-                            `).join('')}
+                                <div class="swiper-pagination"></div>
+                            </div>
+                            <button id="back-btn" class="absolute top-4 left-4 z-10 bg-white dark:bg-gray-800 bg-opacity-70 dark:bg-opacity-70 text-gray-800 dark:text-gray-200 rounded-full w-10 h-10 flex items-center justify-center shadow-md">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                        <div class="p-6 pb-24">
+                            <span class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">${product.type}</span>
+                            <h2 class="text-3xl font-bold my-3 text-gray-900 dark:text-gray-100">${product.name}</h2>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">${product.description}</p>
+                            
+                            <h4 class="font-bold text-lg mb-3 text-gray-900 dark:text-gray-100">What's Included:</h4>
+                            <ul class="space-y-2.5 mb-8 grid grid-cols-2 gap-x-4">
+                                ${product.includes.map(item => `<li class="flex items-start"><i class="fas fa-check-circle text-green-500 dark:text-green-400 mt-1 mr-2"></i><span class="text-sm text-gray-700 dark:text-gray-300">${item}</span></li>`).join('')}
+                            </ul>
+
+                            <h4 class="font-bold text-lg mb-3 text-gray-900 dark:text-gray-100">Itinerary</h4>
+                            <div id="itinerary-accordion" class="space-y-2 border-t border-b border-gray-200 dark:border-gray-700 py-4">
+                                ${product.itinerary.map(item => `
+                                    <div>
+                                        <button class="accordion-toggle w-full flex justify-between items-center text-left py-3 px-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                                            <span class="font-semibold text-gray-800 dark:text-gray-200">Day ${item.day}</span>
+                                            <i class="fas fa-chevron-down transition-transform text-gray-600 dark:text-gray-400"></i>
+                                        </button>
+                                        <div class="accordion-content bg-transparent dark:bg-transparent p-4 rounded-b-lg">
+                                            <h5 class="font-bold text-md mb-2 text-gray-800 dark:text-gray-200">${item.title}</h5>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">${item.details}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
-                    <div class="sticky bottom-0 bg-white p-4 border-t">
+                    <div class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 border-t dark:border-gray-700">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="text-gray-600">Price per person</span>
-                            <p class="text-2xl font-bold text-green-700">$${product.price}</p>
+                            <span class="text-gray-600 dark:text-gray-400">Price per person</span>
+                            <p class="text-2xl font-bold text-green-700 dark:text-green-400">$${product.price}</p>
                         </div>
                         <button data-id="${product.id}" class="open-booking-btn w-full bg-green-600 text-white py-3 rounded-full font-semibold hover:bg-green-700 transition duration-300">Book This Package</button>
                     </div>
                 `;
 
-                // Initialize Swiper
-                new Swiper('.swiper-container', {
-                    loop: true,
-                    pagination: { el: '.swiper-pagination', clickable: true },
-                    autoplay: { delay: 3000 },
-                });
-
-                // Add Accordion Listeners
-                detailViewContainer.querySelectorAll('.accordion-toggle').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const content = button.nextElementSibling;
-                        const icon = button.querySelector('i');
-                        content.classList.toggle('open');
-                        icon.classList.toggle('rotate-180');
-                    });
-                });
-                
-                // Back Button Listener
-                detailViewContainer.querySelector('#back-btn').addEventListener('click', () => {
-                    const fromView = detailViewContainer.dataset.from || 'packages';
-                    showView(fromView);
-                });
-
+                new Swiper(detailViewContainer.querySelector('.swiper-container'), { loop: true, pagination: { el: '.swiper-pagination', clickable: true }, autoplay: { delay: 3000 } });
+                detailViewContainer.querySelectorAll('.accordion-toggle').forEach(button => button.addEventListener('click', () => {
+                    button.nextElementSibling.classList.toggle('open');
+                    button.querySelector('i').classList.toggle('rotate-180');
+                }));
+                detailViewContainer.querySelector('#back-btn').addEventListener('click', hidePackageDetail);
                 detailViewContainer.querySelector('.open-booking-btn').addEventListener('click', () => openBookingModal(product));
                 
-                const currentView = document.querySelector('.view:not(.hidden)').id.replace('view-','');
-                detailViewContainer.dataset.from = currentView;
-                showView('detail');
+                detailViewContainer.classList.remove('translate-x-full');
+            }
+            
+            function hidePackageDetail() {
+                 detailViewContainer.classList.add('translate-x-full');
             }
 
             // --- BOOKING MODAL LOGIC ---

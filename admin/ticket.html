@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Trip Planner</title>
+    <!-- Using Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Using Inter font for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Lighter gray for better contrast */
+        }
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+            border-color: rgb(59 130 246);
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-title svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">Umrah Trip Planner</h1>
+        <p id="currentDate" class="text-gray-500 mt-1"></p>
+    </header>
+
+    <!-- Main container with a grid layout for cards -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Column 1: Flights & Budget -->
+        <div class="space-y-6">
+            <!-- Flight Search Card -->
+            <div class="card">
+                <h2 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    1. Flight Details
+                </h2>
+                <form id="flightForm" class="space-y-4">
+                    <div>
+                        <label for="departureDate" class="block text-sm font-medium text-gray-700">Departure Date</label>
+                        <input type="date" id="departureDate" class="w-full mt-1 p-2 border border-gray-300 rounded-lg form-input" required>
+                    </div>
+                    <div>
+                        <label for="returnDate" class="block text-sm font-medium text-gray-700">Return Date (12-day trip)</label>
+                        <input type="date" id="returnDate" class="w-full mt-1 p-2 border bg-gray-100 cursor-not-allowed rounded-lg" readonly>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="adultQuantity" class="block text-sm font-medium text-gray-700">Adults</label>
+                            <input type="number" id="adultQuantity" min="1" value="1" class="w-full mt-1 p-2 border border-gray-300 rounded-lg form-input" required>
+                        </div>
+                        <div>
+                            <label for="childQuantity" class="block text-sm font-medium text-gray-700">Children</label>
+                            <input type="number" id="childQuantity" min="0" value="0" class="w-full mt-1 p-2 border border-gray-300 rounded-lg form-input" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700">Search Primary Date</button>
+                </form>
+                <div id="flexibleDateContainer" class="mt-4 pt-4 border-t">
+                    <p class="text-sm text-center text-gray-600 mb-2">Search nearby dates:</p>
+                    <div id="dateButtons" class="flex flex-wrap justify-center gap-2"></div>
+                </div>
+            </div>
+
+            <!-- Budget Calculator Card -->
+            <div class="card">
+                <h2 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm3-6h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zM4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z" /></svg>
+                    3. Package Price Calculator
+                </h2>
+                <div class="space-y-4">
+                    <!-- Input Section -->
+                    <div class="space-y-3">
+                        <h3 class="font-semibold text-gray-800">A. Enter Base Costs (USD)</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="costFlight" class="text-sm font-medium">Flight (per person)</label>
+                                <input type="number" id="costFlight" class="w-full mt-1 p-2 border rounded-md form-input" placeholder="1200">
+                            </div>
+                            <div>
+                                <label for="costVisa" class="text-sm font-medium">Visa (per person)</label>
+                                <input type="number" id="costVisa" class="w-full mt-1 p-2 border rounded-md form-input" placeholder="250">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="costMadinahHotel" class="text-sm font-medium">Madinah Hotel (Total for 3 nights)</label>
+                            <input type="number" id="costMadinahHotel" class="w-full mt-1 p-2 border rounded-md form-input" placeholder="1000">
+                        </div>
+                        <div>
+                            <label for="costMakkahHotel" class="text-sm font-medium">Makkah Hotel (Total for 7 nights)</label>
+                            <input type="number" id="costMakkahHotel" class="w-full mt-1 p-2 border rounded-md form-input" placeholder="1400">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium">Hotel Room Occupancy</label>
+                            <div id="roomOccupancy" class="flex mt-1 gap-2">
+                                <button data-value="2" class="flex-1 p-2 border rounded-md">2</button>
+                                <button data-value="3" class="flex-1 p-2 border rounded-md">3</button>
+                                <button data-value="4" class="flex-1 p-2 border bg-blue-100 text-blue-800 rounded-md">4</button>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 pt-2">B. Ground Transport Costs (Total)</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="number" id="costTransportJEDMD" class="w-full p-2 border rounded-md form-input" placeholder="JED → Madinah">
+                            <input type="number" id="costTransportMDMAK" class="w-full p-2 border rounded-md form-input" placeholder="Madinah → Makkah">
+                            <input type="number" id="costTransportMAKJED" class="w-full p-2 border rounded-md form-input" placeholder="Makkah → JED">
+                            <input type="number" id="costZiyarat" class="w-full p-2 border rounded-md form-input" placeholder="Ziyarat (Tours)">
+                        </div>
+                         <div>
+                            <label for="costFood" class="text-sm font-medium">Food/Spending (per person, per day)</label>
+                            <input type="number" id="costFood" class="w-full mt-1 p-2 border rounded-md form-input" placeholder="50">
+                        </div>
+                    </div>
+                    <!-- Calculation Section -->
+                    <div class="space-y-2 pt-4 border-t">
+                         <h3 class="font-semibold text-gray-800">C. Final Pricing</h3>
+                         <div class="flex justify-between items-center text-sm"><span>Net Cost (per person):</span><span id="netCostPerPerson" class="font-bold text-lg">$0.00</span></div>
+                         <div class="flex items-center gap-4">
+                             <label for="costMarkup" class="text-sm font-medium">Add Markup ($)</label>
+                             <input type="number" id="costMarkup" class="w-full p-2 border rounded-md form-input" placeholder="e.g., 200">
+                         </div>
+                         <!-- UPDATED PRICE BREAKDOWN -->
+                         <div class="bg-green-100 text-green-800 p-4 rounded-lg space-y-2 mt-2">
+                            <h4 class="font-bold text-center text-lg">Price Breakdown (per person)</h4>
+                            <div class="flex justify-between text-sm"><span>Flight:</span><span id="breakdownFlight" class="font-medium">$0.00</span></div>
+                            <div class="flex justify-between text-sm"><span>Hotels:</span><span id="breakdownHotels" class="font-medium">$0.00</span></div>
+                            <div class="flex justify-between text-sm"><span>Visa:</span><span id="breakdownVisa" class="font-medium">$0.00</span></div>
+                            <div class="flex justify-between text-sm"><span>Transport:</span><span id="breakdownTransport" class="font-medium">$0.00</span></div>
+                            <div class="flex justify-between text-sm"><span>Food/Spending:</span><span id="breakdownFood" class="font-medium">$0.00</span></div>
+                            <div class="flex justify-between text-sm"><span>Markup:</span><span id="breakdownMarkup" class="font-medium">$0.00</span></div>
+                            <hr class="border-green-300 my-1">
+                            <div class="flex justify-between font-bold text-xl pt-1"><span>Total to Charge:</span><span id="finalPrice" class="font-bold">$0.00</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Hotels & Logistics -->
+        <div class="space-y-6">
+            <!-- Hotel Search Card -->
+            <div class="card">
+                <h2 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18A2.25 2.25 0 004.5 21h15a2.25 2.25 0 002.25-2.25V3.75A2.25 2.25 0 0019.5 1.5h-15A2.25 2.25 0 002.25 3.75z" /></svg>
+                    2. Hotel Search
+                </h2>
+                <div class="space-y-4">
+                    <div id="hotelGuestsDisplay" class="text-center font-medium text-gray-700 bg-gray-100 p-2 rounded-lg">
+                        Guests: <span class="font-bold">1</span> Adult(s), <span class="font-bold">0</span> Child(ren)
+                    </div>
+                    <!-- Madinah -->
+                    <form id="madinahHotelForm" class="bg-gray-50 p-3 rounded-lg border">
+                        <h3 class="font-semibold text-gray-800">Stop 1: Madinah (3 Nights)</h3>
+                        <div class="grid grid-cols-2 gap-3 mt-2">
+                            <input type="date" id="madinahCheckinDate" class="w-full p-2 border bg-gray-200 cursor-not-allowed rounded-md" readonly>
+                            <input type="date" id="madinahCheckoutDate" class="w-full p-2 border bg-gray-200 cursor-not-allowed rounded-md" readonly>
+                        </div>
+                        <button type="submit" class="w-full mt-3 bg-green-600 text-white font-semibold py-2 rounded-lg hover:bg-green-700">Search Hotels in Madinah</button>
+                    </form>
+                    <!-- Makkah -->
+                    <form id="makkahHotelForm" class="bg-gray-50 p-3 rounded-lg border">
+                        <h3 class="font-semibold text-gray-800">Stop 2: Makkah (7 Nights)</h3>
+                        <div class="grid grid-cols-2 gap-3 mt-2">
+                            <input type="date" id="makkahCheckinDate" class="w-full p-2 border bg-gray-200 cursor-not-allowed rounded-md" readonly>
+                            <input type="date" id="makkahCheckoutDate" class="w-full p-2 border bg-gray-200 cursor-not-allowed rounded-md" readonly>
+                        </div>
+                        <button type="submit" class="w-full mt-3 bg-yellow-500 text-white font-semibold py-2 rounded-lg hover:bg-yellow-600">Search Hotels in Makkah</button>
+                    </form>
+                </div>
+            </div>
+
+             <!-- Logistics Planner Card -->
+            <div class="card">
+                <h2 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5v-1.875a3.375 3.375 0 013.375-3.375h1.5a1.125 1.125 0 011.125 1.125v-1.5a3.375 3.375 0 013.375-3.375H9.75" /></svg>
+                    4. Logistics & Transport Links
+                </h2>
+                <div class="space-y-4">
+                    <!-- Leg 1 -->
+                    <div class="p-3 bg-gray-50 rounded-lg border">
+                        <h3 class="font-semibold">Jeddah Airport → Madinah</h3>
+                        <div class="mt-2 flex items-center gap-3">
+                            <input type="date" id="logisticsDate1" class="p-2 border rounded-md bg-gray-200 cursor-not-allowed" readonly>
+                            <a id="logisticsLink1" href="#" target="_blank" class="flex-1 text-center px-3 py-2 bg-gray-600 text-white text-sm font-semibold rounded-lg hover:bg-gray-700">Book Bus/Car</a>
+                        </div>
+                    </div>
+                    <!-- Leg 2 -->
+                    <div class="p-3 bg-gray-50 rounded-lg border">
+                        <h3 class="font-semibold">Madinah → Makkah</h3>
+                        <div class="mt-2 flex items-center gap-3">
+                            <input type="date" id="logisticsDate2" class="p-2 border rounded-md bg-gray-200 cursor-not-allowed" readonly>
+                            <a href="https://sar.hhr.sa/web/booking/main" target="_blank" class="flex-1 text-center px-3 py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700">Book Railway</a>
+                        </div>
+                    </div>
+                    <!-- Leg 3 -->
+                    <div class="p-3 bg-gray-50 rounded-lg border">
+                        <h3 class="font-semibold">Makkah → Jeddah Airport</h3>
+                        <div class="mt-2 flex items-center gap-3">
+                            <input type="date" id="logisticsDate3" class="p-2 border rounded-md bg-gray-200 cursor-not-allowed" readonly>
+                            <a id="logisticsLink3" href="#" target="_blank" class="flex-1 text-center px-3 py-2 bg-gray-600 text-white text-sm font-semibold rounded-lg hover:bg-gray-700">Book Bus/Car</a>
+                        </div>
+                    </div>
+                     <!-- Ziyarat -->
+                    <div class="p-3 bg-gray-50 rounded-lg border">
+                        <h3 class="font-semibold">Ziyarat (Holy Site Tours)</h3>
+                        <div class="mt-2 grid grid-cols-2 gap-3">
+                           <a href="https://www.google.com/search?q=ziyarat+in+madinah" target="_blank" class="text-center px-3 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600">Plan Madinah</a>
+                           <a href="https://www.google.com/search?q=ziyarat+in+makkah" target="_blank" class="text-center px-3 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600">Plan Makkah</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- DOM ELEMENT REFERENCES ---
+        const departureDateInput = document.getElementById('departureDate');
+        const returnDateInput = document.getElementById('returnDate');
+        const adultQuantityInput = document.getElementById('adultQuantity');
+        const childQuantityInput = document.getElementById('childQuantity');
+        const dateButtonsContainer = document.getElementById('dateButtons');
+        
+        // Hotel Elements
+        const hotelGuestsDisplay = document.getElementById('hotelGuestsDisplay');
+        const madinahCheckinInput = document.getElementById('madinahCheckinDate');
+        const madinahCheckoutInput = document.getElementById('madinahCheckoutDate');
+        const makkahCheckinInput = document.getElementById('makkahCheckinDate');
+        const makkahCheckoutInput = document.getElementById('makkahCheckoutDate');
+
+        // Budgeting Elements
+        const costInputs = {
+            flight: document.getElementById('costFlight'),
+            visa: document.getElementById('costVisa'),
+            madinahHotel: document.getElementById('costMadinahHotel'),
+            makkahHotel: document.getElementById('costMakkahHotel'),
+            transportJEDMD: document.getElementById('costTransportJEDMD'),
+            transportMDMAK: document.getElementById('costTransportMDMAK'),
+            transportMAKJED: document.getElementById('costTransportMAKJED'),
+            ziyarat: document.getElementById('costZiyarat'),
+            food: document.getElementById('costFood'),
+            markup: document.getElementById('costMarkup'),
+        };
+        const roomOccupancyContainer = document.getElementById('roomOccupancy');
+        const budgetOutputs = {
+            netCostPerPerson: document.getElementById('netCostPerPerson'),
+            finalPrice: document.getElementById('finalPrice'),
+            breakdownFlight: document.getElementById('breakdownFlight'),
+            breakdownHotels: document.getElementById('breakdownHotels'),
+            breakdownVisa: document.getElementById('breakdownVisa'),
+            breakdownTransport: document.getElementById('breakdownTransport'),
+            breakdownFood: document.getElementById('breakdownFood'),
+            breakdownMarkup: document.getElementById('breakdownMarkup'),
+        };
+        let currentOccupancy = 4;
+
+        // Logistics Elements
+        const logisticsDates = {
+            leg1: document.getElementById('logisticsDate1'),
+            leg2: document.getElementById('logisticsDate2'),
+            leg3: document.getElementById('logisticsDate3'),
+        };
+        const logisticsLinks = {
+            leg1: document.getElementById('logisticsLink1'),
+            leg3: document.getElementById('logisticsLink3'),
+        };
+
+        // --- UTILITY FUNCTIONS ---
+        const formatDate = (date) => date.toISOString().split('T')[0];
+        const formatCurrency = (amount) => isNaN(amount) ? '$0.00' : amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        const getVal = (el) => parseFloat(el.value) || 0;
+
+        // --- CORE LOGIC ---
+        const calculateBudget = () => {
+            const adults = getVal(adultQuantityInput);
+            const children = getVal(childQuantityInput);
+            const totalPassengers = adults + children;
+            if (totalPassengers === 0) return;
+
+            // Per Person Costs
+            const flightCost = getVal(costInputs.flight);
+            const visaCost = getVal(costInputs.visa);
+            const foodCost = getVal(costInputs.food) * 10; // 10 days of spending
+
+            // Total Group Costs to be divided
+            const madinahHotelTotal = getVal(costInputs.madinahHotel);
+            const makkahHotelTotal = getVal(costInputs.makkahHotel);
+            const transportJEDMD = getVal(costInputs.transportJEDMD);
+            const transportMDMAK = getVal(costInputs.transportMDMAK);
+            const transportMAKJED = getVal(costInputs.transportMAKJED);
+            const ziyaratCost = getVal(costInputs.ziyarat);
+            const markup = getVal(costInputs.markup);
+            
+            // Calculate per-person share of group costs
+            const hotelCostPerPerson = (madinahHotelTotal + makkahHotelTotal) / currentOccupancy;
+            const transportPerPerson = (transportJEDMD + transportMDMAK + transportMAKJED + ziyaratCost) / totalPassengers;
+
+            const netCost = flightCost + visaCost + foodCost + hotelCostPerPerson + transportPerPerson;
+            const finalPrice = netCost + markup;
+
+            // Update Net Cost display
+            budgetOutputs.netCostPerPerson.textContent = formatCurrency(netCost);
+
+            // Update Price Breakdown display
+            budgetOutputs.breakdownFlight.textContent = formatCurrency(flightCost);
+            budgetOutputs.breakdownHotels.textContent = formatCurrency(hotelCostPerPerson);
+            budgetOutputs.breakdownVisa.textContent = formatCurrency(visaCost);
+            budgetOutputs.breakdownTransport.textContent = formatCurrency(transportPerPerson);
+            budgetOutputs.breakdownFood.textContent = formatCurrency(foodCost);
+            budgetOutputs.breakdownMarkup.textContent = formatCurrency(markup);
+            budgetOutputs.finalPrice.textContent = formatCurrency(finalPrice);
+        };
+
+        const syncPassengerInfo = () => {
+            hotelGuestsDisplay.innerHTML = `Guests: <span class="font-bold">${adultQuantityInput.value}</span> Adult(s), <span class="font-bold">${childQuantityInput.value}</span> Child(ren)`;
+        };
+
+        const updateItinerary = () => {
+            const departureDate = new Date(departureDateInput.value);
+            if (isNaN(departureDate.getTime())) {
+                dateButtonsContainer.innerHTML = '';
+                return;
+            }
+
+            const returnDate = new Date(departureDate);
+            returnDate.setDate(departureDate.getDate() + 12);
+            returnDateInput.value = formatDate(returnDate);
+
+            const madinahCheckin = new Date(departureDate);
+            madinahCheckin.setDate(departureDate.getDate() + 1);
+            const madinahCheckout = new Date(madinahCheckin);
+            madinahCheckout.setDate(madinahCheckin.getDate() + 3);
+            const makkahCheckin = new Date(madinahCheckout);
+            const makkahCheckout = new Date(makkahCheckin);
+            makkahCheckout.setDate(makkahCheckin.getDate() + 7);
+            const airportDeparture = new Date(returnDate);
+            airportDeparture.setDate(returnDate.getDate() - 1);
+
+            // Update Hotel & Logistics Dates
+            madinahCheckinInput.value = formatDate(madinahCheckin);
+            madinahCheckoutInput.value = formatDate(madinahCheckout);
+            makkahCheckinInput.value = formatDate(makkahCheckin);
+            makkahCheckoutInput.value = formatDate(makkahCheckout);
+            logisticsDates.leg1.value = formatDate(madinahCheckin);
+            logisticsDates.leg2.value = formatDate(makkahCheckin);
+            logisticsDates.leg3.value = formatDate(airportDeparture);
+            
+            const googleSearchBase = 'https://www.google.com/search?q=';
+            logisticsLinks.leg1.href = `${googleSearchBase}transport+jeddah+airport+to+madinah+on+${formatDate(madinahCheckin)}`;
+            logisticsLinks.leg3.href = `${googleSearchBase}transport+makkah+to+jeddah+airport+on+${formatDate(airportDeparture)}`;
+
+            generateDateButtons();
+            calculateBudget();
+            syncPassengerInfo();
+        };
+
+        const generateDateButtons = () => {
+            dateButtonsContainer.innerHTML = '';
+            const baseDepartureDate = new Date(departureDateInput.value);
+            if (isNaN(baseDepartureDate.getTime())) return;
+
+            for (let i = 1; i <= 10; i++) {
+                const newDepartureDate = new Date(baseDepartureDate);
+                newDepartureDate.setDate(baseDepartureDate.getDate() + i);
+                const button = document.createElement('button');
+                button.textContent = `+${i} Day`;
+                button.className = 'px-3 py-1 bg-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-300 transition-colors';
+                button.onclick = () => {
+                    const url = createFlightSearchUrl(formatDate(newDepartureDate));
+                    window.open(url, '_blank');
+                };
+                dateButtonsContainer.appendChild(button);
+            }
+        };
+        
+        const createFlightSearchUrl = (departure) => {
+            const returnDate = new Date(departure);
+            returnDate.setDate(returnDate.getDate() + 12);
+            return `https://us.trip.com/flights/showfarefirst?dcity=PNH&acity=JED&ddate=${departure}&rdate=${formatDate(returnDate)}&triptype=rt&class=y&lowpricesource=searchform&quantity=${adultQuantityInput.value}&childqty=${childQuantityInput.value}&searchboxarg=t&nonstoponly=off&locale=en-US&curr=USD`;
+        };
+
+        const createHotelSearchUrl = (city, checkin, checkout) => {
+            const formattedCheckin = checkin.replace(/-/g, '/');
+            const formattedCheckout = checkout.replace(/-/g, '/');
+            const cityParams = {
+                Medina: { searchValue: '19~19744*19*19744*1', listFilters: '29~1*29*1~7%2C29~2~0*29*2~0%2C17~1*17*1*2%2C80~1~0*80*1' },
+                Makkah: { searchValue: '19~19743*19*19743*1', listFilters: '29~1*29*1~7%2C29~2~0*29*2~0%2C17~1*17*1*2%2C80~1~0*80*1' }
+            };
+            const params = cityParams[city];
+            return `https://us.trip.com/hotels/list?cityName=${city}&checkin=${formattedCheckin}&checkout=${formattedCheckout}&adult=${adultQuantityInput.value}&children=${childQuantityInput.value}&searchBoxArg=t&locale=en-US&curr=USD&searchValue=${params.searchValue}&listFilters=${params.listFilters}`;
+        };
+
+        // --- EVENT LISTENERS ---
+        departureDateInput.addEventListener('change', updateItinerary);
+        [adultQuantityInput, childQuantityInput].forEach(el => el.addEventListener('input', () => {
+            calculateBudget();
+            syncPassengerInfo();
+        }));
+        Object.values(costInputs).forEach(el => el.addEventListener('input', calculateBudget));
+        
+        roomOccupancyContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                currentOccupancy = parseInt(e.target.dataset.value, 10);
+                // Update button styles
+                roomOccupancyContainer.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('bg-blue-100', 'text-blue-800');
+                });
+                e.target.classList.add('bg-blue-100', 'text-blue-800');
+                calculateBudget();
+            }
+        });
+
+        document.getElementById('flightForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (departureDateInput.value) {
+                const url = createFlightSearchUrl(departureDateInput.value);
+                window.open(url, '_blank');
+            }
+        });
+        document.getElementById('madinahHotelForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if(madinahCheckinInput.value) {
+                window.open(createHotelSearchUrl('Medina', madinahCheckinInput.value, madinahCheckoutInput.value), '_blank');
+            }
+        });
+        document.getElementById('makkahHotelForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if(makkahCheckinInput.value) {
+                window.open(createHotelSearchUrl('Makkah', makkahCheckinInput.value, makkahCheckoutInput.value), '_blank');
+            }
+        });
+        
+        // --- INITIALIZATION ---
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        syncPassengerInfo();
+        calculateBudget();
+    });
+    </script>
+</body>
+</html>

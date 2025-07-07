@@ -46,6 +46,48 @@
             background-color: #ffffff;
             border: 2px solid #e5e7eb;
         }
+        /* Styles for the image gallery modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            padding-top: 60px;
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 1200px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .gallery-image-thumb {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gallery-image-thumb:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -94,6 +136,49 @@
             </div>
         </header>
 
+        <!-- Accommodation Section -->
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Your Accommodation</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Makkah Hotel -->
+                <div data-hotel="makkah">
+                    <h3 class="text-xl font-semibold text-gray-800">Makkah: Wafa Deafah Hotel</h3>
+                    <p class="text-gray-500 mb-4">Your home in the holy city of Makkah.</p>
+                    <div class="space-y-2">
+                        <img src="images/wafa-deafah/image_1.jpg" alt="Wafa Deafah Hotel Main" class="rounded-lg w-full h-64 object-cover gallery-image-thumb" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E2E8F0/4A5568?text=Image+1';">
+                        <div class="grid grid-cols-3 gap-2">
+                            <img src="images/wafa-deafah/image_2.jpg" alt="Wafa Deafah Hotel Thumb 1" class="rounded-md w-full h-24 object-cover gallery-image-thumb" onerror="this.onerror=null;this.src='https://placehold.co/200x150/E2E8F0/4A5568?text=Image+2';">
+                            <img src="images/wafa-deafah/image_3.jpg" alt="Wafa Deafah Hotel Thumb 2" class="rounded-md w-full h-24 object-cover gallery-image-thumb" onerror="this.onerror=null;this.src='https://placehold.co/200x150/E2E8F0/4A5568?text=Image+3';">
+                            <div class="relative">
+                                <img src="images/wafa-deafah/image_4.jpg" alt="Wafa Deafah Hotel Thumb 3" class="rounded-md w-full h-24 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/200x150/E2E8F0/4A5568?text=Image+4';">
+                                <div onclick="openModal('makkah')" class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center rounded-md cursor-pointer hover:bg-opacity-50 transition-all">
+                                    <span class="text-white font-bold text-lg">+ View All</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Madinah Hotel -->
+                <div data-hotel="madinah">
+                    <h3 class="text-xl font-semibold text-gray-800">Madinah: Arjwan Rose Hotel</h3>
+                    <p class="text-gray-500 mb-4">Comfort and peace near the Prophet's Mosque.</p>
+                    <div class="space-y-2">
+                        <img src="images/arjwan-rose/image_1.jpg" alt="Arjwan Rose Hotel Main" class="rounded-lg w-full h-64 object-cover gallery-image-thumb" onerror="this.onerror=null;this.src='https://placehold.co/600x400/D1FAE5/065F46?text=Image+1';">
+                        <div class="grid grid-cols-3 gap-2">
+                            <img src="images/arjwan-rose/image_2.jpg" alt="Arjwan Rose Hotel Thumb 1" class="rounded-md w-full h-24 object-cover gallery-image-thumb" onerror="this.onerror=null;this.src='https://placehold.co/200x150/D1FAE5/065F46?text=Image+2';">
+                            <img src="images/arjwan-rose/image_3.jpg" alt="Arjwan Rose Hotel Thumb 2" class="rounded-md w-full h-24 object-cover gallery-image-thumb" onerror="this.onerror=null;this.src='https://placehold.co/200x150/D1FAE5/065F46?text=Image+3';">
+                            <div class="relative">
+                                <img src="images/arjwan-rose/image_4.jpg" alt="Arjwan Rose Hotel Thumb 3" class="rounded-md w-full h-24 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/200x150/D1FAE5/065F46?text=Image+4';">
+                                <div onclick="openModal('madinah')" class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center rounded-md cursor-pointer hover:bg-opacity-50 transition-all">
+                                    <span class="text-white font-bold text-lg">+ View All</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Flight Itinerary Section -->
         <section class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Flight Schedule</h2>
@@ -103,7 +188,7 @@
                     <h3 class="text-2xl font-bold text-center text-gray-800 pb-2 border-b-2 border-indigo-500 mb-4">
                         Departure: Phnom Penh → Jeddah
                     </h3>
-                    <!-- Flight 1: PNH to BKK -->
+                    <!-- Flight Cards... -->
                     <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 flight-card">
                         <div class="p-6">
                             <div class="flex justify-between items-center">
@@ -130,16 +215,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Layover in Bangkok -->
                     <div class="text-center py-3">
                         <div class="inline-flex items-center text-gray-500 bg-gray-200 px-4 py-2 rounded-full">
                             <i class="fa-solid fa-clock mr-2"></i>
                             <span class="font-semibold">Layover in Bangkok (BKK): 8h 10m</span>
                         </div>
                     </div>
-
-                    <!-- Flight 2: BKK to MCT -->
                     <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 flight-card">
                         <div class="p-6">
                             <div class="flex justify-between items-center">
@@ -166,16 +247,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Layover in Muscat -->
                     <div class="text-center py-3">
                         <div class="inline-flex items-center text-gray-500 bg-gray-200 px-4 py-2 rounded-full">
                             <i class="fa-solid fa-clock mr-2"></i>
                             <span class="font-semibold">Layover in Muscat (MCT): 4h 30m</span>
                         </div>
                     </div>
-
-                    <!-- Flight 3: MCT to JED -->
                     <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 flight-card">
                         <div class="p-6">
                             <div class="flex justify-between items-center">
@@ -208,7 +285,7 @@
                     <h3 class="text-2xl font-bold text-center text-gray-800 pb-2 border-b-2 border-teal-500 mb-4">
                         Return: Jeddah → Phnom Penh
                     </h3>
-                    <!-- Flight 1: JED to MCT -->
+                    <!-- Flight Cards... -->
                     <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 flight-card">
                         <div class="p-6">
                             <div class="flex justify-between items-center">
@@ -235,16 +312,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Layover in Muscat -->
                     <div class="text-center py-3">
                         <div class="inline-flex items-center text-gray-500 bg-gray-200 px-4 py-2 rounded-full">
                             <i class="fa-solid fa-clock mr-2"></i>
                             <span class="font-semibold">Layover in Muscat (MCT): 3h 40m</span>
                         </div>
                     </div>
-
-                    <!-- Flight 2: MCT to BKK -->
                     <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 flight-card">
                         <div class="p-6">
                             <div class="flex justify-between items-center">
@@ -271,16 +344,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Layover in Bangkok -->
                     <div class="text-center py-3">
                         <div class="inline-flex items-center text-gray-500 bg-gray-200 px-4 py-2 rounded-full">
                             <i class="fa-solid fa-clock mr-2"></i>
                             <span class="font-semibold">Layover in Bangkok (BKK): 6h 0m</span>
                         </div>
                     </div>
-
-                    <!-- Flight 3: BKK to PNH -->
                     <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 flight-card">
                         <div class="p-6">
                             <div class="flex justify-between items-center">
@@ -412,5 +481,65 @@
             <p>Document Issue Date: 05 July 2025</p>
         </footer>
     </div>
+
+    <!-- The Modal -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div id="modalGallery" class="modal-content p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Images will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        const hotelImageFolders = {
+            makkah: 'images/wafa-deafah/',
+            madinah: 'images/arjwan-rose/'
+        };
+
+        // --- IMPORTANT ---
+        // Adjust these counts to match the number of images in each folder
+        const hotelImageCounts = {
+            makkah: 18, 
+            madinah: 10 // Assuming 10 images for this hotel
+        };
+
+        const modal = document.getElementById('imageModal');
+        const modalGallery = document.getElementById('modalGallery');
+
+        function openModal(hotelKey) {
+            modalGallery.innerHTML = ''; // Clear previous images
+            const folder = hotelImageFolders[hotelKey];
+            const count = hotelImageCounts[hotelKey];
+            
+            for (let i = 1; i <= count; i++) {
+                const img = document.createElement('img');
+                img.src = `${folder}image_${i}.jpg`;
+                img.alt = `Image ${i} for ${hotelKey}`;
+                img.className = 'w-full h-auto rounded-lg object-cover';
+                img.onerror = function() { this.style.display='none'; }; // Hide if image fails to load
+                modalGallery.appendChild(img);
+            }
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Add click event to thumbnail images to open the modal
+        document.querySelectorAll('.gallery-image-thumb').forEach(img => {
+            img.onclick = function() {
+                const hotelKey = img.closest('[data-hotel]').dataset.hotel;
+                openModal(hotelKey);
+            };
+        });
+
+        // Close modal when clicking outside the gallery
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>

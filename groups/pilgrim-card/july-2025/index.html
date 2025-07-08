@@ -49,225 +49,231 @@
     <div class="container mx-auto p-4 sm:p-6 max-w-md">
 
         <!-- Digital Pilgrim Card -->
-        <div id="pilgrimCard" class="bg-white rounded-2xl shadow-2xl overflow-hidden hidden">
-            <!-- Profile Header -->
-            <header class="p-6 bg-gray-50">
-                <div class="flex items-center space-x-4">
-                    <img id="travelerPhoto" src="" alt="Traveler Photo" class="w-24 h-24 rounded-full border-4 border-white shadow-md">
-                    <div class="flex-1">
-                        <h1 id="travelerName" class="text-2xl font-bold text-gray-900"></h1>
-                        <p id="travelerGroup" class="text-sm text-gray-500"></p>
-                        <div class="mt-2 inline-flex items-center bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">
-                            <i class="fa-solid fa-check-circle mr-2"></i>
-                            Verified Pilgrim
+        <div id="pilgrimCard" class="relative bg-white rounded-2xl shadow-2xl overflow-hidden hidden">
+            <!-- Background Image -->
+            <div class="absolute inset-0 bg-center" style="background-image: url('/alfajrcambodia/assets/images/cam-flag.png');"></div>
+
+            <!-- Content Wrapper -->
+            <div class="relative z-10">
+                <!-- Profile Header -->
+                <header class="p-6 bg-gray-50/90 backdrop-blur-sm">
+                    <div class="flex items-center space-x-4">
+                        <img id="travelerPhoto" src="" alt="Traveler Photo" class="w-24 h-24 rounded-full border-4 border-white shadow-md">
+                        <div class="flex-1">
+                            <h1 id="travelerName" class="text-2xl font-bold text-gray-900"></h1>
+                            <p id="travelerGroup" class="text-sm text-gray-500"></p>
+                            <div class="mt-2 inline-flex items-center bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">
+                                <i class="fa-solid fa-check-circle mr-2"></i>
+                                Verified Pilgrim
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Tab Navigation -->
+                <nav class="flex border-b border-t border-gray-200/50 text-center bg-white/80 backdrop-blur-sm">
+                    <button onclick="switchTab(event, 'personal')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100/50 hover:text-indigo-600 focus:outline-none active">
+                        <i class="fa-solid fa-user-check block mx-auto mb-1"></i>Personal
+                    </button>
+                    <button onclick="switchTab(event, 'visa')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100/50 hover:text-indigo-600 focus:outline-none">
+                        <i class="fa-solid fa-passport block mx-auto mb-1"></i>Visa
+                    </button>
+                    <button onclick="switchTab(event, 'accommodation')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100/50 hover:text-indigo-600 focus:outline-none">
+                        <i class="fa-solid fa-hotel block mx-auto mb-1"></i>Hotels
+                    </button>
+                    <button onclick="switchTab(event, 'flights')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100/50 hover:text-indigo-600 focus:outline-none">
+                        <i class="fa-solid fa-plane-up block mx-auto mb-1"></i>Flights
+                    </button>
+                </nav>
+
+                <!-- Tab Content -->
+                <div class="p-6 min-h-[250px] bg-white/70 backdrop-blur-sm">
+                    <!-- Personal Info Tab -->
+                    <div id="personal" class="tab-content active">
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Full Name</span>
+                                <span id="personalName" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Nationality</span>
+                                <span id="personalNationality" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Date of Birth</span>
+                                <span id="personalDob" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Passport No.</span>
+                                <span id="personalPassportNum" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Passport Expiry</span>
+                                <span id="personalPassportExp" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Visa & Insurance Tab -->
+                    <div id="visa" class="tab-content">
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Visa Type</span>
+                                <span id="visaType" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Visa Number</span>
+                                <span id="visaNum" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Date of Issue</span>
+                                <span id="visaIssue" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Valid Until</span>
+                                <span id="visaValid" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                            <li class="border-t border-gray-200 my-2"></li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Insurance Provider</span>
+                                <span id="insuranceProvider" class="font-medium text-gray-900 text-right"></span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="font-semibold text-gray-500">Policy Number</span>
+                                <span id="insurancePolicy" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Accommodation Tab -->
+                    <div id="accommodation" class="tab-content">
+                        <ul class="space-y-4 text-sm">
+                            <li class="p-3 bg-gray-50/80 rounded-lg">
+                                <p class="font-bold text-gray-800">Madinah Hotel</p>
+                                <p class="text-gray-600">Manazil Al Aswaf @ Setaraf</p>
+                                <p class="text-xs text-gray-500 mt-1">Stay: 25 Jul 2025 - 27 Jul 2025</p>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Manazil+Al+Aswaf+Hotel+Madinah" target="_blank" class="text-indigo-600 hover:underline text-xs font-semibold mt-1 inline-block">View on Map <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i></a>
+                            </li>
+                            <li class="p-3 bg-gray-50/80 rounded-lg">
+                                <p class="font-bold text-gray-800">Makkah Hotel</p>
+                                <p class="text-gray-600">Waha Deafah @ Setaraf</p>
+                                <p class="text-xs text-gray-500 mt-1">Stay: 27 Jul 2025 - 03 Aug 2025</p>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Waha+Deafah+Hotel+Makkah" target="_blank" class="text-indigo-600 hover:underline text-xs font-semibold mt-1 inline-block">View on Map <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Flights Tab -->
+                    <div id="flights" class="tab-content">
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-indigo-700 mb-2">Departure Flights</h4>
+                                 <ul class="space-y-4 text-sm">
+                                    <li class="flex items-center space-x-4">
+                                        <div class="text-center w-16">
+                                            <p class="font-bold">TG 587</p>
+                                            <p class="text-xs text-gray-500">24 July</p>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="flex justify-between font-semibold">
+                                                <p>PNH <span class="text-gray-500 text-sm font-normal">09:40</span></p>
+                                                <p>BKK <span class="text-gray-500 text-sm font-normal">11:00</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-center space-x-4">
+                                        <div class="text-center w-16">
+                                            <p class="font-bold">WY 816</p>
+                                            <p class="text-xs text-gray-500">24 July</p>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="flex justify-between font-semibold">
+                                                <p>BKK <span class="text-gray-500 text-sm font-normal">19:10</span></p>
+                                                <p>MCT <span class="text-gray-500 text-sm font-normal">22:00</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                     <li class="flex items-center space-x-4">
+                                        <div class="text-center w-16">
+                                            <p class="font-bold">WY 671</p>
+                                            <p class="text-xs text-gray-500">25 July</p>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="flex justify-between font-semibold">
+                                                <p>MCT <span class="text-gray-500 text-sm font-normal">02:30</span></p>
+                                                <p>JED <span class="text-gray-500 text-sm font-normal">04:50</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="border-t border-gray-200"></div>
+                            <div>
+                                <h4 class="font-semibold text-teal-700 mb-2">Return Flights</h4>
+                                <ul class="space-y-4 text-sm">
+                                    <li class="flex items-center space-x-4">
+                                        <div class="text-center w-16">
+                                            <p class="font-bold">WY 676</p>
+                                            <p class="text-xs text-gray-500">03 Aug</p>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="flex justify-between font-semibold">
+                                                <p>JED <span class="text-gray-500 text-sm font-normal">19:25</span></p>
+                                                <p>MCT <span class="text-gray-500 text-sm font-normal">23:40</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-center space-x-4">
+                                        <div class="text-center w-16">
+                                            <p class="font-bold">WY 811</p>
+                                            <p class="text-xs text-gray-500">04 Aug</p>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="flex justify-between font-semibold">
+                                                <p>MCT <span class="text-gray-500 text-sm font-normal">03:20</span></p>
+                                                <p>BKK <span class="text-gray-500 text-sm font-normal">12:35</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                     <li class="flex items-center space-x-4">
+                                        <div class="text-center w-16">
+                                            <p class="font-bold">TG 584</p>
+                                            <p class="text-xs text-gray-500">04 Aug</p>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="flex justify-between font-semibold">
+                                                <p>BKK <span class="text-gray-500 text-sm font-normal">18:35</span></p>
+                                                <p>PNH <span class="text-gray-500 text-sm font-normal">19:55</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </header>
 
-            <!-- Tab Navigation -->
-            <nav class="flex border-b border-gray-200 text-center">
-                <button onclick="switchTab(event, 'personal')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100 hover:text-indigo-600 focus:outline-none active">
-                    <i class="fa-solid fa-user-check block mx-auto mb-1"></i>Personal
-                </button>
-                <button onclick="switchTab(event, 'visa')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100 hover:text-indigo-600 focus:outline-none">
-                    <i class="fa-solid fa-passport block mx-auto mb-1"></i>Visa
-                </button>
-                <button onclick="switchTab(event, 'accommodation')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100 hover:text-indigo-600 focus:outline-none">
-                    <i class="fa-solid fa-hotel block mx-auto mb-1"></i>Hotels
-                </button>
-                <button onclick="switchTab(event, 'flights')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100 hover:text-indigo-600 focus:outline-none">
-                    <i class="fa-solid fa-plane-up block mx-auto mb-1"></i>Flights
-                </button>
-            </nav>
-
-            <!-- Tab Content -->
-            <div class="p-6 min-h-[250px]">
-                <!-- Personal Info Tab -->
-                <div id="personal" class="tab-content active">
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Full Name</span>
-                            <span id="personalName" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Nationality</span>
-                            <span id="personalNationality" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Date of Birth</span>
-                            <span id="personalDob" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Passport No.</span>
-                            <span id="personalPassportNum" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Passport Expiry</span>
-                            <span id="personalPassportExp" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Visa & Insurance Tab -->
-                <div id="visa" class="tab-content">
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Visa Type</span>
-                            <span id="visaType" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Visa Number</span>
-                            <span id="visaNum" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Date of Issue</span>
-                            <span id="visaIssue" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Valid Until</span>
-                            <span id="visaValid" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                        <li class="border-t border-gray-200 my-2"></li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Insurance Provider</span>
-                            <span id="insuranceProvider" class="font-medium text-gray-900 text-right"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="font-semibold text-gray-500">Policy Number</span>
-                            <span id="insurancePolicy" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Accommodation Tab -->
-                <div id="accommodation" class="tab-content">
-                    <ul class="space-y-4 text-sm">
-                        <li class="p-3 bg-gray-50 rounded-lg">
-                            <p class="font-bold text-gray-800">Madinah Hotel</p>
-                            <p class="text-gray-600">Manazil Al Aswaf @ Setaraf</p>
-                            <p class="text-xs text-gray-500 mt-1">Stay: 25 Jul 2025 - 27 Jul 2025</p>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Manazil+Al+Aswaf+Hotel+Madinah" target="_blank" class="text-indigo-600 hover:underline text-xs font-semibold mt-1 inline-block">View on Map <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i></a>
-                        </li>
-                        <li class="p-3 bg-gray-50 rounded-lg">
-                            <p class="font-bold text-gray-800">Makkah Hotel</p>
-                            <p class="text-gray-600">Waha Deafah @ Setaraf</p>
-                            <p class="text-xs text-gray-500 mt-1">Stay: 27 Jul 2025 - 03 Aug 2025</p>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Waha+Deafah+Hotel+Makkah" target="_blank" class="text-indigo-600 hover:underline text-xs font-semibold mt-1 inline-block">View on Map <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i></a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Flights Tab -->
-                <div id="flights" class="tab-content">
-                    <div class="space-y-6">
-                        <div>
-                            <h4 class="font-semibold text-indigo-700 mb-2">Departure Flights</h4>
-                             <ul class="space-y-4 text-sm">
-                                <li class="flex items-center space-x-4">
-                                    <div class="text-center w-16">
-                                        <p class="font-bold">TG 587</p>
-                                        <p class="text-xs text-gray-500">24 July</p>
-                                    </div>
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between font-semibold">
-                                            <p>PNH <span class="text-gray-500 text-sm font-normal">09:40</span></p>
-                                            <p>BKK <span class="text-gray-500 text-sm font-normal">11:00</span></p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="flex items-center space-x-4">
-                                    <div class="text-center w-16">
-                                        <p class="font-bold">WY 816</p>
-                                        <p class="text-xs text-gray-500">24 July</p>
-                                    </div>
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between font-semibold">
-                                            <p>BKK <span class="text-gray-500 text-sm font-normal">19:10</span></p>
-                                            <p>MCT <span class="text-gray-500 text-sm font-normal">22:00</span></p>
-                                        </div>
-                                    </div>
-                                </li>
-                                 <li class="flex items-center space-x-4">
-                                    <div class="text-center w-16">
-                                        <p class="font-bold">WY 671</p>
-                                        <p class="text-xs text-gray-500">25 July</p>
-                                    </div>
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between font-semibold">
-                                            <p>MCT <span class="text-gray-500 text-sm font-normal">02:30</span></p>
-                                            <p>JED <span class="text-gray-500 text-sm font-normal">04:50</span></p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="border-t border-gray-200"></div>
-                        <div>
-                            <h4 class="font-semibold text-teal-700 mb-2">Return Flights</h4>
-                            <ul class="space-y-4 text-sm">
-                                <li class="flex items-center space-x-4">
-                                    <div class="text-center w-16">
-                                        <p class="font-bold">WY 676</p>
-                                        <p class="text-xs text-gray-500">03 Aug</p>
-                                    </div>
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between font-semibold">
-                                            <p>JED <span class="text-gray-500 text-sm font-normal">19:25</span></p>
-                                            <p>MCT <span class="text-gray-500 text-sm font-normal">23:40</span></p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="flex items-center space-x-4">
-                                    <div class="text-center w-16">
-                                        <p class="font-bold">WY 811</p>
-                                        <p class="text-xs text-gray-500">04 Aug</p>
-                                    </div>
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between font-semibold">
-                                            <p>MCT <span class="text-gray-500 text-sm font-normal">03:20</span></p>
-                                            <p>BKK <span class="text-gray-500 text-sm font-normal">12:35</span></p>
-                                        </div>
-                                    </div>
-                                </li>
-                                 <li class="flex items-center space-x-4">
-                                    <div class="text-center w-16">
-                                        <p class="font-bold">TG 584</p>
-                                        <p class="text-xs text-gray-500">04 Aug</p>
-                                    </div>
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between font-semibold">
-                                            <p>BKK <span class="text-gray-500 text-sm font-normal">18:35</span></p>
-                                            <p>PNH <span class="text-gray-500 text-sm font-normal">19:55</span></p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                <!-- Contact Section -->
+                <div class="bg-gray-50/90 p-4 border-t border-gray-200/50 backdrop-blur-sm">
+                    <h4 class="font-semibold text-gray-700 mb-3 text-center text-sm">Emergency & Support</h4>
+                    <div class="flex justify-around items-center text-center">
+                        <a href="https://wa.me/60163324452" class="text-gray-600 hover:text-green-500">
+                            <i class="fab fa-whatsapp fa-2x"></i>
+                            <span class="block text-xs mt-1">WhatsApp</span>
+                        </a>
+                        <a href="https://t.me/alfajrtravel" class="text-gray-600 hover:text-sky-500">
+                            <i class="fab fa-telegram fa-2x"></i>
+                            <span class="block text-xs mt-1">Telegram</span>
+                        </a>
+                        <a href="tel:+60361277790" class="text-gray-600 hover:text-indigo-600">
+                            <i class="fa-solid fa-phone-volume fa-2x"></i>
+                            <span class="block text-xs mt-1">Call Office</span>
+                        </a>
+                        <a href="https://www.facebook.com/alfajrtours" class="text-gray-600 hover:text-blue-600">
+                            <i class="fab fa-facebook fa-2x"></i>
+                             <span class="block text-xs mt-1">Facebook</span>
+                        </a>
                     </div>
-                </div>
-            </div>
-
-            <!-- Contact Section -->
-            <div class="bg-gray-50 p-4 border-t border-gray-200">
-                <h4 class="font-semibold text-gray-700 mb-4 text-center text-sm">Emergency & Support</h4>
-                <div class="flex justify-around items-center text-center">
-                    <a href="https://wa.me/85569556444" class="text-gray-600 hover:text-green-500">
-                        <i class="fab fa-whatsapp fa-2x"></i>
-                        <span class="block text-xs mt-1">WhatsApp</span>
-                    </a>
-                    <a href="https://t.me/fadolladam" class="text-gray-600 hover:text-sky-500">
-                        <i class="fab fa-telegram fa-2x"></i>
-                        <span class="block text-xs mt-1">Telegram</span>
-                    </a>
-                    <a href="tel:+966509404082" class="text-gray-600 hover:text-indigo-600">
-                        <i class="fa-solid fa-phone-volume fa-2x"></i>
-                        <span class="block text-xs mt-1">Call Office</span>
-                    </a>
-                    <a href="https://www.m.me/fadolladam" class="text-gray-600 hover:text-blue-600">
-                        <i class="fab fa-facebook fa-2x"></i>
-                         <span class="block text-xs mt-1">Facebook</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -278,9 +284,9 @@
             <p class="text-gray-600 font-semibold">Loading Pilgrim Data...</p>
         </div>
         <div id="errorState" class="hidden text-center p-10 bg-white rounded-2xl shadow-2xl">
-             <i class="fa-solid fa-exclamation-triangle fa-3x text-red-500 mb-4"></i>
-            <p class="text-red-600 font-semibold">Could not load traveler data.</p>
-            <p class="text-sm text-gray-500 mt-2">Please ensure the URL is correct or contact support.</p>
+             <i id="errorIcon" class="fa-solid fa-exclamation-triangle fa-3x text-red-500 mb-4"></i>
+            <p id="errorMessage" class="text-red-600 font-semibold"></p>
+            <p id="errorSuggestion" class="text-sm text-gray-500 mt-2"></p>
         </div>
 
         <!-- Footer -->
@@ -334,6 +340,15 @@
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('pilgrimCard').classList.remove('hidden');
         }
+        
+        // Function to display specific errors
+        function displayError(message, suggestion, iconClass = 'fa-exclamation-triangle') {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorSuggestion').textContent = suggestion;
+            document.getElementById('errorIcon').className = `fa-solid ${iconClass} fa-3x text-red-500 mb-4`;
+            document.getElementById('errorState').classList.remove('hidden');
+        }
 
         // Main function to fetch data on page load
         document.addEventListener('DOMContentLoaded', () => {
@@ -341,16 +356,14 @@
             const travelerId = params.get('id');
 
             if (!travelerId) {
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('errorState').classList.remove('hidden');
+                displayError('Pilgrim ID Missing', 'This link is incomplete. Please scan the QR code on your name tag again.', 'fa-qrcode');
                 return;
             }
 
-            // Corrected file path for fetch. This looks for the JSON file in the same directory.
             fetch('travelers.json')
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        throw new Error('Could not find the traveler database file.');
                     }
                     return response.json();
                 })
@@ -360,13 +373,12 @@
                         populateData(traveler);
                         document.querySelector('.tab-button').click(); // Activate first tab
                     } else {
-                        throw new Error('Traveler not found');
+                        throw new Error(`Pilgrim with ID ${travelerId} not found.`);
                     }
                 })
                 .catch(error => {
-                    console.error('Error fetching or parsing data:', error);
-                    document.getElementById('loadingState').classList.add('hidden');
-                    document.getElementById('errorState').classList.remove('hidden');
+                    console.error('Error:', error.message);
+                    displayError('Could Not Load Traveler Data', 'Please check your connection or contact support if the problem persists.');
                 });
         });
     </script>

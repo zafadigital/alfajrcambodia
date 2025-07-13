@@ -328,7 +328,6 @@
             document.getElementById('visaNum').textContent = traveler.visaNum;
             document.getElementById('visaIssue').textContent = traveler.visaIssue;
             document.getElementById('visaValid').textContent = traveler.visaValid;
-            // CHANGE 2: This line of javascript was added
             document.getElementById('visaUrlLink').href = traveler.visaUrl;
             document.getElementById('visaPdfLink').href = traveler.visaPDF;
 
@@ -356,14 +355,29 @@
                 return;
             }
 
-            fetch('travelers.json')
+            // --- MODIFIED SECTION ---
+            // URL of the published Google Sheet (replace with your own)
+            const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSt9A1wSR8GEzn08RuSterEo04bqSSXD545rd10LVR3Vk8zBZRJhNkZiGKddtVIshf1LDUXtbWqGbnc/pub?gid=1124322917&single=true&output=csv'; 
+
+            fetch(sheetUrl)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Could not find the traveler database file.');
+                        throw new Error('Could not fetch the Google Sheet.');
                     }
-                    return response.json();
+                    return response.text(); // Get the response as text (CSV)
                 })
-                .then(data => {
+                .then(csvText => {
+                    // Parse the CSV text
+                    const rows = csvText.trim().split('\n').map(row => row.split(','));
+                    const headers = rows[0].map(header => header.trim());
+                    const data = rows.slice(1).map(row => {
+                        const traveler = {};
+                        headers.forEach((header, i) => {
+                            traveler[header] = row[i].trim();
+                        });
+                        return traveler;
+                    });
+
                     const traveler = data.find(t => t.id == travelerId);
                     if (traveler) {
                         populateData(traveler);
@@ -376,6 +390,7 @@
                     console.error('Error:', error.message);
                     displayError('Could Not Load Traveler Data', 'Please check your connection or contact support if the problem persists.');
                 });
+            // --- END OF MODIFIED SECTION ---
         });
     </script>
 </body>

@@ -150,6 +150,12 @@
                                 <span class="font-semibold text-gray-500">Policy Number</span>
                                 <span id="insurancePolicy" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
                             </li>
+                            <li class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-500">Visa Link</span>
+                                <a id="visaUrlLink" href="#" target="_blank" class="text-indigo-600 hover:underline font-semibold">
+                                    View Visa <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
@@ -341,6 +347,7 @@
             document.getElementById('visaNum').textContent = traveler.visaNum;
             document.getElementById('visaIssue').textContent = traveler.visaIssue;
             document.getElementById('visaValid').textContent = traveler.visaValid;
+            document.getElementById('visaUrlLink').href = traveler.visaUrl; // <-- ADD THIS LINE
             document.getElementById('insuranceProvider').textContent = traveler.insuranceProvider;
             document.getElementById('insurancePolicy').textContent = traveler.insurancePolicy;
 

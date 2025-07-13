@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Pilgrim Card</title>
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-      <!-- Favicon Meta -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/images/favicon/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/images/favicon/favicon-16x16.png">
     <link rel="manifest" href="../../../assets/images/favicon/site.webmanifest">
     <link rel="shortcut icon" href="../../../assets/images/favicon/favicon.ico">
     <meta name="theme-color" content="#FF4800">
 
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -56,14 +52,10 @@
 
     <div class="container mx-auto p-4 sm:p-6 max-w-md">
 
-        <!-- Digital Pilgrim Card -->
         <div id="pilgrimCard" class="relative bg-white rounded-2xl shadow-2xl overflow-hidden hidden">
-            <!-- Background Image -->
             <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('../../../assets/images/cam-flag.png');"></div>
 
-            <!-- Content Wrapper -->
             <div class="relative z-10">
-                <!-- Profile Header -->
                 <header class="p-6 bg-gray-50/90 backdrop-blur-sm">
                     <div class="flex items-center space-x-4">
                         <img id="travelerPhoto" src="" alt="Traveler Photo" class="w-24 h-24 rounded-full border-4 border-white shadow-md">
@@ -78,7 +70,6 @@
                     </div>
                 </header>
 
-                <!-- Tab Navigation -->
                 <nav class="flex border-b border-t border-gray-200/50 text-center bg-white/80 backdrop-blur-sm">
                     <button onclick="switchTab(event, 'personal')" class="tab-button flex-1 p-3 text-xs font-semibold text-gray-500 border-b-2 border-transparent hover:bg-gray-100/50 hover:text-indigo-600 focus:outline-none active">
                         <i class="fa-solid fa-user-check block mx-auto mb-1"></i>Personal
@@ -94,9 +85,7 @@
                     </button>
                 </nav>
 
-                <!-- Tab Content -->
                 <div class="p-6 min-h-[250px] bg-white/70 backdrop-blur-sm">
-                    <!-- Personal Info Tab -->
                     <div id="personal" class="tab-content active">
                         <ul class="space-y-4 text-sm">
                             <li class="flex justify-between">
@@ -122,7 +111,6 @@
                         </ul>
                     </div>
 
-                    <!-- Visa & Insurance Tab -->
                     <div id="visa" class="tab-content">
                         <ul class="space-y-4 text-sm">
                             <li class="flex justify-between">
@@ -141,25 +129,22 @@
                                 <span class="font-semibold text-gray-500">Valid Until</span>
                                 <span id="visaValid" class="font-medium text-gray-900 text-right"></span>
                             </li>
-                            <li class="border-t border-gray-200 my-2"></li>
-                            <li class="flex justify-between">
-                                <span class="font-semibold text-gray-500">Insurance Provider</span>
-                                <span id="insuranceProvider" class="font-medium text-gray-900 text-right"></span>
-                            </li>
-                            <li class="flex justify-between">
-                                <span class="font-semibold text-gray-500">Policy Number</span>
-                                <span id="insurancePolicy" class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-700"></span>
-                            </li>
                             <li class="flex justify-between items-center">
                                 <span class="font-semibold text-gray-500">Visa Link</span>
                                 <a id="visaUrlLink" href="#" target="_blank" class="text-indigo-600 hover:underline font-semibold">
                                     View Visa <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
                                 </a>
                             </li>
+                            <li class="border-t border-gray-200 my-2"></li>
+        <li class="flex justify-between items-center">
+            <span class="font-semibold text-gray-500">Visa PDF</span>
+            <a id="visaPdfLink" href="#" target="_blank" class="text-indigo-600 hover:underline font-semibold">
+                Download PDF <i class="fa-solid fa-file-arrow-down fa-xs"></i>
+            </a>
+        </li>
                         </ul>
                     </div>
 
-                    <!-- Accommodation Tab -->
                     <div id="accommodation" class="tab-content">
                         <ul class="space-y-4 text-sm">
                             <li class="p-3 bg-gray-50/80 rounded-lg">
@@ -177,7 +162,6 @@
                         </ul>
                     </div>
 
-                    <!-- Flights Tab -->
                     <div id="flights" class="tab-content">
                         <div class="space-y-6">
                             <div>
@@ -267,7 +251,6 @@
                     </div>
                 </div>
 
-                <!-- Contact Section -->
                 <div class="bg-gray-50/90 p-4 border-t border-gray-200/50 backdrop-blur-sm">
                     <h4 class="font-semibold text-gray-700 mb-3 text-center text-sm">Emergency & Support</h4>
                     <div class="flex justify-around items-center text-center">
@@ -292,7 +275,6 @@
             </div>
         </div>
         
-        <!-- Loading / Error State -->
         <div id="loadingState" class="text-center p-10 bg-white rounded-2xl shadow-2xl">
             <div class="loader"></div>
             <p class="text-gray-600 font-semibold">Loading Pilgrim Data...</p>
@@ -303,7 +285,6 @@
             <p id="errorSuggestion" class="text-sm text-gray-500 mt-2"></p>
         </div>
 
-        <!-- Footer -->
         <footer class="text-center text-xs text-gray-500 mt-6">
             <p><strong>ALFAJR Cambodia</strong></p>
             <p>Have a safe and blessed journey.</p>
@@ -347,9 +328,9 @@
             document.getElementById('visaNum').textContent = traveler.visaNum;
             document.getElementById('visaIssue').textContent = traveler.visaIssue;
             document.getElementById('visaValid').textContent = traveler.visaValid;
-            document.getElementById('visaUrlLink').href = traveler.visaUrl; // <-- ADD THIS LINE
-            document.getElementById('insuranceProvider').textContent = traveler.insuranceProvider;
-            document.getElementById('insurancePolicy').textContent = traveler.insurancePolicy;
+            // CHANGE 2: This line of javascript was added
+            document.getElementById('visaUrlLink').href = traveler.visaUrl;
+            document.getElementById('visaPdfLink').href = traveler.visaPDF;
 
             // Show the card and hide loading state
             document.getElementById('loadingState').classList.add('hidden');

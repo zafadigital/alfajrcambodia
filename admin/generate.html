@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSR Generate Name</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for Inter font and general aesthetics */
@@ -146,7 +145,6 @@
     <div class="container">
         <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-6">Traveler Data Generator</h1>
 
-        <!-- Input Data Section -->
         <div class="form-section">
             <h2 class="text-2xl font-bold text-gray-700 mb-5">Input Traveler Data (Pipe-Separated)</h2>
             <p class="text-gray-600 mb-4">
@@ -155,13 +153,13 @@
             </p>
             <textarea id="rawDataInput" placeholder="Example:
 KARIM FA|Cambodia|3-Oct-1961|N01520773|24-Jan-2029
-NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035"></textarea>
+NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035">
+            </textarea>
             <div class="flex justify-end mt-6">
                 <button id="parseDataBtn" class="btn btn-primary">Parse Data & Add Travelers</button>
             </div>
         </div>
 
-        <!-- Traveler List Section -->
         <div class="form-section">
             <h2 class="text-2xl font-bold text-gray-700 mb-5">Current Travelers</h2>
             <div id="travelerList" class="traveler-list">
@@ -172,7 +170,6 @@ NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035"></textarea>
             </div>
         </div>
 
-        <!-- Output Section -->
         <div class="output-section">
             <h2 class="text-2xl font-bold text-gray-700 mb-5">Generated Data</h2>
             <textarea id="generatedData" readonly class="mb-4"></textarea>
@@ -183,7 +180,6 @@ NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035"></textarea>
         </div>
     </div>
 
-    <!-- Message Box for copy confirmation -->
     <div id="messageBox" class="message-box"></div>
 
     <script>
@@ -350,7 +346,7 @@ NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035"></textarea>
                         familyName: familyName,
                         birthDate: birthDate,
                         gender: "O", // Default to Other as not provided in input
-                        documentType: "1", // Default to Passport
+                        documentType: "2", // Default to Passport
                         documentId: parts[3],
                         expireDate: expireDate,
                         nationality: parts[1].toUpperCase(), // Ensure 2-letter uppercase
@@ -375,10 +371,75 @@ NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035"></textarea>
 
         /**
          * Generates the JavaScript array string from the travelers array.
+         * Also includes the fillTravelerForm function.
          */
         function generateTravelerData() {
             const jsonString = JSON.stringify(travelers, null, 4); // Pretty print JSON
-            generatedDataTextarea.value = `// Array of traveler data for ${travelers.length} travelers\nconst travelersData = ${jsonString};`;
+            const fillFormFunction = `
+// Function to dynamically populate traveler data
+function fillTravelerForm(travelersData) {
+    // Loop through all travelers
+    travelersData.forEach((traveler, index) => {
+        const travelerIndex = index + 1; // Traveler index starts from 1
+
+        // First Name
+        const firstNameField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:firstNameTraveler_\${travelerIndex}\`);
+        if (firstNameField) firstNameField.value = traveler.firstName;
+
+        // Middle Name
+        const middleNameField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:middleNameTraveler_\${travelerIndex}\`);
+        if (middleNameField) middleNameField.value = traveler.middleName;
+
+        // Family Name
+        const familyNameField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:familyNameTraveler_\${travelerIndex}\`);
+        if (familyNameField) familyNameField.value = traveler.familyName;
+
+        // Birth Date
+        const birthDateField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:birthDate_\${travelerIndex}\`);
+        if (birthDateField) birthDateField.value = traveler.birthDate;
+
+        // Gender
+        const genderField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:sex_\${travelerIndex}\`);
+        if (genderField) genderField.value = traveler.gender;
+
+        // Document Type
+        const documentTypeField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:documentType_\${travelerIndex}\`);
+        if (documentTypeField) documentTypeField.value = traveler.documentType;
+
+        // Document ID
+        const documentIdField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:document_\${travelerIndex}\`);
+        if (documentIdField) documentIdField.value = traveler.documentId;
+
+        // Expiry Date
+        const expireDateField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:expireDate_\${travelerIndex}\`);
+        if (expireDateField) expireDateField.value = traveler.expireDate;
+
+        // Nationality
+        const nationalityField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:nationality_\${travelerIndex}\`);
+        if (nationalityField) nationalityField.value = traveler.nationality;
+
+        // Special Needs checkbox
+        const specialNeedsField = document.getElementById(\`_ossportlet_WAR_ossliferay_:personalInfoForm:specialNeed_\${travelerIndex}\`);
+        if (specialNeedsField) specialNeedsField.checked = traveler.specialNeeds;
+
+        // Trigger change events if necessary
+        if (firstNameField) firstNameField.dispatchEvent(new Event('change'));
+        if (middleNameField) middleNameField.dispatchEvent(new Event('change'));
+        if (familyNameField) familyNameField.dispatchEvent(new Event('change'));
+        if (birthDateField) birthDateField.dispatchEvent(new Event('change'));
+        if (genderField) genderField.dispatchEvent(new Event('change'));
+        if (documentTypeField) documentTypeField.dispatchEvent(new Event('change'));
+        if (documentIdField) documentIdField.dispatchEvent(new Event('change'));
+        if (expireDateField) expireDateField.dispatchEvent(new Event('change'));
+        if (nationalityField) nationalityField.dispatchEvent(new Event('change'));
+        if (specialNeedsField) specialNeedsField.dispatchEvent(new Event('change'));
+    });
+}
+
+// Call the function to fill out the form dynamically for the travelers in the array
+fillTravelerForm(travelersData);
+            `;
+            generatedDataTextarea.value = `// Array of traveler data for ${travelers.length} travelers\nconst travelersData = ${jsonString};\n\n${fillFormFunction}`;
         }
 
         /**
@@ -387,11 +448,11 @@ NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035"></textarea>
         generateBtn.addEventListener('click', () => {
             if (travelers.length === 0) {
                 showMessageBox('No travelers to generate. Please parse data first.', 'error');
-                generatedDataTextarea.value = `// Array of traveler data for 0 travelers\nconst travelersData = [];`;
+                generatedDataTextarea.value = `// Array of traveler data for 0 travelers\nconst travelersData = [];\n\n// Function to dynamically populate traveler data\nfunction fillTravelerForm(travelersData) {\n    // ... (function body remains the same)\n}\n\nfillTravelerForm(travelersData);`;
                 return;
             }
             generateTravelerData();
-            showMessageBox('JavaScript array generated!');
+            showMessageBox('JavaScript array and fill form function generated!');
         });
 
         /**
@@ -417,7 +478,7 @@ NORIZA FA|Cambodia|5-Mar-1993|N02913931|27-Mar-2035"></textarea>
         // Initialize on load
         window.onload = () => {
             renderTravelerList(); // Render empty list initially
-            generateTravelerData(); // Generate empty array initially
+            generateTravelerData(); // Generate empty array and function initially
         };
     </script>
 </body>

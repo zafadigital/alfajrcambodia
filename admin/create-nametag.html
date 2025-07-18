@@ -146,11 +146,11 @@
         .pilgrim-photo {
             position: absolute;
             /* CHANGE 1: Moved photo up */
-            top: 200px;
-            left: 50%;
+            top: 155px;
+            left: 52%;
             transform: translateX(-50%);
-            width: 200px;
-            height: 200px;
+            width: 210px;
+            height: 210px;
             object-fit: cover;
             border-radius: 18px;
             background-color: #e0e0e0; /* Fallback color */
@@ -160,7 +160,7 @@
         /* CHANGE 2: Grouped text elements for better positioning */
         .text-container {
             position: absolute;
-            top: 420px;
+            top: 390px;
             left: 0;
             width: 100%;
             display: flex;
@@ -181,7 +181,7 @@
         }
         .pilgrim-visa {
             text-align: center;
-            font-size: 38px;
+            font-size: 25px;
             font-weight: 600;
             color: #1a2b4d;
             font-family: 'Montserrat', sans-serif;
@@ -264,7 +264,7 @@
          * @param {HTMLElement} element The text element to resize.
          */
         function adjustNameFontSize(element) {
-            let fontSize = 40; // Starting font size in pixels
+            let fontSize = 30; // Starting font size in pixels
             element.style.fontSize = fontSize + 'px';
 
             while (element.scrollWidth > element.clientWidth && fontSize > 14) {

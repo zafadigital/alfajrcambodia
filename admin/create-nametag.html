@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfajr Cambodia Card Generator</title>
+    <!-- Google Fonts for better typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    
+    <!-- html2canvas library for exporting the card as an image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        /* --- General Page Styling --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e9eef2;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* --- Control Panel for User Inputs --- */
+        .controls {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+        }
+        .controls h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #1a2b4d;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .input-group {
+            margin-bottom: 1.2rem;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+        .input-group textarea {
+            width: 100%;
+            padding: 0.85rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            min-height: 150px;
+            font-family: monospace;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #d9534f;
+            box-shadow: 0 0 5px rgba(217, 83, 79, 0.3);
+        }
+        #processDataBtn {
+            width: 100%;
+            padding: 0.9rem;
+            background: linear-gradient(45deg, #d9534f, #c9302c);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #processDataBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(217, 83, 79, 0.4);
+        }
+
+        /* --- Styling for the Pilgrim Upload List --- */
+        #upload-section {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+        .pilgrim-upload-item {
+            background-color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .pilgrim-upload-item.processed {
+            opacity: 0.5;
+            background-color: #f8f9fa;
+        }
+        .pilgrim-upload-item span {
+            font-weight: 600;
+        }
+        .upload-label {
+            padding: 0.5rem 1rem;
+            background-color: #337ab7;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .upload-label:hover {
+            background-color: #286090;
+        }
+        .pilgrim-upload-item input[type="file"] {
+            display: none;
+        }
+
+        /* --- Styling for the Generated Card --- */
+        .card-wrapper {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card-container {
+            position: relative;
+            width: 500px;
+            height: 789px;
+            background-image: url('https://i.ibb.co/Y7TXcJz5/Untitled-2.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        /* --- Styling for Dynamic Elements on the Card --- */
+        .pilgrim-photo {
+            position: absolute;
+            /* CHANGE 1: Moved photo up */
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 18px;
+            background-color: #e0e0e0; /* Fallback color */
+            border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        /* CHANGE 2: Grouped text elements for better positioning */
+        .text-container {
+            position: absolute;
+            top: 420px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+        .pilgrim-name {
+            width: 100%;
+            text-align: center;
+            font-weight: 700;
+            color: #1a2b4d;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+            line-height: 1.2;
+        }
+        .pilgrim-visa {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 600;
+            color: #1a2b4d;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+        }
+
+        /* --- Styling for the Export Button --- */
+        .export-button {
+             display: block;
+             width: 180px;
+             margin-top: 1.5rem;
+             padding: 0.7rem 1.2rem;
+             background: linear-gradient(45deg, #5cb85c, #4cae4c);
+             color: white;
+             text-align: center;
+             border: none;
+             border-radius: 8px;
+             cursor: pointer;
+             font-weight: 600;
+             font-size: 1rem;
+             transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .export-button:hover{
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(92, 184, 92, 0.4);
+        }
+        
+        #card-output {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======== CONTROLS PANEL ======== -->
+    <div class="controls">
+        <h1>Alfajr Card Generator</h1>
+        <div class="input-group">
+            <label for="bulkDataInput">Paste Pilgrim Data (Name|VisaNumber):</label>
+            <textarea id="bulkDataInput" placeholder="KARIM FA|6144766152&#10;NORIZA FA|6144766156&#10;..."></textarea>
+        </div>
+        <button id="processDataBtn">Process Data</button>
+    </div>
+
+    <!-- ======== SECTION FOR UPLOADING PHOTOS ======== -->
+    <div id="upload-section"></div>
+
+    <!-- ======== AREA FOR GENERATED CARDS ======== -->
+    <div id="card-output"></div>
+    
+    <!-- ======== HIDDEN TEMPLATE FOR A SINGLE CARD ======== -->
+    <div id="cardTemplate" style="display: none;">
+        <div class="card-wrapper">
+            <div class="card-container">
+                <img class="pilgrim-photo" src="" alt="Pilgrim Photo">
+                <div class="text-container">
+                    <div class="pilgrim-name"></div>
+                    <div class="pilgrim-visa"></div>
+                </div>
+            </div>
+            <button class="export-button">Export as PNG</button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Get interactive elements from the DOM ---
+        const processDataBtn = document.getElementById('processDataBtn');
+        const bulkDataInput = document.getElementById('bulkDataInput');
+        const uploadSection = document.getElementById('upload-section');
+        const cardOutput = document.getElementById('card-output');
+        const cardTemplate = document.getElementById('cardTemplate');
+
+        /**
+         * This function dynamically adjusts the font size of the name element
+         * to ensure it fits within its container, even for long names.
+         * @param {HTMLElement} element The text element to resize.
+         */
+        function adjustNameFontSize(element) {
+            let fontSize = 40; // Starting font size in pixels
+            element.style.fontSize = fontSize + 'px';
+
+            while (element.scrollWidth > element.clientWidth && fontSize > 14) {
+                fontSize--; // Decrease font size by 1px
+                element.style.fontSize = fontSize + 'px';
+            }
+        }
+
+        /**
+         * Generates a card for a pilgrim and appends it to the output.
+         * @param {string} name The pilgrim's name.
+         * @param {string} visa The pilgrim's visa number.
+         * @param {File} photoFile The uploaded photo file.
+         */
+        function generateCard(name, visa, photoFile) {
+            const newCardWrapper = cardTemplate.firstElementChild.cloneNode(true);
+            
+            const photoElement = newCardWrapper.querySelector('.pilgrim-photo');
+            const nameElement = newCardWrapper.querySelector('.pilgrim-name');
+            const visaElement = newCardWrapper.querySelector('.pilgrim-visa');
+
+            nameElement.textContent = `NAME: ${name.toUpperCase()}`;
+            visaElement.textContent = `Visa No: ${visa}`;
+            
+            adjustNameFontSize(nameElement);
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                photoElement.src = e.target.result;
+            };
+            reader.readAsDataURL(photoFile);
+            
+            const exportBtn = newCardWrapper.querySelector('.export-button');
+            exportBtn.addEventListener('click', () => {
+                const cardToExport = newCardWrapper.querySelector('.card-container');
+                html2canvas(cardToExport, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null,
+                    scale: 2
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `card-${name.replace(/\s+/g, '-')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            });
+
+            cardOutput.appendChild(newCardWrapper);
+        }
+
+        // --- Event Listener for the "Process Data" Button ---
+        processDataBtn.addEventListener('click', () => {
+            const data = bulkDataInput.value.trim();
+            if (!data) {
+                alert('Please paste some data into the text area.');
+                return;
+            }
+
+            uploadSection.innerHTML = ''; // Clear previous list
+
+            const lines = data.split('\n');
+            lines.forEach((line, index) => {
+                if (!line.trim()) return;
+
+                const parts = line.split('|');
+                if (parts.length !== 2) return;
+
+                const name = parts[0].trim();
+                const visa = parts[1].trim();
+
+                const item = document.createElement('div');
+                item.className = 'pilgrim-upload-item';
+                item.id = `pilgrim-item-${index}`;
+                
+                item.innerHTML = `
+                    <span>${name}</span>
+                    <label for="file-upload-${index}" class="upload-label">Upload Photo</label>
+                    <input type="file" id="file-upload-${index}" accept="image/*" data-name="${name}" data-visa="${visa}" data-item-id="${item.id}">
+                `;
+
+                uploadSection.appendChild(item);
+            });
+        });
+
+        // --- Event Delegation for file inputs ---
+        uploadSection.addEventListener('change', (event) => {
+            if (event.target.type === 'file') {
+                const input = event.target;
+                const photoFile = input.files[0];
+
+                if (photoFile) {
+                    const name = input.dataset.name;
+                    const visa = input.dataset.visa;
+                    generateCard(name, visa, photoFile);
+
+                    // Mark as processed
+                    const parentItem = document.getElementById(input.dataset.itemId);
+                    parentItem.classList.add('processed');
+                    parentItem.querySelector('.upload-label').textContent = 'Done';
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

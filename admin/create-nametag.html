@@ -7,10 +7,12 @@
     <!-- Google Fonts for better typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     
     <!-- html2canvas library for exporting the card as an image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- QR Code generation library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
 
     <style>
         /* --- General Page Styling --- */
@@ -126,75 +128,128 @@
 
         /* --- Styling for the Generated Card --- */
         .card-wrapper {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        .card-pair {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
         .card-container {
+            width: 640px;
+            height: 896px;
             position: relative;
-            width: 500px;
-            height: 789px;
-            background-image: url('https://i.ibb.co/WSy2F7V/Untitled-2.png');
             background-size: cover;
             background-position: center;
-            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .card-front {
+            background-image: url('https://i.ibb.co/SD0KbtQF/Tag-Name-Front.jpg');
+        }
+        .card-back {
+            background-image: url('https://i.ibb.co/fYLfFf2W/Tag-Name-Back.jpg');
+            color: #1a2b4d;
+            text-align: center;
         }
         
         /* --- Styling for Dynamic Elements on the Card --- */
         .pilgrim-photo {
             position: absolute;
-            /* CHANGE 1: Moved photo up */
             top: 155px;
-            left: 52%;
+            left: 50%;
             transform: translateX(-50%);
-            width: 210px;
-            height: 210px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border-radius: 18px;
-            background-color: #e0e0e0; /* Fallback color */
+            background-color: #e0e0e0;
             border: 4px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        /* CHANGE 2: Grouped text elements for better positioning */
+        /* CHANGE 1: New container for text to prevent overlap */
         .text-container {
             position: absolute;
             top: 390px;
             left: 0;
             width: 100%;
+            padding: 0 50px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between name and visa */
+        }
+        .pilgrim-name, .pilgrim-visa {
+            width: 100%;
+            font-weight: 700;
+            color: #1a2b4d;
+            text-align: left;
+            line-height: 1.2;
+        }
+        .pilgrim-name {
+            font-size: 100%; /* Base size, will be adjusted by JS */
+        }
+        .pilgrim-visa {
+            font-size: 30px;
+        }
+        /* --- Back Card Dynamic Elements --- */
+        .leader-name {
+            position: absolute;
+            top: 235px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 30px;
+        }
+        .leader-phone {
+            position: absolute;
+            top: 275px;
+            width: 100%;
+            font-weight: 500;
+            font-size: 30px;
+        }
+        .hotel-madinah {
+            position: absolute;
+            top: 480px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        .hotel-makkah {
+            position: absolute;
+            top: 600px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        .qr-code {
+            position: absolute;
+            bottom: 15px;
+            right: 35px;
+        }
+        .qr-code img {
+            width: 130px;
+            height: 130px;
+        }
+
+        /* --- Styling for the Output and Buttons --- */
+        #card-output {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            padding: 0 25px;
-            box-sizing: border-box;
-        }
-        .pilgrim-name {
+            gap: 20px;
             width: 100%;
-            text-align: center;
-            font-weight: 700;
-            color: #1a2b4d;
-            font-family: 'Montserrat', sans-serif;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
-            line-height: 1.2;
         }
-        .pilgrim-visa {
-            text-align: center;
-            font-size: 25px;
-            font-weight: 600;
-            color: #1a2b4d;
-            font-family: 'Montserrat', sans-serif;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
         }
-
-        /* --- Styling for the Export Button --- */
-        .export-button {
-             display: block;
-             width: 180px;
-             margin-top: 1.5rem;
+        .action-button {
+             display: inline-block;
              padding: 0.7rem 1.2rem;
-             background: linear-gradient(45deg, #5cb85c, #4cae4c);
              color: white;
              text-align: center;
              border: none;
@@ -204,16 +259,20 @@
              font-size: 1rem;
              transition: transform 0.2s, box-shadow 0.2s;
         }
-        .export-button:hover{
+        .action-button:hover{
             transform: translateY(-2px);
+        }
+        .export-button {
+             background: linear-gradient(45deg, #5cb85c, #4cae4c);
+        }
+        .export-button:hover{
             box-shadow: 0 4px 15px rgba(92, 184, 92, 0.4);
         }
-        
-        #card-output {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+        .export-both-button {
+            background: linear-gradient(45deg, #337ab7, #286090);
+        }
+        .export-both-button:hover {
+            box-shadow: 0 4px 15px rgba(51, 122, 183, 0.4);
         }
     </style>
 </head>
@@ -223,8 +282,8 @@
     <div class="controls">
         <h1>Alfajr Card Generator</h1>
         <div class="input-group">
-            <label for="bulkDataInput">Paste Pilgrim Data (Name|VisaNumber):</label>
-            <textarea id="bulkDataInput" placeholder="KARIM FA|6144766152&#10;NORIZA FA|6144766156"></textarea>
+            <label for="bulkDataInput">Paste Pilgrim Data:</label>
+            <textarea id="bulkDataInput" placeholder="Name|Visa|LeaderName|LeaderPhone|MadinahHotel|MakkahHotel|QRCodeURL"></textarea>
         </div>
         <button id="processDataBtn">Process Data</button>
     </div>
@@ -238,14 +297,28 @@
     <!-- ======== HIDDEN TEMPLATE FOR A SINGLE CARD ======== -->
     <div id="cardTemplate" style="display: none;">
         <div class="card-wrapper">
-            <div class="card-container">
-                <img class="pilgrim-photo" src="" alt="Pilgrim Photo">
-                <div class="text-container">
-                    <div class="pilgrim-name"></div>
-                    <div class="pilgrim-visa"></div>
+            <div class="card-pair">
+                <div class="card-container card-front" data-side="front">
+                    <img class="pilgrim-photo" src="" alt="Pilgrim Photo">
+                    <!-- CHANGE 2: Text container added -->
+                    <div class="text-container">
+                        <div class="pilgrim-name"></div>
+                        <div class="pilgrim-visa"></div>
+                    </div>
+                </div>
+                <div class="card-container card-back" data-side="back">
+                    <div class="leader-name"></div>
+                    <div class="leader-phone"></div>
+                    <div class="hotel-madinah"></div>
+                    <div class="hotel-makkah"></div>
+                    <div class="qr-code"></div>
                 </div>
             </div>
-            <button class="export-button">Export as PNG</button>
+            <div class="action-buttons">
+                <button class="action-button export-button" data-side="front">Export Front</button>
+                <button class="action-button export-button" data-side="back">Export Back</button>
+                <button class="action-button export-both-button">Export Both</button>
+            </div>
         </div>
     </div>
 
@@ -258,75 +331,104 @@
         const cardOutput = document.getElementById('card-output');
         const cardTemplate = document.getElementById('cardTemplate');
 
-        /**
-         * This function dynamically adjusts the font size of the name element
-         * to ensure it fits within its container, even for long names.
-         * @param {HTMLElement} element The text element to resize.
-         */
         function adjustNameFontSize(element) {
-            let fontSize = 40; // Starting font size in pixels
+            let fontSize = 30;
             element.style.fontSize = fontSize + 'px';
-
-            // Loop and decrease font size until the text's scroll width is no longer
-            // wider than the element's visible width.
             while (element.scrollWidth > element.clientWidth && fontSize > 14) {
-                fontSize--; // Decrease font size by 1px
+                fontSize--;
                 element.style.fontSize = fontSize + 'px';
             }
         }
 
-        /**
-         * Generates a card for a pilgrim and appends it to the output.
-         * @param {string} name The pilgrim's name.
-         * @param {string} visa The pilgrim's visa number.
-         * @param {File} photoFile The uploaded photo file.
-         */
-        function generateCard(name, visa, photoFile) {
-            // Clone the template to create a new card
+        function generateCards(data, photoFile) {
             const newCardWrapper = cardTemplate.firstElementChild.cloneNode(true);
             
-            // Get references to the dynamic elements within the new card
-            const photoElement = newCardWrapper.querySelector('.pilgrim-photo');
-            const nameElement = newCardWrapper.querySelector('.pilgrim-name');
-            const visaElement = newCardWrapper.querySelector('.pilgrim-visa');
-
-            // Set the text content for the name and visa
-            nameElement.textContent = `NAME: ${name.toUpperCase()}`;
-            visaElement.textContent = `Visa No: ${visa}`;
+            // --- Populate Front Card ---
+            const frontCardContainer = newCardWrapper.querySelector('.card-front');
+            const photoElement = frontCardContainer.querySelector('.pilgrim-photo');
+            const nameElement = frontCardContainer.querySelector('.pilgrim-name');
+            const visaElement = frontCardContainer.querySelector('.pilgrim-visa');
             
-            // Handle the image loading
+            nameElement.textContent = `NAME: ${data.name.toUpperCase()}`;
+            visaElement.textContent = `Visa No: ${data.visa}`;
+
             const reader = new FileReader();
             reader.onload = (e) => {
                 photoElement.src = e.target.result;
             };
             reader.readAsDataURL(photoFile);
+
+            // --- Populate Back Card ---
+            const backCardContainer = newCardWrapper.querySelector('.card-back');
+            backCardContainer.querySelector('.leader-name').textContent = data.leaderName;
+            backCardContainer.querySelector('.leader-phone').textContent = data.leaderPhone;
+            backCardContainer.querySelector('.hotel-madinah').textContent = data.madinahHotel;
+            backCardContainer.querySelector('.hotel-makkah').textContent = data.makkahHotel;
             
-            // Set up the export button's functionality
-            const exportBtn = newCardWrapper.querySelector('.export-button');
-            exportBtn.addEventListener('click', () => {
-                const cardToExport = newCardWrapper.querySelector('.card-container');
-                html2canvas(cardToExport, {
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: null,
-                    scale: 2
-                }).then(canvas => {
+            try {
+                const qr = qrcode(4, 'L');
+                qr.addData(data.qrCodeUrl);
+                qr.make();
+                const qrImg = document.createElement('img');
+                qrImg.src = qr.createDataURL(4, 4);
+                backCardContainer.querySelector('.qr-code').appendChild(qrImg);
+            } catch (e) {
+                console.error("QR Code Error:", e);
+            }
+
+            // --- Set up Individual Export Buttons ---
+            newCardWrapper.querySelectorAll('.export-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const side = button.dataset.side;
+                    const elementToExport = newCardWrapper.querySelector(`.card-container[data-side="${side}"]`);
+                    
+                    html2canvas(elementToExport, {
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: null,
+                        scale: 2 
+                    }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = `card-${data.name.replace(/\s+/g, '-')}-${side}.png`;
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                    });
+                });
+            });
+
+            // --- Set up "Export Both" Button ---
+            newCardWrapper.querySelector('.export-both-button').addEventListener('click', () => {
+                const frontEl = newCardWrapper.querySelector('.card-front');
+                const backEl = newCardWrapper.querySelector('.card-back');
+
+                const combinedCanvas = document.createElement('canvas');
+                const ctx = combinedCanvas.getContext('2d');
+                
+                const cardWidth = 640;
+                const cardHeight = 896;
+                const scale = 2; // For higher resolution
+                
+                combinedCanvas.width = cardWidth * 2 * scale;
+                combinedCanvas.height = cardHeight * scale;
+
+                Promise.all([
+                    html2canvas(frontEl, { scale: scale, useCORS: true, allowTaint: true, backgroundColor: null }),
+                    html2canvas(backEl, { scale: scale, useCORS: true, allowTaint: true, backgroundColor: null })
+                ]).then(([frontCanvas, backCanvas]) => {
+                    ctx.drawImage(frontCanvas, 0, 0);
+                    ctx.drawImage(backCanvas, cardWidth * scale, 0);
+
                     const link = document.createElement('a');
-                    link.download = `card-${name.replace(/\s+/g, '-')}.png`;
-                    link.href = canvas.toDataURL('image/png');
+                    link.download = `card-${data.name.replace(/\s+/g, '-')}-both.png`;
+                    link.href = combinedCanvas.toDataURL('image/png');
                     link.click();
                 });
             });
 
-            // Append the card to the document FIRST...
             cardOutput.appendChild(newCardWrapper);
-            
-            // ...then call the font adjustment function.
-            // This ensures the element has dimensions to be measured.
             adjustNameFontSize(nameElement);
         }
 
-        // --- Event Listener for the "Process Data" Button ---
         processDataBtn.addEventListener('click', () => {
             const data = bulkDataInput.value.trim();
             if (!data) {
@@ -334,44 +436,54 @@
                 return;
             }
 
-            uploadSection.innerHTML = ''; // Clear previous list
+            uploadSection.innerHTML = '';
+            cardOutput.innerHTML = ''; 
 
             const lines = data.split('\n');
             lines.forEach((line, index) => {
                 if (!line.trim()) return;
 
                 const parts = line.split('|');
-                if (parts.length !== 2) return;
+                if (parts.length < 7) {
+                    console.warn(`Skipping invalid line ${index + 1}: Not enough data.`);
+                    return;
+                }
 
-                const name = parts[0].trim();
-                const visa = parts[1].trim();
+                const pilgrimData = {
+                    name: parts[0].trim(),
+                    visa: parts[1].trim(),
+                    leaderName: parts[2].trim(),
+                    leaderPhone: parts[3].trim(),
+                    madinahHotel: parts[4].trim(),
+                    makkahHotel: parts[5].trim(),
+                    qrCodeUrl: parts[6].trim()
+                };
 
                 const item = document.createElement('div');
                 item.className = 'pilgrim-upload-item';
                 item.id = `pilgrim-item-${index}`;
                 
+                const dataString = encodeURIComponent(JSON.stringify(pilgrimData));
+
                 item.innerHTML = `
-                    <span>${name}</span>
+                    <span>${pilgrimData.name}</span>
                     <label for="file-upload-${index}" class="upload-label">Upload Photo</label>
-                    <input type="file" id="file-upload-${index}" accept="image/*" data-name="${name}" data-visa="${visa}" data-item-id="${item.id}">
+                    <input type="file" id="file-upload-${index}" accept="image/*" data-pilgrim='${dataString}' data-item-id="${item.id}">
                 `;
 
                 uploadSection.appendChild(item);
             });
         });
 
-        // --- Event Delegation for file inputs ---
         uploadSection.addEventListener('change', (event) => {
             if (event.target.type === 'file') {
                 const input = event.target;
                 const photoFile = input.files[0];
 
                 if (photoFile) {
-                    const name = input.dataset.name;
-                    const visa = input.dataset.visa;
-                    generateCard(name, visa, photoFile);
+                    const pilgrimData = JSON.parse(decodeURIComponent(input.dataset.pilgrim));
+                    generateCards(pilgrimData, photoFile);
 
-                    // Mark as processed
                     const parentItem = document.getElementById(input.dataset.itemId);
                     parentItem.classList.add('processed');
                     parentItem.querySelector('.upload-label').textContent = 'Done';

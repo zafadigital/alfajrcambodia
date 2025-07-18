@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakong KHQR & Transaction Simulator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel CDN for JSX transformation in browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Main App component
+        const App = () => {
+            const [activeTab, setActiveTab] = React.useState('generate');
+            const [accessToken, setAccessToken] = React.useState('');
+            const [loading, setLoading] = React.useState(false);
+            const [message, setMessage] = React.useState('');
+
+            // ** IMPORTANT: For demonstration only. In a real application, store this securely on a backend server. **
+            const API_KEY = 'cba8c35e352d435b9ef3'; // Your provided API key
+            // Your provided token. For production, this should be fetched securely from a backend.
+            const USER_PROVIDED_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNTcwYjYyYmQ3OTI3NGQzYyJ9LCJpYXQiOjE3NTI4MDc0MDYsImV4cCI6MTc2MDU4MzQwNn0.xsjK_KIHKAsXz-XdouhFNzN_ETuuW1s8aVjdiCj4HHg';
+
+            // State for KHQR Generation
+            const [amount, setAmount] = React.useState('10.00');
+            const [currency, setCurrency] = React.useState('KHR');
+            const [description, setDescription] = React.useState('Payment for goods');
+            const [merchantName, setMerchantName] = React.useState('My Shop');
+            const [khqrImage, setKhqrImage] = React.useState('');
+
+            // State for Check Bakong Account
+            const [accountId, setAccountId] = React.useState('user@bank');
+            const [accountCheckResult, setAccountCheckResult] = React.useState(null);
+
+            // State for Auto Transaction
+            const [transactionRecipient, setTransactionRecipient] = React.useState('recipient@bank');
+            const [transactionAmount, setTransactionAmount] = React.useState('5.00');
+            const [transactionResult, setTransactionResult] = React.useState(null);
+
+            // FIX: Set access token synchronously on initial load to avoid potential loading state issues
+            React.useEffect(() => {
+                console.log('useEffect: Setting access token directly');
+                setAccessToken(USER_PROVIDED_TOKEN);
+                setMessage('Ready to use! Remember to secure your real API key and token on a backend!');
+                setLoading(false); // Ensure loading is false after initial setup
+            }, []); // Empty dependency array ensures it runs once on mount
+
+            // --- Mock API Functions (Replace with actual Bakong API calls through your backend) ---
+
+            // Function to simulate generating KHQR
+            const generateKhqr = async () => {
+                if (!accessToken) {
+                    setMessage('Error: Access token not available. Please wait or refresh.');
+                    return;
+                }
+                console.log('generateKhqr: Setting loading to true');
+                setLoading(true);
+                setMessage('Generating KHQR...');
+
+                try {
+                    // Simulate a successful response with a placeholder image
+                    await new Promise(resolve => setTimeout(Math.random() * 1000 + 500, resolve));
+                    const mockQrString = `https://placehold.co/200x200/000/FFF?text=KHQR%0A${amount}%20${currency}`;
+                    setKhqrImage(mockQrString);
+                    setMessage('KHQR generated successfully!');
+                } catch (error) {
+                    console.error('Error generating KHQR:', error);
+                    setMessage('Failed to generate KHQR. Please try again.');
+                    setKhqrImage('');
+                } finally {
+                    console.log('generateKhqr: Setting loading to false');
+                    setLoading(false);
+                }
+            };
+
+            // Function to simulate checking a Bakong account
+            const checkBakongAccount = async () => {
+                if (!accessToken) {
+                    setMessage('Error: Access token not available. Please wait or refresh.');
+                    return;
+                }
+                console.log('checkBakongAccount: Setting loading to true');
+                setLoading(true);
+                setMessage(`Checking account: ${accountId}...`);
+
+                try {
+                    // Simulate response based on accountId
+                    await new Promise(resolve => setTimeout(Math.random() * 1000 + 500, resolve));
+                    const mockResponse = {
+                        errorCode: 0,
+                        responseCode: accountId.includes('exists') ? 0 : 1,
+                        responseMessage: accountId.includes('exists') ? 'Account exists.' : 'Account does not exist.',
+                        data: null
+                    };
+                    setAccountCheckResult(mockResponse);
+                    setMessage(mockResponse.responseMessage);
+                } catch (error) {
+                    console.error('Error checking account:', error);
+                    setMessage('Failed to check account. Please try again.');
+                    setAccountCheckResult(null);
+                } finally {
+                    console.log('checkBakongAccount: Setting loading to false');
+                    setLoading(false);
+                }
+            };
+
+            // Function to simulate performing an auto transaction
+            const performAutoTransaction = async () => {
+                if (!accessToken) {
+                    setMessage('Error: Access token not available. Please wait or refresh.');
+                    return;
+                }
+                console.log('performAutoTransaction: Setting loading to true');
+                setLoading(true);
+                setMessage(`Initiating transaction to ${transactionRecipient} for ${transactionAmount} ${currency}...`);
+
+                try {
+                    // Simulate a successful or failed transaction
+                    await new Promise(resolve => setTimeout(Math.random() * 1000 + 500, resolve));
+                    const isSuccess = Math.random() > 0.3;
+                    const mockResponse = {
+                        status: isSuccess ? 'SUCCESS' : 'FAILED',
+                        transactionId: isSuccess ? `TXN-${Date.now()}` : null,
+                        message: isSuccess ? 'Transaction completed successfully!' : 'Transaction failed. Insufficient funds or invalid recipient.',
+                    };
+                    setTransactionResult(mockResponse);
+                    setMessage(mockResponse.message);
+                } catch (error) {
+                    console.error('Error performing transaction:', error);
+                    setMessage('Failed to perform transaction. Please try again.');
+                    setTransactionResult(null);
+                } finally {
+                    console.log('performAutoTransaction: Setting loading to false');
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 font-sans">
+                    <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl border border-gray-200">
+                        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Bakong KHQR & Transaction Simulator</h1>
+
+                        <div className="mb-4 p-3 rounded-md bg-yellow-100 text-yellow-800 border border-yellow-300 text-center font-medium">
+                            <p>
+                                <strong>SECURITY WARNING:</strong> Your API key and token are currently embedded directly in this client-side code for demonstration purposes.
+                                For a real application, you **must** move these credentials and all Bakong API calls to a secure backend server to prevent unauthorized access.
+                            </p>
+                        </div>
+
+                        <div className="mb-6 flex justify-center space-x-4">
+                            <button
+                                onClick={() => setActiveTab('generate')}
+                                className={`px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300
+                                    ${activeTab === 'generate' ? 'bg-blue-600 text-white shadow-lg' : 'bg-gray-200 text-gray-700 hover:bg-blue-100'}`}
+                            >
+                                Generate KHQR
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('checkAccount')}
+                                className={`px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300
+                                    ${activeTab === 'checkAccount' ? 'bg-blue-600 text-white shadow-lg' : 'bg-gray-200 text-gray-700 hover:bg-blue-100'}`}
+                            >
+                                Check Account
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('autoTransaction')}
+                                className={`px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300
+                                    ${activeTab === 'autoTransaction' ? 'bg-blue-600 text-white shadow-lg' : 'bg-gray-200 text-gray-700 hover:bg-blue-100'}`}
+                            >
+                                Auto Transaction
+                            </button>
+                        </div>
+
+                        {loading && (
+                            <div className="text-center text-blue-500 font-medium mb-4">
+                                Loading... {message}
+                            </div>
+                        )}
+                        {!loading && message && (
+                            <div className={`text-center mb-4 p-3 rounded-md ${message.includes('Error') || message.includes('Failed') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+                                {message}
+                            </div>
+                        )}
+
+                        {/* KHQR Generation Tab */}
+                        {activeTab === 'generate' && (
+                            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                                <h2 className="text-2xl font-semibold text-blue-800 mb-4">Generate KHQR Code</h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                    <div>
+                                        <label htmlFor="amount" className="block text-gray-700 text-sm font-bold mb-2">Amount:</label>
+                                        <input
+                                            type="number"
+                                            id="amount"
+                                            value={amount}
+                                            onChange={(e) => setAmount(e.target.value)}
+                                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+                                            placeholder="e.g., 10.00"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="currency" className="block text-gray-700 text-sm font-bold mb-2">Currency:</label>
+                                        <select
+                                            id="currency"
+                                            value={currency}
+                                            onChange={(e) => setCurrency(e.target.value)}
+                                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+                                        >
+                                            <option value="KHR">KHR</option>
+                                            <option value="USD">USD</option>
+                                        </select>
+                                    </div>
+                                    <div className="md:col-span-2">
+                                        <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                                        <input
+                                            type="text"
+                                            id="description"
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+                                            placeholder="e.g., Payment for goods"
+                                        />
+                                    </div>
+                                    <div className="md:col-span-2">
+                                        <label htmlFor="merchantName" className="block text-gray-700 text-sm font-bold mb-2">Merchant Name:</label>
+                                        <input
+                                            type="text"
+                                            id="merchantName"
+                                            value={merchantName}
+                                            onChange={(e) => setMerchantName(e.target.value)}
+                                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+                                            placeholder="e.g., My Shop"
+                                        />
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={generateKhqr}
+                                    disabled={loading}
+                                    className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+                                >
+                                    {loading ? 'Generating...' : 'Generate KHQR'}
+                                </button>
+
+                                {khqrImage && (
+                                    <div className="mt-8 text-center bg-white p-4 rounded-lg shadow-inner">
+                                        <h3 className="text-xl font-semibold text-gray-800 mb-4">Generated KHQR Code:</h3>
+                                        <img src={khqrImage} alt="Generated KHQR" className="mx-auto border border-gray-300 rounded-lg shadow-md" />
+                                        <p className="mt-4 text-gray-600 text-sm">
+                                            This is a placeholder image. In a real application, this would be a dynamic QR code generated by Bakong API.
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Check Bakong Account Tab */}
+                        {activeTab === 'checkAccount' && (
+                            <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                                <h2 className="text-2xl font-semibold text-purple-800 mb-4">Check Bakong Account Existence</h2>
+                                <div className="mb-6">
+                                    <label htmlFor="accountId" className="block text-gray-700 text-sm font-bold mb-2">Bakong Account ID:</label>
+                                    <input
+                                        type="text"
+                                        id="accountId"
+                                        value={accountId}
+                                        onChange={(e) => setAccountId(e.target.value)}
+                                        className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-purple-500"
+                                        placeholder="e.g., user@bank or user_exists@bank"
+                                    />
+                                </div>
+                                <button
+                                    onClick={checkBakongAccount}
+                                    disabled={loading}
+                                    className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+                                >
+                                    {loading ? 'Checking...' : 'Check Account'}
+                                </button>
+
+                                {accountCheckResult && (
+                                    <div className="mt-8 bg-white p-4 rounded-lg shadow-inner">
+                                        <h3 className="text-xl font-semibold text-gray-800 mb-4">Account Check Result:</h3>
+                                        <pre className="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+                                            {JSON.stringify(accountCheckResult, null, 2)}
+                                        </pre>
+                                        <p className="mt-4 text-gray-600 text-sm">
+                                            `responseCode: 0` means the account exists, `1` means it does not.
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Auto Transaction Tab */}
+                        {activeTab === 'autoTransaction' && (
+                            <div className="bg-red-50 p-6 rounded-lg border border-red-200">
+                                <h2 className="text-2xl font-semibold text-red-800 mb-4">Simulate Auto Transaction</h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                    <div>
+                                        <label htmlFor="transactionRecipient" className="block text-gray-700 text-sm font-bold mb-2">Recipient Bakong Account ID:</label>
+                                        <input
+                                            type="text"
+                                            id="transactionRecipient"
+                                            value={transactionRecipient}
+                                            onChange={(e) => setTransactionRecipient(e.target.value)}
+                                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-red-500"
+                                            placeholder="e.g., recipient@bank"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="transactionAmount" className="block text-gray-700 text-sm font-bold mb-2">Amount:</label>
+                                        <input
+                                            type="number"
+                                            id="transactionAmount"
+                                            value={transactionAmount}
+                                            onChange={(e) => setTransactionAmount(e.target.value)}
+                                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-red-500"
+                                            placeholder="e.g., 5.00"
+                                        />
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={performAutoTransaction}
+                                    disabled={loading}
+                                    className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+                                >
+                                    {loading ? 'Processing...' : 'Perform Auto Transaction'}
+                                </button>
+
+                                {transactionResult && (
+                                    <div className="mt-8 bg-white p-4 rounded-lg shadow-inner">
+                                        <h3 className="text-xl font-semibold text-gray-800 mb-4">Transaction Result:</h3>
+                                        <pre className="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+                                            {JSON.stringify(transactionResult, null, 2)}
+                                        </pre>
+                                        <p className="mt-4 text-gray-600 text-sm">
+                                            This is a simulated transaction. In a real scenario, you would receive a detailed response from Bakong's API.
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the App component
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

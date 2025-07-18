@@ -224,7 +224,7 @@
         <h1>Alfajr Card Generator</h1>
         <div class="input-group">
             <label for="bulkDataInput">Paste Pilgrim Data (Name|VisaNumber):</label>
-            <textarea id="bulkDataInput" placeholder="KARIM FA|6144766152&#10;NORIZA FA|6144766156&#10;..."></textarea>
+            <textarea id="bulkDataInput" placeholder="KARIM FA|6144766152&#10;NORIZA FA|6144766156"></textarea>
         </div>
         <button id="processDataBtn">Process Data</button>
     </div>
@@ -264,9 +264,11 @@
          * @param {HTMLElement} element The text element to resize.
          */
         function adjustNameFontSize(element) {
-            let fontSize = 30; // Starting font size in pixels
+            let fontSize = 40; // Starting font size in pixels
             element.style.fontSize = fontSize + 'px';
 
+            // Loop and decrease font size until the text's scroll width is no longer
+            // wider than the element's visible width.
             while (element.scrollWidth > element.clientWidth && fontSize > 14) {
                 fontSize--; // Decrease font size by 1px
                 element.style.fontSize = fontSize + 'px';
@@ -280,23 +282,26 @@
          * @param {File} photoFile The uploaded photo file.
          */
         function generateCard(name, visa, photoFile) {
+            // Clone the template to create a new card
             const newCardWrapper = cardTemplate.firstElementChild.cloneNode(true);
             
+            // Get references to the dynamic elements within the new card
             const photoElement = newCardWrapper.querySelector('.pilgrim-photo');
             const nameElement = newCardWrapper.querySelector('.pilgrim-name');
             const visaElement = newCardWrapper.querySelector('.pilgrim-visa');
 
+            // Set the text content for the name and visa
             nameElement.textContent = `NAME: ${name.toUpperCase()}`;
             visaElement.textContent = `Visa No: ${visa}`;
             
-            adjustNameFontSize(nameElement);
-
+            // Handle the image loading
             const reader = new FileReader();
             reader.onload = (e) => {
                 photoElement.src = e.target.result;
             };
             reader.readAsDataURL(photoFile);
             
+            // Set up the export button's functionality
             const exportBtn = newCardWrapper.querySelector('.export-button');
             exportBtn.addEventListener('click', () => {
                 const cardToExport = newCardWrapper.querySelector('.card-container');
@@ -313,7 +318,12 @@
                 });
             });
 
+            // Append the card to the document FIRST...
             cardOutput.appendChild(newCardWrapper);
+            
+            // ...then call the font adjustment function.
+            // This ensures the element has dimensions to be measured.
+            adjustNameFontSize(nameElement);
         }
 
         // --- Event Listener for the "Process Data" Button ---

@@ -34,9 +34,8 @@
             const API_KEY = 'cba8c35e352d435b9ef3'; // Your provided API key
             const USER_PROVIDED_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNTcwYjYyYmQ3OTI3NGQzYyJ9LCJpYXQiOjE3NTI4MDc0MDYsImV4cCI6MTc2MDU4MzQwNn0.xsjK_KIHKAsXz-XdouhFNzN_ETuuW1s8aVjdiCj4HHg';
             
-            // !!! IMPORTANT: REPLACE THIS WITH THE ACTUAL BAKONG API BASE URL !!!
-            // You need to get this from Bakong's official documentation or support.
-            const BAKONG_BASE_URL = ''; // e.g., 'https://api.bakong.nbc.gov.kh'
+            // !!! BAKONG API BASE URL - Set based on official documentation !!!
+            const BAKONG_BASE_URL = 'https://api-bakong.nbc.gov.kh'; 
 
             // State for KHQR Generation
             const [amount, setAmount] = React.useState('10.00');
@@ -71,7 +70,7 @@
                     return;
                 }
                 if (!BAKONG_BASE_URL) { // Check if the base URL is empty
-                    setMessage('Error: Please provide the actual Bakong API Base URL in the code (BAKONG_BASE_URL variable)!');
+                    setMessage('Error: BAKONG_BASE_URL is not set. Please provide the actual Bakong API Base URL!');
                     return;
                 }
 
@@ -137,7 +136,7 @@
                     return;
                 }
                 if (!BAKONG_BASE_URL) { // Check if the base URL is empty
-                    setMessage('Error: Please provide the actual Bakong API Base URL in the code (BAKONG_BASE_URL variable)!');
+                    setMessage('Error: BAKONG_BASE_URL is not set. Please provide the actual Bakong API Base URL!');
                     return;
                 }
 
@@ -216,7 +215,7 @@
                                 For a real application, you **must** move these credentials and all Bakong API calls to a secure backend server to prevent unauthorized access.
                             </p>
                             <p className="mt-2">
-                                <strong>ACTION REQUIRED:</strong> Please replace `BAKONG_BASE_URL = ''` with the actual Bakong API base URL (e.g., `https://api.bakong.nbc.gov.kh`).
+                                <strong>BAKONG_BASE_URL:</strong> `https://api-bakong.nbc.gov.kh` has been set.
                             </p>
                         </div>
 

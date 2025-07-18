@@ -32,8 +32,11 @@
 
             // ** IMPORTANT: For demonstration only. In a real application, store this securely on a backend server. **
             const API_KEY = 'cba8c35e352d435b9ef3'; // Your provided API key
-            // Your provided token. For production, this should be fetched securely from a backend.
             const USER_PROVIDED_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNTcwYjYyYmQ3OTI3NGQzYyJ9LCJpYXQiOjE3NTI4MDc0MDYsImV4cCI6MTc2MDU4MzQwNn0.xsjK_KIHKAsXz-XdouhFNzN_ETuuW1s8aVjdiCj4HHg';
+            
+            // !!! IMPORTANT: REPLACE THIS WITH THE ACTUAL BAKONG API BASE URL !!!
+            // You need to get this from Bakong's official documentation or support.
+            const BAKONG_BASE_URL = ''; // e.g., 'https://api.bakong.nbc.gov.kh'
 
             // State for KHQR Generation
             const [amount, setAmount] = React.useState('10.00');
@@ -51,35 +54,75 @@
             const [transactionAmount, setTransactionAmount] = React.useState('5.00');
             const [transactionResult, setTransactionResult] = React.useState(null);
 
-            // FIX: Set access token synchronously on initial load to avoid potential loading state issues
+            // Set access token synchronously on initial load
             React.useEffect(() => {
-                console.log('useEffect: Setting access token directly');
+                console.log('useEffect: Setting access token directly from USER_PROVIDED_TOKEN');
                 setAccessToken(USER_PROVIDED_TOKEN);
                 setMessage('Ready to use! Remember to secure your real API key and token on a backend!');
                 setLoading(false); // Ensure loading is false after initial setup
-            }, []); // Empty dependency array ensures it runs once on mount
+            }, []);
 
-            // --- Mock API Functions (Replace with actual Bakong API calls through your backend) ---
+            // --- Real Bakong API Functions (Requires BAKONG_BASE_URL to be set and proper CORS/backend proxy) ---
 
-            // Function to simulate generating KHQR
+            // Function to generate KHQR (Deeplink)
             const generateKhqr = async () => {
                 if (!accessToken) {
                     setMessage('Error: Access token not available. Please wait or refresh.');
                     return;
                 }
+                if (!BAKONG_BASE_URL) { // Check if the base URL is empty
+                    setMessage('Error: Please provide the actual Bakong API Base URL in the code (BAKONG_BASE_URL variable)!');
+                    return;
+                }
+
                 console.log('generateKhqr: Setting loading to true');
                 setLoading(true);
                 setMessage('Generating KHQR...');
 
                 try {
-                    // Simulate a successful response with a placeholder image
-                    await new Promise(resolve => setTimeout(Math.random() * 1000 + 500, resolve));
-                    const mockQrString = `https://placehold.co/200x200/000/FFF?text=KHQR%0A${amount}%20${currency}`;
-                    setKhqrImage(mockQrString);
-                    setMessage('KHQR generated successfully!');
+                    const apiUrl = `${BAKONG_BASE_URL}/v1/generate_deeplink?key=${API_KEY}`;
+                    console.log('Calling API:', apiUrl);
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                        body: JSON.stringify({
+                            amount: parseFloat(amount),
+                            currency: currency,
+                            description: description,
+                            merchantName: merchantName,
+                            // Add other required parameters as per Bakong API Document
+                            // e.g., 'invoice': 'INV123', 'callbackUrl': 'https://your-app.com/callback'
+                        })
+                    });
+
+                    const data = await response.json();
+                    console.log('generateKhqr API Response:', data);
+
+                    if (response.ok) {
+                        // Assuming the API returns a QR image URL or base64 data
+                        // You'll need to adjust this based on Bakong's actual response structure
+                        if (data.qrCodeUrl) { // Example: if API returns a direct URL
+                            setKhqrImage(data.qrCodeUrl);
+                            setMessage('KHQR generated successfully!');
+                        } else if (data.qrCodeBase64) { // Example: if API returns base64 image data
+                            setKhqrImage(`data:image/png;base64,${data.qrCodeBase64}`);
+                            setMessage('KHQR generated successfully!');
+                        } else {
+                            // Fallback if the response structure is unexpected
+                            setKhqrImage(`https://placehold.co/200x200/FF0000/FFFFFF?text=QR+Error`);
+                            setMessage('KHQR generated, but response format unexpected. Check console.');
+                        }
+                    } else {
+                        setMessage(`Failed to generate KHQR: ${data.responseMessage || 'Unknown error'}`);
+                        setKhqrImage('');
+                    }
                 } catch (error) {
                     console.error('Error generating KHQR:', error);
-                    setMessage('Failed to generate KHQR. Please try again.');
+                    setMessage(`Failed to generate KHQR. Network or CORS error: ${error.message}`);
                     setKhqrImage('');
                 } finally {
                     console.log('generateKhqr: Setting loading to false');
@@ -87,30 +130,46 @@
                 }
             };
 
-            // Function to simulate checking a Bakong account
+            // Function to check Bakong Account
             const checkBakongAccount = async () => {
                 if (!accessToken) {
                     setMessage('Error: Access token not available. Please wait or refresh.');
                     return;
                 }
+                if (!BAKONG_BASE_URL) { // Check if the base URL is empty
+                    setMessage('Error: Please provide the actual Bakong API Base URL in the code (BAKONG_BASE_URL variable)!');
+                    return;
+                }
+
                 console.log('checkBakongAccount: Setting loading to true');
                 setLoading(true);
                 setMessage(`Checking account: ${accountId}...`);
 
                 try {
-                    // Simulate response based on accountId
-                    await new Promise(resolve => setTimeout(Math.random() * 1000 + 500, resolve));
-                    const mockResponse = {
-                        errorCode: 0,
-                        responseCode: accountId.includes('exists') ? 0 : 1,
-                        responseMessage: accountId.includes('exists') ? 'Account exists.' : 'Account does not exist.',
-                        data: null
-                    };
-                    setAccountCheckResult(mockResponse);
-                    setMessage(mockResponse.responseMessage);
+                    const apiUrl = `${BAKONG_BASE_URL}/v1/check_bakong_account?key=${API_KEY}`;
+                    console.log('Calling API:', apiUrl);
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                        body: JSON.stringify({ accountId: accountId })
+                    });
+
+                    const data = await response.json();
+                    console.log('checkBakongAccount API Response:', data);
+                    setAccountCheckResult(data);
+
+                    if (response.ok && data.responseCode === 0) {
+                        setMessage('Account exists!');
+                    } else {
+                        setMessage(`Account check failed: ${data.responseMessage || 'Account does not exist or unknown error.'}`);
+                    }
                 } catch (error) {
                     console.error('Error checking account:', error);
-                    setMessage('Failed to check account. Please try again.');
+                    setMessage(`Failed to check account. Network or CORS error: ${error.message}`);
                     setAccountCheckResult(null);
                 } finally {
                     console.log('checkBakongAccount: Setting loading to false');
@@ -118,7 +177,7 @@
                 }
             };
 
-            // Function to simulate performing an auto transaction
+            // Function to simulate performing an auto transaction (as direct API is not in docs)
             const performAutoTransaction = async () => {
                 if (!accessToken) {
                     setMessage('Error: Access token not available. Please wait or refresh.');
@@ -126,27 +185,24 @@
                 }
                 console.log('performAutoTransaction: Setting loading to true');
                 setLoading(true);
-                setMessage(`Initiating transaction to ${transactionRecipient} for ${transactionAmount} ${currency}...`);
+                setMessage(`Simulating transaction to ${transactionRecipient} for ${transactionAmount} ${currency}...`);
 
-                try {
-                    // Simulate a successful or failed transaction
-                    await new Promise(resolve => setTimeout(Math.random() * 1000 + 500, resolve));
+                // This remains a simulation as Bakong's public API documentation does not detail a direct
+                // "auto transaction" endpoint for initiating payments from a third-party application.
+                // A real automated payment would likely involve a more complex integration or a specific
+                // push payment API if offered by Bakong, often handled on a secure backend.
+                setTimeout(() => {
                     const isSuccess = Math.random() > 0.3;
                     const mockResponse = {
                         status: isSuccess ? 'SUCCESS' : 'FAILED',
-                        transactionId: isSuccess ? `TXN-${Date.now()}` : null,
-                        message: isSuccess ? 'Transaction completed successfully!' : 'Transaction failed. Insufficient funds or invalid recipient.',
+                        transactionId: isSuccess ? `SIM-TXN-${Date.now()}` : null,
+                        message: isSuccess ? 'Simulated transaction completed successfully!' : 'Simulated transaction failed. (This is a simulation, not a real API call).',
                     };
                     setTransactionResult(mockResponse);
                     setMessage(mockResponse.message);
-                } catch (error) {
-                    console.error('Error performing transaction:', error);
-                    setMessage('Failed to perform transaction. Please try again.');
-                    setTransactionResult(null);
-                } finally {
-                    console.log('performAutoTransaction: Setting loading to false');
+                    console.log('performAutoTransaction: Setting loading to false (after simulation)');
                     setLoading(false);
-                }
+                }, Math.random() * 1000 + 500); // Simulate network delay
             };
 
             return (
@@ -158,6 +214,9 @@
                             <p>
                                 <strong>SECURITY WARNING:</strong> Your API key and token are currently embedded directly in this client-side code for demonstration purposes.
                                 For a real application, you **must** move these credentials and all Bakong API calls to a secure backend server to prevent unauthorized access.
+                            </p>
+                            <p className="mt-2">
+                                <strong>ACTION REQUIRED:</strong> Please replace `BAKONG_BASE_URL = ''` with the actual Bakong API base URL (e.g., `https://api.bakong.nbc.gov.kh`).
                             </p>
                         </div>
 
@@ -260,7 +319,7 @@
                                         <h3 className="text-xl font-semibold text-gray-800 mb-4">Generated KHQR Code:</h3>
                                         <img src={khqrImage} alt="Generated KHQR" className="mx-auto border border-gray-300 rounded-lg shadow-md" />
                                         <p className="mt-4 text-gray-600 text-sm">
-                                            This is a placeholder image. In a real application, this would be a dynamic QR code generated by Bakong API.
+                                            This image should be the actual QR code from Bakong. If it's a placeholder, check console for errors.
                                         </p>
                                     </div>
                                 )}
@@ -279,7 +338,7 @@
                                         value={accountId}
                                         onChange={(e) => setAccountId(e.target.value)}
                                         className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-purple-500"
-                                        placeholder="e.g., user@bank or user_exists@bank"
+                                        placeholder="e.g., user@bank"
                                     />
                                 </div>
                                 <button
@@ -297,7 +356,7 @@
                                             {JSON.stringify(accountCheckResult, null, 2)}
                                         </pre>
                                         <p className="mt-4 text-gray-600 text-sm">
-                                            `responseCode: 0` means the account exists, `1` means it does not.
+                                            This is the actual response from Bakong API. `responseCode: 0` means account exists.
                                         </p>
                                     </div>
                                 )}
@@ -347,7 +406,7 @@
                                             {JSON.stringify(transactionResult, null, 2)}
                                         </pre>
                                         <p className="mt-4 text-gray-600 text-sm">
-                                            This is a simulated transaction. In a real scenario, you would receive a detailed response from Bakong's API.
+                                            This is a **simulated** transaction. Bakong's public API documentation does not detail a direct "auto transaction" endpoint for initiating payments.
                                         </p>
                                     </div>
                                 )}
